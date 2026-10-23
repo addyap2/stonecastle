@@ -93,9 +93,17 @@ em { font-style: italic; }
 .header-inner { display: flex; align-items: center; gap: 24px; min-height: 64px; flex-wrap: wrap; }
 .brand {
   font-family: var(--heading); font-size: 1.25rem; letter-spacing: 0.08em;
-  color: var(--gold); text-decoration: none; text-transform: uppercase;
+  font-weight: 600; color: #f0c766; text-decoration: none; text-transform: uppercase;   /* bright gold */
   display: inline-flex; align-items: center; min-height: 44px;
+  filter: drop-shadow(0 0 10px rgba(255, 200, 100, .28));
 }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .brand {                                       /* metallic gold, lit from above */
+    background: linear-gradient(175deg, #fff3cf 0%, #f6d27a 38%, #e3b24c 62%, #f4d58a 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+}
+.brand:hover { filter: drop-shadow(0 0 14px rgba(255, 210, 120, .5)); }
 .nav { display: flex; gap: 22px; margin-left: auto; }
 .nav a {
   color: var(--text-muted); text-decoration: none; font-size: 1.05rem;
