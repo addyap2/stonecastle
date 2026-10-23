@@ -232,10 +232,13 @@
        On phones each book shows its own cover. When adding a book, add it in both places. -->
   <section class="section saga" id="bocker" data-saga data-active="stridslarm">
     <div class="wrap">
-      <h2 class="section-title" data-reveal="title"><span lang="sv">Böcker</span><span lang="en">Books</span></h2>
+      <header class="chapter" data-reveal="title">
+        <p class="chapter-mark"><span class="chapter-rule" aria-hidden="true"></span><span class="chapter-num">I</span><span lang="sv">Böckerna</span><span lang="en">The books</span></p>
+        <h2 class="chapter-title"><span lang="sv">En värld av kungar och bärsärkar</span><span lang="en">A world of kings and berserkers</span></h2>
+      </header>
       <p class="section-intro" data-reveal>
-        <span lang="sv">Historiska äventyr i en värld av kungar, hirdmän, bärsärkar och völvor. Börja med <em>Stridslarm</em>.</span>
-        <span lang="en">Historical adventures in a world of kings, warriors, berserkers and seeresses. Start with <em>Stridslarm</em>.</span>
+        <span lang="sv">Tre historiska äventyr från vikingatiden, bland hirdmän, bärsärkar och völvor. Börja med <em>Stridslarm</em>.</span>
+        <span lang="en">Three historical adventures from the Viking age, among warriors, berserkers and seeresses. Start with <em>Stridslarm</em>.</span>
       </p>
 
       <div class="saga-layout">
@@ -341,30 +344,39 @@
        the calendar file in events/, and the Event block in the <head>. -->
   <section class="section section-dark" id="evenemang">
     <div class="wrap">
-      <h2 class="section-title" data-reveal="title"><span lang="sv">Evenemang</span><span lang="en">Events</span></h2>
+      <header class="chapter" data-reveal="title">
+        <p class="chapter-mark"><span class="chapter-rule" aria-hidden="true"></span><span class="chapter-num">II</span><span lang="sv">Evenemang</span><span lang="en">Events</span></p>
+        <h2 class="chapter-title"><span lang="sv">Möt Jan Stenborg</span><span lang="en">Meet Jan Stenborg</span></h2>
+      </header>
 
       <article class="event"
                data-event-start="2026-11-21T13:00:00+01:00"
                data-event-end="2026-11-21T15:00:00+01:00">
-        <picture data-reveal="wipe">
-          <source type="image/avif" srcset="images/boksignering-kungablod-640.avif 640w, images/boksignering-kungablod-960.avif 960w, images/boksignering-kungablod-1440.avif 1440w" sizes="(max-width: 820px) calc(100vw - 32px), 620px">
-          <source type="image/webp" srcset="images/boksignering-kungablod-640.webp 640w, images/boksignering-kungablod-960.webp 960w, images/boksignering-kungablod-1440.webp 1440w" sizes="(max-width: 820px) calc(100vw - 32px), 620px">
-          <img src="images/boksignering-kungablod.jpg" width="1440" height="960" loading="lazy"
-               alt="Affisch för boksignering av Kungablod med Jan Stenborg på Twang, Katarina bangata 25, Stockholm, 21 november kl. 13.00."
-               data-alt-en="Poster for the Kungablod book signing with Jan Stenborg at Twang, Katarina bangata 25, Stockholm, 21 November at 1 pm.">
-        </picture>
-        <div class="event-body">
-          <p class="event-date" data-reveal>
-            <span lang="sv">21 november · kl. 13.00</span>
-            <span lang="en">21 November · 1 pm</span>
-          </p>
 
+        <!-- The invitation card. Change the date and place here if the event changes. -->
+        <div class="invite" data-reveal>
+          <div class="invite-card">
+            <p class="invite-label"><span lang="sv">Boksignering</span><span lang="en">Book signing</span> · <em>Kungablod</em></p>
+            <p class="invite-day" aria-hidden="true">21</p>
+            <p class="invite-month"><span class="visually-hidden">21 </span><span lang="sv">november</span><span lang="en">November</span></p>
+            <span class="invite-rule" aria-hidden="true"></span>
+            <p class="invite-time"><span lang="sv">Lördag · kl. 13.00</span><span lang="en">Saturday · 1 pm</span></p>
+            <p class="invite-place">Twang<span>Katarina bangata 25, Stockholm</span></p>
+          </div>
+          <picture class="invite-cover" aria-hidden="true">
+            <source type="image/avif" srcset="images/kungablod-320.avif">
+            <source type="image/webp" srcset="images/kungablod-320.webp">
+            <img src="images/kungablod.jpg" width="628" height="938" loading="lazy" alt="">
+          </picture>
+        </div>
+
+        <div class="event-body">
           <!-- Before the day -->
           <div data-show="upcoming" data-reveal>
             <p class="event-soon" data-countdown hidden>
               <span lang="sv"></span><span lang="en"></span>
             </p>
-            <h3><span lang="sv">Boksignering: Kungablod</span><span lang="en">Book signing: Kungablod</span></h3>
+            <h3><span lang="sv">Signering av Kungablod</span><span lang="en">Signing Kungablod</span></h3>
             <p>
               <span lang="sv">Kom och träffa Jan, prata vikingatid och få din bok signerad. Välkommen!</span>
               <span lang="en">Come and meet Jan, talk Viking history and get your book signed. Everyone is welcome!</span>
@@ -373,8 +385,8 @@
 
           <!-- On the day -->
           <div data-show="today" data-reveal>
-            <p class="event-soon"><span lang="sv">Idag!</span><span lang="en">Today!</span></p>
-            <h3><span lang="sv">Boksignering: Kungablod</span><span lang="en">Book signing: Kungablod</span></h3>
+            <p class="event-soon"><span lang="sv">Idag</span><span lang="en">Today</span></p>
+            <h3><span lang="sv">Signering av Kungablod</span><span lang="en">Signing Kungablod</span></h3>
             <p>
               <span lang="sv">Jan signerar på Twang idag från kl. 13.00. Välkommen förbi!</span>
               <span lang="en">Jan is signing at Twang today from 1 pm. Come along!</span>
@@ -383,14 +395,12 @@
 
           <!-- After the day. Add a photo from the signing here when Jan has one. -->
           <div data-show="past" data-reveal>
-            <h3><span lang="sv">Tack för att ni kom!</span><span lang="en">Thank you for coming!</span></h3>
+            <h3><span lang="sv">Tack för att ni kom</span><span lang="en">Thank you for coming</span></h3>
             <p>
               <span lang="sv">Tack till alla som kom till signeringen av Kungablod på Twang. Nya evenemang dyker upp här.</span>
               <span lang="en">Thank you to everyone who came to the Kungablod signing at Twang. New events will appear here.</span>
             </p>
           </div>
-
-          <p class="event-place" data-reveal>Twang<br>Katarina bangata 25<br>Stockholm</p>
 
           <div class="actions" data-show="upcoming today" data-reveal>
             <a class="btn btn-gold" href="events/kungablod-signering.ics" download data-show="upcoming">
@@ -399,11 +409,14 @@
             <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Twang+Katarina+bangata+25+Stockholm" target="_blank" rel="noopener">
               <span lang="sv">Visa på karta</span><span lang="en">Show on map</span>
             </a>
-            <button type="button" class="btn btn-ghost" data-share>
-              <span lang="sv">Dela</span><span lang="en">Share</span>
+            <button type="button" class="text-link" data-share>
+              <span lang="sv">Dela</span><span lang="en">Share</span> <span class="text-link-arrow" aria-hidden="true">→</span>
             </button>
           </div>
           <p class="share-status" role="status" aria-live="polite"></p>
+          <p class="event-poster" data-reveal>
+            <a href="images/boksignering-kungablod.jpg" target="_blank" rel="noopener"><span lang="sv">Visa affischen</span><span lang="en">View the poster</span></a>
+          </p>
         </div>
       </article>
     </div>
@@ -412,14 +425,17 @@
   <!-- ===== ABOUT ===== -->
   <section class="section" id="om">
     <div class="wrap about">
-      <picture data-reveal="light">
+      <picture class="portrait-wrap" data-reveal="light">
         <source type="image/avif" srcset="images/jan-stenborg-388.avif">
         <source type="image/webp" srcset="images/jan-stenborg-388.webp">
         <img class="portrait" src="images/jan-stenborg.jpg" width="388" height="515" loading="lazy"
              alt="Porträtt av Jan Stenborg" data-alt-en="Portrait of Jan Stenborg">
       </picture>
       <div class="about-body">
-        <h2 class="section-title" data-reveal="title"><span lang="sv">Om Jan</span><span lang="en">About Jan</span></h2>
+        <header class="chapter" data-reveal="title">
+        <p class="chapter-mark"><span class="chapter-rule" aria-hidden="true"></span><span class="chapter-num">III</span><span lang="sv">Om Jan</span><span lang="en">About Jan</span></p>
+        <h2 class="chapter-title"><span lang="sv">Från pedalboards till långskepp</span><span lang="en">From pedalboards to longships</span></h2>
+      </header>
         <!-- Expand this with Jan's own story: where he grew up, why the Viking age, what's next. -->
         <p data-reveal>
           <span lang="sv">Jan Stenborg är en svensk författare som skriver historiska äventyrsromaner från vikingatiden. Debuten <em>Stridslarm</em> kom 2017 och följdes av <em>Jagad</em> 2021, båda om Erik från Birka. Nu är han tillbaka med <em>Kungablod</em>.</span>
@@ -433,24 +449,30 @@
     </div>
   </section>
 
-  <!-- ===== CONTACT ===== -->
-  <section class="section section-dark" id="kontakt">
-    <div class="wrap contact">
-      <h2 class="section-title" data-reveal="title"><span lang="sv">Kontakt</span><span lang="en">Contact</span></h2>
+  <!-- ===== CONTACT: the closing scene, echoing the dawn horizon of the opening ===== -->
+  <section class="finale" id="kontakt">
+    <div class="finale-horizon" aria-hidden="true"></div>
+    <div class="wrap finale-inner">
+      <header class="chapter chapter-center" data-reveal="title">
+        <p class="chapter-mark"><span class="chapter-rule" aria-hidden="true"></span><span class="chapter-num">IV</span><span lang="sv">Kontakt</span><span lang="en">Contact</span></p>
+        <h2 class="chapter-title"><span lang="sv">Sagan fortsätter</span><span lang="en">The saga continues</span></h2>
+      </header>
       <p data-reveal>
         <span lang="sv">Frågor om böckerna, signeringar eller besök? Skriv till Jan.</span>
         <span lang="en">Questions about the books, signings or visits? Write to Jan.</span>
       </p>
       <!-- Check this address is still in use before launch. -->
-      <a class="btn btn-gold" href="mailto:info@stonecastle.se" data-reveal>info@stonecastle.se</a>
+      <a class="finale-email" href="mailto:info@stonecastle.se" data-reveal>info@stonecastle.se</a>
     </div>
   </section>
 
 </main>
 
 <footer class="site-footer">
-  <div class="wrap">
+  <div class="wrap footer-inner">
+    <span class="footer-mark" aria-hidden="true"></span>
     <p>© <span id="year">2026</span> Jan Stenborg</p>
+    <a class="text-link footer-top" href="#top"><span lang="sv">Till början</span><span lang="en">Back to top</span> <span class="text-link-arrow" aria-hidden="true">↑</span></a>
   </div>
 </footer>
 
