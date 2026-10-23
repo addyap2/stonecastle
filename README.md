@@ -3,7 +3,7 @@
 A one-page site for author Jan Stenborg (*Stridslarm*, *Jagad*, *Kungablod*). Swedish is the main language, with an English version one click away.
 It's plain HTML and CSS with no build step: open `index.html` in a browser to see it, or upload the folder to any web host (for example GitHub Pages).
 
-The full design plan is in [docs/EXPERIENCE.md](docs/EXPERIENCE.md), the art direction for the opening screen in [docs/HERO.md](docs/HERO.md), how everything moves in [docs/MOTION.md](docs/MOTION.md), and the creative audit with what's still to do in [docs/AUDIT.md](docs/AUDIT.md).
+The full design plan is in [docs/EXPERIENCE.md](docs/EXPERIENCE.md), the art direction for the opening screen in [docs/HERO.md](docs/HERO.md), how everything moves in [docs/MOTION.md](docs/MOTION.md), the creative audit in [docs/AUDIT.md](docs/AUDIT.md), and the launch audit with the **launch checklist** in [docs/LAUNCH.md](docs/LAUNCH.md). `tests/qa.mjs` reruns every check (instructions in LAUNCH.md §3).
 
 **Section headings** are chapters: a roman numeral, a short label and a headline. Copy an existing `<header class="chapter">` block to add one.
 
@@ -17,7 +17,9 @@ The opening scene (sky, sun, ships, sea) is drawn entirely in code inside the `H
 | --- | --- |
 | `index.html` | All the page text and sections, plus the information for Google (in `<head>`) |
 | `styles.css` | Look and layout. Colours are at the top |
-| `script.js` | Language switch, signing dates, Share button, phone action bar |
+| `boot.js` | Runs first: picks the language and prepares the entrance (kept as a file for the security policy) |
+| `script.js` | Language switch, signing dates, Share button, phone action bar, motion, analytics events |
+| `vercel.json` | Hosting settings: security headers and caching |
 | `images/` | Each picture comes in three formats (`.avif`, `.webp`, `.jpg`) and several sizes. Browsers pick the smallest that works |
 | `fonts/` | Cinzel and EB Garamond (free fonts under the SIL Open Font License), hosted with the site |
 | `events/` | Calendar file for the *Add to calendar* button |

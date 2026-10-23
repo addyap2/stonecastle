@@ -151,6 +151,28 @@
     reveals.forEach(function (el) { el.classList.add('is-in'); });
   }
 
+  // Keyboard users: anything that receives focus is shown at once (never focused while invisible
+  // or half-faded), lands on screen straight away, and a focused book becomes the active one.
+  document.addEventListener('focusin', function (e) {
+    var t = e.target;
+    var el = t.closest && t.closest('[data-reveal]');
+    while (el) {
+      el.style.transition = 'none';
+      el.classList.add('is-in');
+      el.querySelectorAll('img').forEach(function (img) { img.style.transition = 'none'; });
+      el = el.parentElement && el.parentElement.closest('[data-reveal]');
+    }
+    var book = t.closest && t.closest('.saga-list .book');
+    var sagaEl = book && book.closest('[data-saga]');
+    if (sagaEl) sagaEl.setAttribute('data-active', book.getAttribute('data-book'));
+    var keyboard = false;
+    try { keyboard = t.matches(':focus-visible'); } catch (err) {}
+    if (keyboard && t.getBoundingClientRect) {
+      var r = t.getBoundingClientRect();
+      if (r.top < 70 || r.bottom > window.innerHeight - 10) t.scrollIntoView({ block: 'center', behavior: 'instant' });
+    }
+  });
+
   // Header: hides on the way down (past the hero), returns on the way up.
   var lastY = window.scrollY;
   var holdHeader = 0;
@@ -158,9 +180,13 @@
   document.querySelectorAll('.nav a, .brand').forEach(function (a) {
     a.addEventListener('click', function () { holdHeader = Date.now() + 1200; root.classList.remove('header-hidden'); });
   });
+  var heroHeight = heroEl ? heroEl.offsetHeight : 500;
+  if (heroEl && 'ResizeObserver' in window) {
+    new ResizeObserver(function () { heroHeight = heroEl.offsetHeight; }).observe(heroEl);
+  }
   function headerUpdate() {
     var y = window.scrollY;
-    var pastHero = heroEl ? y > heroEl.offsetHeight * 0.8 : y > 400;
+    var pastHero = y > heroHeight * 0.8;
     if (Date.now() < holdHeader || y < 80) root.classList.remove('header-hidden');
     else if (y > lastY + 6 && pastHero) root.classList.add('header-hidden');
     else if (y < lastY - 6) root.classList.remove('header-hidden');
@@ -215,7 +241,7 @@
       list.forEach(function (el) { el.style.translate = '0 ' + y.toFixed(1) + 'px'; });
     }
     function render() {
-      var h = hero.offsetHeight;
+      var h = heroHeight;
       var p = Math.max(0, Math.min(1, window.scrollY / h));
       move(layers.sky, p * h * 0.25);
       move(layers.fleet, p * h * 0.15);
@@ -265,7 +291,11 @@
         lines[lines.length - 1].push(word.textContent);
       });
       label.textContent = '';
-      label.setAttribute('aria-label', original);
+      // Screen readers read this hidden copy of the full heading; the animated lines are hidden from them.
+      var spoken = document.createElement('span');
+      spoken.className = 'visually-hidden';
+      spoken.textContent = original;
+      label.appendChild(spoken);
       lines.forEach(function (words, i) {
         var line = document.createElement('span');
         line.className = 'motion-line';
@@ -279,6 +309,9 @@
       });
     });
   }
+  document.querySelectorAll('[data-set-lang]').forEach(function (btn) {
+    btn.addEventListener('click', function () { requestAnimationFrame(splitChapterLines); });
+  });
   if (document.fonts) document.fonts.ready.then(splitChapterLines);
   else splitChapterLines();
   var headingResize;

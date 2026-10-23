@@ -4,12 +4,31 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Jan Stenborg – Författare</title>
-  <meta name="description" content="Jan Stenborg skriver historiska äventyrsromaner från vikingatiden: Stridslarm, Jagad och nya Kungablod. / Jan Stenborg writes Viking-age adventure novels.">
+  <meta name="description" content="Jan Stenborg skriver historiska äventyrsromaner från vikingatiden: Stridslarm, Jagad och nya Kungablod. Boksignering 21 november på Twang i Stockholm.">
   <meta name="theme-color" content="#0f0d0b">
-  <meta property="og:title" content="Jan Stenborg – Författare / Author">
-  <meta property="og:description" content="Vikingaromanerna Stridslarm, Jagad och nya Kungablod.">
-  <meta property="og:image" content="images/share.jpg">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- Sharing on Facebook, Messenger, LinkedIn, X etc. -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jan Stenborg">
+  <meta property="og:locale" content="sv_SE">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:title" content="Kungablod – den nya vikingaromanen av Jan Stenborg">
+  <meta property="og:description" content="Boksignering lördag 21 november kl. 13.00 på Twang, Katarina bangata 25, Stockholm.">
+  <meta property="og:image" content="images/share.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kungablod av Jan Stenborg: boken mot en soluppgång över havet.">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- BEFORE LAUNCH: replace https://DOMAIN with the real address, then remove the comment marks.
+       Facebook and Google need full addresses for the page and its share image.
+  <link rel="canonical" href="https://DOMAIN/">
+  <meta property="og:url" content="https://DOMAIN/">
+  <meta property="og:image" content="https://DOMAIN/images/share.jpg">
+  -->
 
   <!-- Load the hero cover and the two main fonts first, so the top of the page appears fast -->
   <link rel="preload" as="image" type="image/avif"
@@ -19,35 +38,7 @@
   <link rel="preload" href="fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
 
-  <script>
-    // Choose the language before the page draws, so there is no flash of the wrong one.
-    // Swedish is the main language. English shows only if the visitor picked it,
-    // or the address ends in ?lang=en.
-    (function () {
-      var lang = 'sv';
-      try {
-        var fromUrl = new URLSearchParams(location.search).get('lang');
-        var saved = localStorage.getItem('lang');
-        lang = fromUrl || saved || 'sv';
-      } catch (e) {}
-      if (lang !== 'en') lang = 'sv';
-      document.documentElement.setAttribute('data-lang', lang);
-      document.documentElement.setAttribute('lang', lang);
-      // Reveals: content is hidden for its entrance only while the motion script is working.
-      // If script.js hasn't started within 3 seconds, everything is shown as normal.
-      document.documentElement.classList.add('motion-ready');
-      setTimeout(function () {
-        if (!window.motionStarted) document.documentElement.classList.remove('motion-ready');
-      }, 3000);
-      try {
-        var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (!calm && !sessionStorage.getItem('heroSeen')) {
-          document.documentElement.classList.add('hero-intro');
-          sessionStorage.setItem('heroSeen', '1');
-        }
-      } catch (e) {}
-    })();
-  </script>
+  <script src="boot.js"></script>
 
   <!-- Information for Google: Jan, his books and the signing. Update together with the page text. -->
   <script type="application/ld+json">
@@ -174,11 +165,12 @@
           </symbol>
         </defs>
         <g class="hero-fleet-drift">
-          <use href="#longship" x="90" y="14" width="34" height="17"/>
-          <use href="#longship" x="250" y="18" width="24" height="12"/>
-          <use href="#longship" x="760" y="16" width="28" height="14"/>
-          <use href="#longship" x="980" y="12" width="38" height="19"/>
-          <use href="#longship" x="1110" y="19" width="22" height="11"/>
+          <!-- kept to the right half, clear of the text column -->
+          <use href="#longship" x="590" y="16" width="30" height="15"/>
+          <use href="#longship" x="700" y="19" width="22" height="11"/>
+          <use href="#longship" x="1000" y="12" width="38" height="19"/>
+          <use href="#longship" x="1090" y="18" width="26" height="13"/>
+          <use href="#longship" x="1150" y="20" width="20" height="10"/>
         </g>
       </svg>
       <div class="hero-sea">
@@ -198,8 +190,8 @@
           <span lang="en">The new Viking-age novel from the author of <em>Stridslarm</em> and <em>Jagad</em>.</span>
         </p>
         <div class="actions hero-in" id="hero-actions" style="--i:3">
-          <a class="btn btn-gold" href="#evenemang" data-show="upcoming today"><span lang="sv">Kom på signeringen</span><span lang="en">Come to the signing</span></a>
-          <a class="btn btn-gold" href="#bocker" data-show="past"><span lang="sv">Läs om Kungablod</span><span lang="en">About Kungablod</span></a>
+          <a class="btn btn-gold" href="#evenemang" data-show="upcoming today" data-track="Hero: signing"><span lang="sv">Kom på signeringen</span><span lang="en">Come to the signing</span></a>
+          <a class="btn btn-gold" href="#bocker" data-show="past" data-track="Hero: books"><span lang="sv">Läs om Kungablod</span><span lang="en">About Kungablod</span></a>
           <a class="text-link" href="#bocker" data-show="upcoming today"><span lang="sv">Utforska böckerna</span><span lang="en">Explore the books</span> <span class="text-link-arrow" aria-hidden="true">→</span></a>
         </div>
         <p class="hero-inscription hero-in" style="--i:4" data-show="upcoming today">
@@ -413,7 +405,7 @@
             <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Twang+Katarina+bangata+25+Stockholm" target="_blank" rel="noopener">
               <span lang="sv">Visa på karta</span><span lang="en">Show on map</span>
             </a>
-            <button type="button" class="text-link" data-share>
+            <button type="button" class="text-link" data-share data-track="Share">
               <span lang="sv">Dela</span><span lang="en">Share</span> <span class="text-link-arrow" aria-hidden="true">→</span>
             </button>
           </div>
@@ -495,8 +487,8 @@
       <span lang="sv">Kungablod – den nya romanen</span>
       <span lang="en">Kungablod – the new novel</span>
     </p>
-    <a class="btn btn-gold btn-small" href="#evenemang" data-show="upcoming today"><span lang="sv">Kom dit</span><span lang="en">Join us</span></a>
-    <a class="btn btn-gold btn-small" href="#bocker" data-show="past"><span lang="sv">Läs mer</span><span lang="en">Read more</span></a>
+    <a class="btn btn-gold btn-small" href="#evenemang" data-show="upcoming today" data-track="Action bar: signing"><span lang="sv">Kom dit</span><span lang="en">Join us</span></a>
+    <a class="btn btn-gold btn-small" href="#bocker" data-show="past" data-track="Action bar: books"><span lang="sv">Läs mer</span><span lang="en">Read more</span></a>
   </div>
 </div>
 
