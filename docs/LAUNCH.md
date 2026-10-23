@@ -10,9 +10,9 @@ Audited 23 October 2026, 29 days before the *Kungablod* signing.
 
 | | Before the audit | After |
 | --- | --- | --- |
-| Lighthouse, phone (speed / accessibility / best practices / SEO) | 97 / 100 / 96 / 100 | **98 / 100 / 100 / 100** |
+| Lighthouse, phone (speed / accessibility / best practices / SEO) | 97 / 100 / 96 / 100 | **97 / 100 / 100 / 100** |
 | Lighthouse, desktop | 100 / 100 / 96 / 100 | **100 / 100 / 100 / 100** |
-| Largest image on screen (phone, throttled 4G) | 2.0s | 2.2s (more scenery added to the hero since; still under the 2.5s "good" line) |
+| Largest image on screen (phone, throttled 4G) | 2.0s | 2.4s (more hero scenery and continuous motion since). Still under the 2.5s "good" line, but close: don't add more to the hero without re-measuring |
 | Layout shift | 0 | 0 |
 | Page weight, first load (phone) | 205 KB | 217 KB |
 | Browser console errors | 1 (missing tab icon) | **0** |

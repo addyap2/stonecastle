@@ -48,8 +48,7 @@ Defined once on `:root` in `styles.css`. Every animation uses these and nothing 
 | Moment | What happens |
 | --- | --- |
 | **First paint** | The header, layout and real text are drawn at once. Fonts swap in when ready (`font-display: swap`). Nothing waits on JavaScript. |
-| **First visit** | The hero's 2.2s sunrise entrance (HERO.md). Sections below stay at rest until scrolled to. |
-| **Return in the same visit / reload** | No entrance. The scene is shown finished. |
+| **Every page load** | The hero's sunrise entrance (HERO.md), followed by its slow ambient loops. Sections below stay at rest until scrolled to. |
 | **Fallback** | Content is hidden for a reveal only after the script has marked the page `motion-ready`. If the script fails, everything is simply visible. |
 
 ---

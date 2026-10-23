@@ -84,7 +84,7 @@ All of the scene is drawn with code. **No new image is downloaded**; the only pi
 
 ---
 
-## Entrance (2.2 seconds, once per visit)
+## Entrance (plays on every page load)
 
 | Time | Movement |
 | --- | --- |
@@ -97,6 +97,15 @@ All of the scene is drawn with code. **No new image is downloaded**; the only pi
 
 Motion curve: `cubic-bezier(.16, .84, .24, 1)`. Long, decelerating, no bounce.
 A visitor who has already seen it this visit (or who reloads) gets the finished scene instantly.
+
+**Ambient motion after the entrance** (it loops, pauses when the hero is scrolled off screen, and is off for reduced motion):
+- **Mist:** two layers drift slowly across the horizon (14s and 19s).
+- **Water:** glints on the light path pulse gently (6s).
+- **The book:** floats and sways slightly (8s, ±10px, ±0.6°). On computers it also tilts toward the mouse.
+- **Light on the book:** a band of light crosses the cover every 10 seconds.
+- **The title:** a glint passes along the letters of *Kungablod* every 11 seconds.
+
+**Desktop height:** the hero takes 88% of the screen height (capped at 810px), so the first chapter peeks into view. It fades into the page at the bottom.
 
 ---
 

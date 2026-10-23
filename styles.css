@@ -161,7 +161,7 @@ html[data-lang="en"] .lang-switch::before { transform: translateX(100%); }
   --sun-x: calc(50% + min(27vw, 300px));        /* sun sits behind the book */
   --ease-slow: cubic-bezier(.16, .84, .24, 1);
   position: relative; overflow: hidden; isolation: isolate;
-  min-height: min(calc(100svh - 64px), 920px);
+  min-height: min(calc(88svh - 56px), 810px);
   display: flex; align-items: center;
   background: var(--bg);
 }
@@ -225,7 +225,7 @@ html[data-lang="en"] .lang-switch::before { transform: translateX(100%); }
 .hero-inner {
   position: relative; width: 100%;
   display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center;
-  padding-top: 56px; padding-bottom: 72px;
+  padding-top: 40px; padding-bottom: 56px;
 }
 
 /* --- Text --- */
@@ -287,6 +287,16 @@ html[data-lang="en"] .lang-switch::before { transform: translateX(100%); }
   position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
   transform: translateZ(1px); mix-blend-mode: screen; opacity: .9;
   background: radial-gradient(circle at var(--gx, 70%) var(--gy, 18%), rgba(255, 240, 210, .28), transparent 46%);
+}
+
+/* Desktop: the hero fades into the page, so the book's reflection and the sea never end in a hard line */
+@media (min-width: 821px) {
+  .hero::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 110px; z-index: 1;
+    background: linear-gradient(to bottom, rgba(15, 13, 11, 0), var(--bg));
+    pointer-events: none;
+  }
+  .scroll-cue { z-index: 2; }
 }
 
 /* --- Scroll cue (desktop) --- */
@@ -377,6 +387,10 @@ html[data-lang="en"] .lang-switch::before { transform: translateX(100%); }
 
 /* ===== Sections: chapters of one continuous night (see docs/AUDIT.md) ===== */
 .section { padding: 120px 0; }
+@media (min-width: 821px) {
+  .section { padding: 80px 0; }
+  .saga { padding-top: 48px; }
+}
 /* Raised bands fade in and out of the night instead of hard borders */
 .section-dark {
   background: linear-gradient(to bottom, var(--bg), var(--bg-raised) 160px, var(--bg-raised) calc(100% - 160px), var(--bg));
@@ -666,7 +680,7 @@ button.text-link { background: none; border: 0; cursor: pointer; }
   }
 
   .motion-ready .saga-list .book {
-    display: flex; align-items: center; min-height: 72vh; padding: 0; border-top: 0;
+    display: flex; align-items: center; min-height: max(58vh, 420px); padding: 0; border-top: 0;
   }
   .motion-ready .saga-list .book > picture { display: none; }   /* the stage shows the cover instead */
   .motion-ready .saga-list .book-body { opacity: 1; }

@@ -94,7 +94,7 @@ Copy is given in Swedish (primary) and English. Lines in **[brackets]** need Jan
 | Primary button | *Before sale:* Kom på signeringen · *On sale:* Köp Kungablod | Come to the signing · Buy Kungablod |
 | Secondary link | Läs om sagan ↓ | Discover the saga ↓ |
 
-**Opening sequence** (plays once per visit; repeat views and reduced-motion users see the final state at once)
+**Opening sequence** (plays on every page load; reduced-motion users see the final state at once)
 
 | Time | What happens |
 | --- | --- |
@@ -272,7 +272,7 @@ Total 1.5s. The cover image must already be loaded (preloaded, §9) so the seque
 **Inventory**
 | Moment | Motion | Duration |
 | --- | --- | --- |
-| Opening sequence | Sunrise glow, cover rise, title tracking (§5.0) | 1.5s, once per visit |
+| Opening sequence | Sunrise glow, cover rise, title tracking (§5.0) | About 1.5s, every page load |
 | Section reveal | Fade up 16px, children staggered 60ms | 700ms |
 | Chapter divider | Knotwork line draws itself left to right | 1.2s |
 | Saga beats (desktop) | Book slides forward, text crossfade, background tint shift | Follows the scroll |
