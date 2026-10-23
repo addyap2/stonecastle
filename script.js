@@ -20,6 +20,7 @@
     document.querySelectorAll('img[data-alt-en]').forEach(function (img) {
       img.setAttribute('alt', img.getAttribute('data-alt-' + lang));
     });
+    if (typeof splitChapterLines === 'function') requestAnimationFrame(splitChapterLines);
     if (remember) { try { localStorage.setItem('lang', lang); } catch (e) {} }
   }
 
@@ -135,7 +136,7 @@
       entries.forEach(function (e) {
         if (e.isIntersecting) { e.target.classList.add('is-in'); revealer.unobserve(e.target); }
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0.15, rootMargin: '0px 0px 8% 0px' });
     reveals.forEach(function (el) { revealer.observe(el); });
 
     // Saga: the book crossing the middle of the screen becomes the active one.
@@ -218,15 +219,19 @@
       var p = Math.max(0, Math.min(1, window.scrollY / h));
       move(layers.sky, p * h * 0.25);
       move(layers.fleet, p * h * 0.15);
-      move(layers.book, -p * h * 0.15);
+      move(layers.book, wide.matches ? -p * h * 0.15 : 0);
       if (wide.matches) {          // on phones the text stays put and fully visible
         move(layers.text, -p * 30);
         layers.text.forEach(function (el) { el.style.opacity = String(Math.max(0, 1 - p * 1.4)); });
+      } else {
+        move(layers.text, 0);
+        layers.text.forEach(function (el) { el.style.removeProperty('opacity'); });
       }
       if (bookBody) bookBody.style.setProperty('--turn', (p * 6).toFixed(2) + 'deg');
       if (cue) cue.style.opacity = String(Math.max(0, 1 - p * 8));
     }
     heroRender = function () { if (onScreen) render(); };
+    wide.addEventListener('change', render);
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
         onScreen = entries[0].isIntersecting;
@@ -235,6 +240,80 @@
     }
     render();
   }
+
+  /* Mask heading lines without changing their accessible names or translations. */
+  var chapterLabels = Array.from(document.querySelectorAll('.chapter-title > span[lang]'));
+  chapterLabels.forEach(function (label) { label.dataset.originalText = label.textContent; });
+  function splitChapterLines() {
+    if (!chapterLabels) return;
+    chapterLabels.forEach(function (label) {
+      if (!label.getClientRects().length) return;
+      var original = label.dataset.originalText;
+      label.textContent = '';
+      var words = original.trim().split(/\s+/).map(function (word) {
+        var span = document.createElement('span');
+        span.textContent = word;
+        span.style.display = 'inline-block';
+        label.appendChild(span);
+        label.appendChild(document.createTextNode(' '));
+        return span;
+      });
+      var lines = [], top = null;
+      words.forEach(function (word) {
+        var y = Math.round(word.getBoundingClientRect().top);
+        if (y !== top) { lines.push([]); top = y; }
+        lines[lines.length - 1].push(word.textContent);
+      });
+      label.textContent = '';
+      label.setAttribute('aria-label', original);
+      lines.forEach(function (words, i) {
+        var line = document.createElement('span');
+        line.className = 'motion-line';
+        line.setAttribute('aria-hidden', 'true');
+        line.style.setProperty('--line-index', i);
+        var inner = document.createElement('span');
+        inner.className = 'motion-line-inner';
+        inner.textContent = words.join(' ');
+        line.appendChild(inner);
+        label.appendChild(line);
+      });
+    });
+  }
+  if (document.fonts) document.fonts.ready.then(splitChapterLines);
+  else splitChapterLines();
+  var headingResize;
+  window.addEventListener('resize', function () {
+    clearTimeout(headingResize);
+    headingResize = setTimeout(splitChapterLines, 120);
+  });
+
+  /* ---------- Measuring what works (no cookies) ----------
+     Every important click is named here. Nothing is sent until an analytics service is added
+     (Plausible is recommended: see docs/LAUNCH.md). Shop links are counted per shop and book;
+     the calendar file, the map, the share button and the e-mail address are counted too. */
+  function track(name, props) {
+    try {
+      if (window.plausible) window.plausible(name, { props: props });
+      if (window.dataLayer) window.dataLayer.push({ event: name, props: props });
+      document.dispatchEvent(new CustomEvent('site:track', { detail: { name: name, props: props } }));
+    } catch (e) {}
+  }
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest && e.target.closest('a, button');
+    if (!el) return;
+    var href = el.getAttribute('href') || '';
+    var area = el.closest('section, header, footer, .action-bar');
+    var props = { lang: root.getAttribute('data-lang'), area: area ? (area.id || area.className.split(' ')[0]) : '' };
+    if (el.hasAttribute('data-track')) return track(el.getAttribute('data-track'), props);
+    if (/\.ics$/.test(href)) return track('Calendar', props);
+    if (href.indexOf('mailto:') === 0) return track('Email', props);
+    if (/^https?:/.test(href) && el.hostname !== location.hostname) {
+      var book = el.closest('[data-book]');
+      props.site = el.hostname.replace(/^www\./, '');
+      if (book) props.book = book.getAttribute('data-book');
+      return track(/google\.[a-z.]+\/maps/.test(href) ? 'Map' : 'Shop', props);
+    }
+  });
 
   /* ---------- Footer year ---------- */
   var year = document.getElementById('year');
