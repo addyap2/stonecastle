@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="sv" data-lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jan Stenborg – Författare</title>
+  <meta name="description" content="Jan Stenborg skriver historiska äventyrsromaner från vikingatiden: Stridslarm, Jagad och nya Kungablod. / Jan Stenborg writes Viking-age adventure novels.">
+  <meta property="og:title" content="Jan Stenborg – Författare / Author">
+  <meta property="og:description" content="Vikingaromanerna Stridslarm, Jagad och nya Kungablod.">
+  <meta property="og:image" content="images/share.jpg">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Choose the language before the page draws, so there is no flash of the wrong one.
+    (function () {
+      var lang = 'sv';
+      try {
+        var fromUrl = new URLSearchParams(location.search).get('lang');
+        var saved = localStorage.getItem('lang');
+        lang = fromUrl || saved || (navigator.language || 'sv').slice(0, 2);
+      } catch (e) {}
+      if (lang !== 'en') lang = 'sv';
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+    })();
+  </script>
+</head>
+<body>
+
+<!--
+  HOW TEXT WORKS ON THIS PAGE
+  Every piece of text appears twice: once with lang="sv" (Swedish) and once with lang="en" (English).
+  Only the chosen language is shown. When you change one, change the other too.
+-->
+
+<a class="skip" href="#main"><span lang="sv">Hoppa till innehållet</span><span lang="en">Skip to content</span></a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top">Jan Stenborg</a>
+    <nav class="nav" aria-label="Meny">
+      <a href="#bocker"><span lang="sv">Böcker</span><span lang="en">Books</span></a>
+      <a href="#evenemang"><span lang="sv">Evenemang</span><span lang="en">Events</span></a>
+      <a href="#om"><span lang="sv">Om Jan</span><span lang="en">About</span></a>
+      <a href="#kontakt"><span lang="sv">Kontakt</span><span lang="en">Contact</span></a>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Språk / Language">
+      <button type="button" data-set-lang="sv" aria-pressed="true">SV</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ===== HERO: the newest book ===== -->
+  <section class="hero" id="top">
+    <div class="wrap hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow"><span lang="sv">Ny bok</span><span lang="en">New book</span></p>
+        <h1>Kungablod</h1>
+        <p class="lead">
+          <span lang="sv">Den nya vikingaromanen från Jan Stenborg, författaren bakom <em>Stridslarm</em> och <em>Jagad</em>.</span>
+          <span lang="en">The new Viking-age novel from Jan Stenborg, author of <em>Stridslarm</em> and <em>Jagad</em>.</span>
+        </p>
+        <div class="signing-card">
+          <p class="signing-label"><span lang="sv">Boksignering</span><span lang="en">Book signing</span></p>
+          <p class="signing-when">
+            <span lang="sv">Lördag 21 november, kl. 13.00</span>
+            <span lang="en">Saturday 21 November, 1 pm</span>
+          </p>
+          <p class="signing-where">Twang, Katarina bangata 25, Stockholm</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-gold" href="#evenemang"><span lang="sv">Om signeringen</span><span lang="en">About the signing</span></a>
+          <a class="btn btn-ghost" href="#bocker"><span lang="sv">Alla böcker</span><span lang="en">All books</span></a>
+        </div>
+      </div>
+      <div class="hero-cover">
+        <img src="images/kungablod.jpg" width="628" height="938"
+             alt="Omslaget till Kungablod av Jan Stenborg: en långhårig krigare i blå mantel ser ut över havet i solnedgången.">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BOOKS ===== -->
+  <section class="section" id="bocker">
+    <div class="wrap">
+      <h2 class="section-title"><span lang="sv">Böcker</span><span lang="en">Books</span></h2>
+      <p class="section-intro">
+        <span lang="sv">Historiska äventyr i en värld av kungar, hirdmän, bärsärkar och völvor.</span>
+        <span lang="en">Historical adventures in a world of kings, warriors, berserkers and seeresses.</span>
+      </p>
+
+      <!-- Book: Kungablod. Add a description and shop links when they are ready. -->
+      <article class="book">
+        <img class="book-cover" src="images/kungablod.jpg" width="628" height="938" loading="lazy"
+             alt="Omslaget till Kungablod">
+        <div class="book-body">
+          <p class="book-meta"><span lang="sv">Ny · 2026</span><span lang="en">New · 2026</span></p>
+          <h3>Kungablod</h3>
+          <p>
+            <span lang="sv">Jan Stenborgs nya roman. Mer om boken, och var du kan köpa den, kommer snart.</span>
+            <span lang="en">Jan Stenborg's new novel. More about the book, and where to buy it, coming soon.</span>
+          </p>
+          <p class="book-note">
+            <span lang="sv">Träffa Jan och få ditt exemplar signerat den 21 november på Twang i Stockholm.</span>
+            <span lang="en">Meet Jan and get your copy signed on 21 November at Twang in Stockholm.</span>
+          </p>
+        </div>
+      </article>
+
+      <!-- Book: Jagad -->
+      <article class="book">
+        <img class="book-cover" src="images/jagad.jpg" width="362" height="552" loading="lazy"
+             alt="Omslaget till Jagad: en krigare med sköld går mot en stad genom en gotisk portal.">
+        <div class="book-body">
+          <p class="book-meta">2021 · <span lang="sv">Ljudbok uppläst av Sebastian Karlsson</span><span lang="en">Audiobook read by Sebastian Karlsson</span></p>
+          <h3>Jagad</h3>
+          <p>
+            <span lang="sv">En gammal lögn hinner ikapp Erik. Dömd på tinget och jagad av Kåre, som kräver blodig hämnd, måste han ta sig fram bland kungar, drottningar, rövare och jägare för att rentvå sitt namn. Och hemma i Birka väntar Gyrid – eller har hon glömt honom?</span>
+            <span lang="en">An old lie catches up with Erik. Condemned at the Thing and hunted by Kåre, who wants blood for blood, he must survive kings, queens, robbers and hunters to clear his name. And back in Birka there is Gyrid – unless she has forgotten him.</span>
+          </p>
+          <ul class="buy">
+            <li><a href="https://www.bokus.com/forfattare/jan-stenborg" target="_blank" rel="noopener">Bokus</a></li>
+            <li><a href="https://www.storytel.com/se/books/jagad-2059091" target="_blank" rel="noopener"><span lang="sv">Storytel (ljudbok)</span><span lang="en">Storytel (audiobook)</span></a></li>
+            <li><a href="https://bokon.se/ebok/jagad_jan-stenborg-2/" target="_blank" rel="noopener"><span lang="sv">Bokon (e-bok)</span><span lang="en">Bokon (e-book)</span></a></li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Book: Stridslarm -->
+      <article class="book">
+        <img class="book-cover" src="images/stridslarm.jpg" width="533" height="804" loading="lazy"
+             alt="Omslaget till Stridslarm: en vikingakrigare med svärd och sköld i fören på ett långskepp framför ett brinnande hav.">
+        <div class="book-body">
+          <p class="book-meta">2017 · Vulkan · 431 <span lang="sv">sidor</span><span lang="en">pages</span></p>
+          <h3>Stridslarm</h3>
+          <p>
+            <span lang="sv">Erik växer upp i Birka och dras in i rikets farliga spel. Styrbjörn blir hans fiende och Gyrid hans kärlek – en kombination som kan bli dödlig. Första boken om Erik.</span>
+            <span lang="en">Erik grows up in Birka and is drawn into the kingdom's dangerous games. Styrbjörn becomes his enemy and Gyrid his love – a combination that could prove deadly. The first book about Erik.</span>
+          </p>
+          <ul class="buy">
+            <li><a href="https://www.adlibris.com/sv/bok/stridslarm-9789163748806" target="_blank" rel="noopener">Adlibris</a></li>
+            <li><a href="https://www.bokus.com/bok/9789163748806/stridslarm/" target="_blank" rel="noopener">Bokus</a></li>
+            <li><a href="https://www.storytel.com/se/books/stridslarm-1132654" target="_blank" rel="noopener"><span lang="sv">Storytel (ljudbok)</span><span lang="en">Storytel (audiobook)</span></a></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== EVENTS: copy a block to add another event; delete past ones ===== -->
+  <section class="section section-dark" id="evenemang">
+    <div class="wrap">
+      <h2 class="section-title"><span lang="sv">Evenemang</span><span lang="en">Events</span></h2>
+
+      <article class="event">
+        <img src="images/boksignering-kungablod.jpg" width="1920" height="1280" loading="lazy"
+             alt="Affisch för boksignering av Kungablod med Jan Stenborg på Twang, Katarina bangata 25, Stockholm, 21 november kl. 13.00.">
+        <div class="event-body">
+          <p class="event-date">
+            <span lang="sv">21 november · kl. 13.00</span>
+            <span lang="en">21 November · 1 pm</span>
+          </p>
+          <h3><span lang="sv">Boksignering: Kungablod</span><span lang="en">Book signing: Kungablod</span></h3>
+          <p>
+            <span lang="sv">Kom och träffa Jan, prata vikingatid och få din bok signerad. Välkommen!</span>
+            <span lang="en">Come and meet Jan, talk Viking history and get your book signed. Everyone is welcome!</span>
+          </p>
+          <p class="event-place">Twang<br>Katarina bangata 25<br>Stockholm</p>
+          <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Twang+Katarina+bangata+25+Stockholm" target="_blank" rel="noopener">
+            <span lang="sv">Visa på karta</span><span lang="en">Show on map</span>
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="section" id="om">
+    <div class="wrap about">
+      <img class="portrait" src="images/jan-stenborg.jpg" width="388" height="515" loading="lazy"
+           alt="Porträtt av Jan Stenborg">
+      <div class="about-body">
+        <h2 class="section-title"><span lang="sv">Om Jan</span><span lang="en">About Jan</span></h2>
+        <!-- Expand this with Jan's own story: where he grew up, why the Viking age, what's next. -->
+        <p>
+          <span lang="sv">Jan Stenborg är en svensk författare som skriver historiska äventyrsromaner från vikingatiden. Debuten <em>Stridslarm</em> kom 2017 och följdes av <em>Jagad</em> 2021, båda om Erik från Birka. Nu är han tillbaka med <em>Kungablod</em>.</span>
+          <span lang="en">Jan Stenborg is a Swedish author of historical adventure novels set in the Viking age. His debut, <em>Stridslarm</em>, came out in 2017 and was followed by <em>Jagad</em> in 2021, both about Erik of Birka. Now he is back with <em>Kungablod</em>.</span>
+        </p>
+        <p>
+          <span lang="sv">Innan böckerna drev Jan i femton år Stonecastle i Stockholm, som byggde pedalboards och gitarrtillbehör åt musiker. När han stängde företaget var beskedet enkelt: nu skulle han skriva böcker istället.</span>
+          <span lang="en">Before the books, Jan spent fifteen years running Stonecastle in Stockholm, building pedalboards and guitar accessories for musicians. When he closed the company, his message was simple: from now on, he would write books instead.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="section section-dark" id="kontakt">
+    <div class="wrap contact">
+      <h2 class="section-title"><span lang="sv">Kontakt</span><span lang="en">Contact</span></h2>
+      <p>
+        <span lang="sv">Frågor om böckerna, signeringar eller besök? Skriv till Jan.</span>
+        <span lang="en">Questions about the books, signings or visits? Write to Jan.</span>
+      </p>
+      <!-- Check this address is still in use before launch. -->
+      <a class="btn btn-gold" href="mailto:info@stonecastle.se">info@stonecastle.se</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© <span id="year">2026</span> Jan Stenborg</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
