@@ -286,7 +286,8 @@
           <ol class="saga-marks"><li></li><li></li><li></li></ol>
         </div>
 
-        <div class="saga-list">
+        <!-- On phones and small tablets this list is a side-to-side swipe row (see styles.css) -->
+        <div class="saga-list" data-saga-row aria-label="Böckerna" data-label-en="The books" role="group">
           <!-- Book: Stridslarm -->
           <article class="book" data-book="stridslarm">
             <picture data-reveal="wipe">
@@ -356,6 +357,21 @@
               </p>
             </div>
           </article>
+        </div>
+
+        <!-- Swipe controls (phones and small tablets only) -->
+        <div class="saga-controls">
+          <button type="button" class="saga-arrow" data-saga-prev>
+            <span aria-hidden="true">←</span><span class="visually-hidden"><span lang="sv">Föregående bok</span><span lang="en">Previous book</span></span>
+          </button>
+          <div class="saga-dots">
+            <button type="button" data-saga-go="0" aria-current="true"><span class="visually-hidden"><span lang="sv">Bok 1 av 3: Stridslarm</span><span lang="en">Book 1 of 3: Stridslarm</span></span></button>
+            <button type="button" data-saga-go="1"><span class="visually-hidden"><span lang="sv">Bok 2 av 3: Jagad</span><span lang="en">Book 2 of 3: Jagad</span></span></button>
+            <button type="button" data-saga-go="2"><span class="visually-hidden"><span lang="sv">Bok 3 av 3: Kungablod</span><span lang="en">Book 3 of 3: Kungablod</span></span></button>
+          </div>
+          <button type="button" class="saga-arrow" data-saga-next>
+            <span aria-hidden="true">→</span><span class="visually-hidden"><span lang="sv">Nästa bok</span><span lang="en">Next book</span></span>
+          </button>
         </div>
       </div>
     </div>

@@ -12,7 +12,7 @@ Audited 23 October 2026, 29 days before the *Kungablod* signing.
 | --- | --- | --- |
 | Lighthouse, phone (speed / accessibility / best practices / SEO) | 97 / 100 / 96 / 100 | **97 / 100 / 100 / 100** |
 | Lighthouse, desktop | 100 / 100 / 96 / 100 | **100 / 100 / 100 / 100** |
-| Largest image on screen (phone, throttled 4G) | 2.0s | 2.4s (more hero scenery and continuous motion since). Still under the 2.5s "good" line, but close: don't add more to the hero without re-measuring |
+| Largest image on screen (phone, throttled 4G) | 2.0s | **1.7–1.9s with compression**, as Vercel serves the site (speed score 99–100). A test server without compression shows 2.6s, so always measure the live site or a compressing server. Re-measure before adding more to the hero |
 | Layout shift | 0 | 0 |
 | Page weight, first load (phone) | 205 KB | 217 KB |
 | Browser console errors | 1 (missing tab icon) | **0** |

@@ -524,6 +524,58 @@ html.menu-open { overflow: hidden; }
   .book-cover { max-width: 200px; }
 }
 
+/* --- Phones and small tablets: the books as a side-to-side swipe row --- */
+.saga-controls { display: none; }
+@media (max-width: 1023px) {
+  .saga-list {
+    display: flex; gap: 16px; overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-padding-inline: 16px;
+    margin-inline: -16px; padding: 4px 16px 8px;                 /* cards run to the screen edge */
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .saga-list::-webkit-scrollbar { display: none; }
+  .saga-list .book {
+    flex: 0 0 84%; scroll-snap-align: start; display: flex; flex-direction: column; gap: 20px;
+    padding: 22px 20px 24px; border: 1px solid rgba(201, 164, 92, .28); border-radius: 2px;
+    background: linear-gradient(#1a1511, #120f0c);
+  }
+  .saga-list .book + .book { border-top: 1px solid rgba(201, 164, 92, .28); }
+  .saga-list .book > picture { align-self: center; }
+  .saga-list .book-cover { width: 170px; max-width: none; }
+  .saga-list .book h3 { font-size: 2rem; }
+  .saga-list .book-body > p:not(.book-meta) { font-size: 1.15rem; }
+  .saga-list .buy { margin-top: 18px; }
+
+  .saga-controls {
+    display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 22px;
+  }
+  .saga-arrow {
+    width: 48px; height: 48px; padding: 0; cursor: pointer; font-size: 1.3rem; line-height: 1;
+    color: var(--gold-bright); background: none; border: 1px solid var(--line); border-radius: 50%;
+    transition: border-color var(--dur-quick) var(--ease-ui), opacity var(--dur-quick) var(--ease-ui);
+  }
+  .saga-arrow:hover { border-color: var(--gold); }
+  .saga-arrow:disabled { opacity: .3; cursor: default; }
+  .saga-dots { display: flex; gap: 4px; }
+  .saga-dots button {                            /* gold diamonds, like the progress marks on desktop */
+    width: 32px; height: 44px; padding: 0; cursor: pointer; background: none; border: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .saga-dots button::before {
+    content: ""; width: 9px; height: 9px; transform: rotate(45deg); background: var(--line);
+    transition: background-color var(--dur-ui) var(--ease-ui), transform var(--dur-ui) var(--ease-ui);
+  }
+  .saga-dots button[aria-current="true"]::before { background: var(--gold); transform: rotate(45deg) scale(1.25); }
+}
+@media (min-width: 641px) and (max-width: 1023px) {
+  .saga-list .book { flex-basis: calc(50% - 8px); }          /* tablets: two cards at a time */
+}
+@media (min-width: 700px) and (max-width: 1023px) {          /* match the wider page margins */
+  .saga-list { margin-inline: -32px; padding-inline: 32px; scroll-padding-inline: 32px; }
+}
+/* Without the script the row still swipes; only the buttons need it */
+html:not(.motion-ready) .saga-controls { display: none; }
+
 /* ===== Events: an engraved invitation instead of a flyer ===== */
 .event {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 80px; align-items: center; margin-top: 56px;
