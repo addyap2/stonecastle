@@ -24,6 +24,18 @@
   --heading: "Cinzel", Georgia, serif;
   --body: "EB Garamond", Georgia, serif;
   --wrap: 1120px;
+
+  /* Motion tokens (see docs/MOTION.md). Every animation uses these. */
+  --dur-instant: 90ms;
+  --dur-quick: 160ms;
+  --dur-ui: 240ms;
+  --dur-reveal: 800ms;
+  --dur-scene: 1100ms;
+  --ease-rise: cubic-bezier(.16, .84, .24, 1);
+  --ease-ui: cubic-bezier(.3, .7, .2, 1);
+  --ease-out: cubic-bezier(.4, 0, 1, 1);
+  --rise: 18px;
+  --stagger: 70ms;
 }
 
 /* ===== Language switching: only the chosen language is shown ===== */
@@ -67,6 +79,7 @@ em { font-style: italic; }
 /* ===== Header ===== */
 .site-header {
   position: sticky; top: 0; z-index: 50;
+  transition: transform var(--dur-ui) var(--ease-ui);
   background: rgba(15, 13, 11, 0.92);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--line);
@@ -82,14 +95,26 @@ em { font-style: italic; }
   color: var(--text-muted); text-decoration: none; font-size: 1.05rem;
   display: inline-flex; align-items: center; min-height: 44px;
 }
-.nav a:hover { color: var(--gold-bright); }
-.lang-switch { display: flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
-.lang-switch button {
-  font: 600 0.85rem/1 var(--heading); letter-spacing: 0.08em;
-  background: none; color: var(--text-muted); border: 0; padding: 0 10px; cursor: pointer;
-  min-width: 44px; min-height: 44px;
+.nav a { position: relative; transition: color var(--dur-quick) var(--ease-ui); }
+.nav a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: 1px; background: var(--gold);
+  transform: scaleX(0); transform-origin: left; transition: transform var(--dur-ui) var(--ease-ui);
 }
-.lang-switch button[aria-pressed="true"] { background: var(--gold); color: var(--bg); }
+.nav a:hover, .nav a:focus-visible { color: var(--gold-bright); }
+@media (hover: hover) { .nav a:hover::after { transform: scaleX(1); } }
+.nav a:focus-visible::after { transform: scaleX(1); }
+.lang-switch { position: relative; display: flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.lang-switch::before {                          /* the gold pill that slides between SV and EN */
+  content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 50%; background: var(--gold);
+  transition: transform var(--dur-ui) var(--ease-rise);
+}
+html[data-lang="en"] .lang-switch::before { transform: translateX(100%); }
+.lang-switch button {
+  position: relative; font: 600 0.85rem/1 var(--heading); letter-spacing: 0.08em;
+  background: none; color: var(--text-muted); border: 0; padding: 0; cursor: pointer;
+  width: 46px; min-height: 44px; transition: color var(--dur-ui) var(--ease-ui);
+}
+.lang-switch button[aria-pressed="true"] { color: var(--bg); }
 
 @media (max-width: 720px) {
   .header-inner { gap: 10px 16px; padding-top: 10px; padding-bottom: 10px; }
@@ -100,10 +125,22 @@ em { font-style: italic; }
 
 /* ===== Buttons ===== */
 .btn {
+  position: relative; overflow: hidden;
   display: inline-flex; align-items: center; justify-content: center; min-height: 48px;
   font-family: var(--heading); font-size: 0.95rem; letter-spacing: 0.06em; line-height: 1.2;
   text-decoration: none; padding: 12px 22px; border-radius: 3px; border: 1px solid var(--gold);
   background: none; cursor: pointer;
+  transition: background-color var(--dur-quick) var(--ease-ui), color var(--dur-quick) var(--ease-ui),
+              transform var(--dur-instant) var(--ease-ui);
+}
+.btn:active { transform: scale(.98); }
+.btn-gold::after {                              /* a band of light that sweeps across on hover */
+  content: ""; position: absolute; top: 0; bottom: 0; left: -40%; width: 30%;
+  background: linear-gradient(100deg, transparent, rgba(255, 248, 225, .55), transparent);
+  transform: translateX(0) skewX(-18deg); opacity: 0; pointer-events: none;
+}
+@media (hover: hover) {
+  .btn-gold:hover::after { opacity: 1; transform: translateX(560%) skewX(-18deg); transition: transform 600ms var(--ease-rise), opacity 0s; }
 }
 .btn-small { min-height: 44px; padding: 8px 16px; font-size: 0.9rem; white-space: nowrap; }
 .btn-gold { background: var(--gold); color: var(--bg); }
@@ -203,6 +240,8 @@ em { font-style: italic; }
   color: var(--gold-bright);
 }
 .text-link:hover { color: var(--text); }
+.text-link-arrow { display: inline-block; transition: transform var(--dur-quick) var(--ease-ui); }
+@media (hover: hover) { .text-link:hover .text-link-arrow { transform: translateX(4px); } }
 .hero .actions { align-items: center; gap: 12px 24px; }
 .hero-inscription {
   display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px;
@@ -338,7 +377,9 @@ em { font-style: italic; }
   display: inline-flex; align-items: center; min-height: 44px; padding: 6px 16px; border: 1px solid var(--line); border-radius: 3px;
   text-decoration: none; font-size: 1.05rem;
 }
+.buy a { transition: border-color var(--dur-quick) var(--ease-ui), background-color var(--dur-quick) var(--ease-ui), transform var(--dur-instant) var(--ease-ui); }
 .buy a:hover { border-color: var(--gold); background: rgba(201, 164, 92, 0.1); }
+.buy a:active { transform: scale(.98); }
 @media (max-width: 640px) {
   .book { grid-template-columns: 1fr; gap: 20px; }
   .book-cover { max-width: 200px; }
@@ -396,4 +437,122 @@ em { font-style: italic; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .action-bar, .action-bar.is-visible { transition: none; }
+}
+
+/* =====================================================================
+   Motion: reveals, header, saga (see docs/MOTION.md)
+   Content is only hidden once script.js marks the page "motion-ready".
+   ===================================================================== */
+
+/* --- Header hides on the way down, returns on the way up --- */
+.header-hidden .site-header:not(:focus-within) { transform: translateY(-100%); }
+
+/* --- Reveals --- */
+.motion-ready [data-reveal] {
+  opacity: 0; transform: translateY(var(--rise));
+  transition: opacity var(--dur-reveal) var(--ease-rise), transform var(--dur-reveal) var(--ease-rise);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
+}
+.motion-ready [data-reveal].is-in { opacity: 1; transform: none; }
+
+/* Section titles: rise, then the gold rule draws */
+.motion-ready [data-reveal="title"]::after {
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 600ms var(--ease-rise) 250ms;
+}
+.motion-ready [data-reveal="title"].is-in::after { transform: scaleX(1); }
+
+/* Images: uncovered from the bottom up, like light rising */
+.motion-ready [data-reveal="wipe"] { opacity: 1; transform: none; overflow: hidden; }
+.motion-ready [data-reveal="wipe"] img {
+  clip-path: inset(100% 0 0 0); transform: scale(1.06);
+  transition: clip-path var(--dur-scene) var(--ease-rise), transform var(--dur-scene) var(--ease-rise);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
+}
+.motion-ready [data-reveal="wipe"].is-in img { clip-path: inset(0); transform: none; }
+
+/* The portrait brightens, as if turning toward firelight */
+.motion-ready [data-reveal="light"] img {
+  filter: brightness(.55);
+  transition: filter 1400ms var(--ease-rise);
+}
+.motion-ready [data-reveal="light"].is-in img { filter: none; }
+
+/* Covers lift a little under the pointer */
+@media (hover: hover) {
+  .book-cover { transition: transform var(--dur-ui) var(--ease-ui), box-shadow var(--dur-ui) var(--ease-ui); }
+  .book:hover .book-cover { transform: translateY(-4px); box-shadow: 0 24px 44px rgba(0, 0, 0, .6); }
+}
+
+/* --- Saga: three books, oldest first --- */
+.badge {
+  display: inline-block; margin-left: 10px; padding: 2px 8px; border-radius: 2px; vertical-align: 2px;
+  font-family: var(--heading); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+  background: var(--gold); color: var(--bg);
+}
+.saga-stage { display: none; }
+
+/* Desktop: the stage of covers is pinned while the book texts scroll past */
+@media (min-width: 1024px) {
+  .motion-ready .saga-layout {
+    display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 72px; align-items: start;
+  }
+  .motion-ready .saga-stage {
+    display: block; position: sticky; top: calc(50vh - 290px + 32px); height: 580px;
+  }
+  .saga-bloom {                                 /* the book's own colour of light behind it */
+    position: absolute; left: 50%; top: 44%; width: 760px; aspect-ratio: 1; border-radius: 50%;
+    transform: translate(-50%, -50%); opacity: 0; pointer-events: none;
+    transition: opacity var(--dur-scene) var(--ease-rise);
+  }
+  .saga-bloom[data-tint="ember"] { background: radial-gradient(circle, rgba(196, 72, 30, .30), transparent 62%); }
+  .saga-bloom[data-tint="moss"]  { background: radial-gradient(circle, rgba(110, 128, 72, .28), transparent 62%); }
+  .saga-bloom[data-tint="dawn"]  { background: radial-gradient(circle, rgba(70, 130, 200, .30), rgba(255, 200, 130, .10) 40%, transparent 64%); }
+  .saga-cover {
+    position: absolute; left: 50%; top: 0; width: 340px;
+    opacity: 0; transform: translate(-50%, 24px) scale(.96);
+    transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+  }
+  .saga-cover img { width: 100%; box-shadow: 0 30px 60px rgba(0, 0, 0, .6), 0 0 0 1px var(--line); }
+  .saga-marks {
+    position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; gap: 14px;
+    list-style: none; margin: 0; padding: 0;
+  }
+  .saga-marks li {
+    width: 8px; height: 8px; transform: rotate(45deg); background: var(--line);
+    transition: background-color var(--dur-ui) var(--ease-ui);
+  }
+
+  .motion-ready .saga-list .book {
+    display: flex; align-items: center; min-height: 72vh; padding: 0; border-top: 0;
+  }
+  .motion-ready .saga-list .book > picture { display: none; }   /* the stage shows the cover instead */
+  .motion-ready .saga-list .book-body { opacity: .32; transition: opacity var(--dur-ui) var(--ease-ui); }
+
+  /* The active book (set by script.js as data-active on the section) */
+  [data-active="stridslarm"] .saga-cover[data-book="stridslarm"],
+  [data-active="jagad"] .saga-cover[data-book="jagad"],
+  [data-active="kungablod"] .saga-cover[data-book="kungablod"] {
+    opacity: 1; transform: translate(-50%, 0) scale(1);
+    transition: opacity var(--dur-scene) var(--ease-rise), transform var(--dur-scene) var(--ease-rise);
+  }
+  [data-active="stridslarm"] .saga-bloom[data-tint="ember"],
+  [data-active="jagad"] .saga-bloom[data-tint="moss"],
+  [data-active="kungablod"] .saga-bloom[data-tint="dawn"] { opacity: 1; }
+  [data-active="stridslarm"] .saga-marks li:nth-child(1),
+  [data-active="jagad"] .saga-marks li:nth-child(2),
+  [data-active="kungablod"] .saga-marks li:nth-child(3) { background: var(--gold); }
+  [data-active="stridslarm"] .book[data-book="stridslarm"] .book-body,
+  [data-active="jagad"] .book[data-book="jagad"] .book-body,
+  [data-active="kungablod"] .book[data-book="kungablod"] .book-body { opacity: 1; }
+}
+
+/* --- Reduced motion: everything is present and still --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0s !important; transition-delay: 0s !important; }
+  .motion-ready [data-reveal] { opacity: 1; transform: none; }
+  .motion-ready [data-reveal="wipe"] img { clip-path: none; transform: none; }
+  .motion-ready [data-reveal="light"] img { filter: none; }
+  .btn-gold::after { display: none; }
+  .btn:active, .buy a:active { transform: none; }
 }

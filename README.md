@@ -3,7 +3,9 @@
 A one-page site for author Jan Stenborg (*Stridslarm*, *Jagad*, *Kungablod*). Swedish is the main language, with an English version one click away.
 It's plain HTML and CSS with no build step: open `index.html` in a browser to see it, or upload the folder to any web host (for example GitHub Pages).
 
-The full design plan is in [docs/EXPERIENCE.md](docs/EXPERIENCE.md), and the art direction for the opening screen in [docs/HERO.md](docs/HERO.md).
+The full design plan is in [docs/EXPERIENCE.md](docs/EXPERIENCE.md), the art direction for the opening screen in [docs/HERO.md](docs/HERO.md), and how everything moves in [docs/MOTION.md](docs/MOTION.md).
+
+**Motion in short:** anything with `data-reveal` fades up the first time it scrolls into view. Use `data-reveal="title"` on headings and `data-reveal="wipe"` on pictures. On desktop the books are shown as a pinned sequence: the covers stay in place on the left while the texts scroll past. A new book must be added both to the `saga-stage` (cover only) and to the `saga-list` (cover and text). Visitors who turn off motion on their device get a still version.
 
 The opening scene (sky, sun, ships, sea) is drawn entirely in code inside the `HERO` section of `index.html` and `styles.css`. The only picture in it is the *Kungablod* cover. The sunrise entrance plays once per visit. To see it again, open the page in a new tab.
 

@@ -117,6 +117,67 @@
     });
   }
 
+  /* ---------- Motion (see docs/MOTION.md) ---------- */
+  window.motionStarted = true;
+  var heroRender = null;   // set below when the hero's scroll depth is active
+
+  // Reveals: each [data-reveal] appears once, the first time it comes into view.
+  // Siblings stagger automatically (up to 6 steps).
+  var reveals = document.querySelectorAll('[data-reveal]');
+  reveals.forEach(function (el) {
+    if (el.style.getPropertyValue('--i')) return;
+    var i = 0, prev = el.previousElementSibling;
+    while (prev) { if (prev.hasAttribute('data-reveal')) i++; prev = prev.previousElementSibling; }
+    el.style.setProperty('--i', Math.min(i, 6));
+  });
+  if ('IntersectionObserver' in window) {
+    var revealer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); revealer.unobserve(e.target); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach(function (el) { revealer.observe(el); });
+
+    // Saga: the book crossing the middle of the screen becomes the active one.
+    var saga = document.querySelector('[data-saga]');
+    if (saga) {
+      var picker = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) saga.setAttribute('data-active', e.target.getAttribute('data-book')); });
+      }, { rootMargin: '-45% 0px -45% 0px' });
+      saga.querySelectorAll('.saga-list .book').forEach(function (b) { picker.observe(b); });
+    }
+  } else {
+    reveals.forEach(function (el) { el.classList.add('is-in'); });
+  }
+
+  // Header: hides on the way down (past the hero), returns on the way up.
+  var lastY = window.scrollY;
+  var holdHeader = 0;
+  var heroEl = document.querySelector('.hero');
+  document.querySelectorAll('.nav a, .brand').forEach(function (a) {
+    a.addEventListener('click', function () { holdHeader = Date.now() + 1200; root.classList.remove('header-hidden'); });
+  });
+  function headerUpdate() {
+    var y = window.scrollY;
+    var pastHero = heroEl ? y > heroEl.offsetHeight * 0.8 : y > 400;
+    if (Date.now() < holdHeader || y < 80) root.classList.remove('header-hidden');
+    else if (y > lastY + 6 && pastHero) root.classList.add('header-hidden');
+    else if (y < lastY - 6) root.classList.remove('header-hidden');
+    lastY = y;
+  }
+
+  // One scroll listener for the whole page, at most one update per frame.
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      headerUpdate();
+      if (heroRender) heroRender();
+    });
+  }, { passive: true });
+
   /* ---------- Hero: book tilt and scroll depth ---------- */
   var hero = document.querySelector('.hero');
   var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -147,14 +208,12 @@
     }
 
     // Layers separate in depth as the hero scrolls away. Runs only while it's on screen.
-    var ticking = false;
     var onScreen = true;
     var wide = window.matchMedia('(min-width: 821px)');
     function move(list, y) {
       list.forEach(function (el) { el.style.translate = '0 ' + y.toFixed(1) + 'px'; });
     }
     function render() {
-      ticking = false;
       var h = hero.offsetHeight;
       var p = Math.max(0, Math.min(1, window.scrollY / h));
       move(layers.sky, p * h * 0.25);
@@ -167,9 +226,7 @@
       if (bookBody) bookBody.style.setProperty('--turn', (p * 6).toFixed(2) + 'deg');
       if (cue) cue.style.opacity = String(Math.max(0, 1 - p * 8));
     }
-    window.addEventListener('scroll', function () {
-      if (onScreen && !ticking) { ticking = true; requestAnimationFrame(render); }
-    }, { passive: true });
+    heroRender = function () { if (onScreen) render(); };
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
         onScreen = entries[0].isIntersecting;
