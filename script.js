@@ -324,6 +324,7 @@
   function headerUpdate() {
     var y = window.scrollY;
     var pastHero = y > heroHeight * 0.8;
+    root.classList.toggle('header-condensed', y > 40);     // desktop: the bar shrinks once the page scrolls
     if (Date.now() < holdHeader || y < 80) root.classList.remove('header-hidden');
     else if (y > lastY + 6 && pastHero) root.classList.add('header-hidden');
     else if (y < lastY - 6) root.classList.remove('header-hidden');
@@ -341,6 +342,7 @@
       if (heroRender) heroRender();
     });
   }, { passive: true });
+  headerUpdate();                                         // right state after a reload mid-page
 
   /* ---------- Hero: book tilt and scroll depth ---------- */
   var hero = document.querySelector('.hero');
