@@ -209,7 +209,15 @@
 
     <div class="wrap hero-inner">
       <div class="hero-text" data-depth="text">
-        <p class="eyebrow hero-in" style="--i:0">Jan Stenborg · <span lang="sv">Ny roman</span><span lang="en">New novel</span></p>
+        <!-- Jan's face beside his name, so visitors who know him recognise it at once -->
+        <p class="eyebrow hero-byline hero-in" style="--i:0">
+          <picture class="hero-avatar">
+            <source type="image/avif" srcset="images/jan-avatar-112.avif 112w, images/jan-avatar-168.avif 168w" sizes="56px">
+            <source type="image/webp" srcset="images/jan-avatar-112.webp 112w, images/jan-avatar-168.webp 168w" sizes="56px">
+            <img src="images/jan-avatar.jpg" width="56" height="56" alt="">
+          </picture>
+          <span>Jan Stenborg · <span lang="sv">Ny roman</span><span lang="en">New novel</span></span>
+        </p>
         <h1 class="hero-title hero-in" aria-label="Kungablod" style="--i:1"><span class="hero-letter" aria-hidden="true" style="--letter:0">K</span><span class="hero-letter" aria-hidden="true" style="--letter:1">u</span><span class="hero-letter" aria-hidden="true" style="--letter:2">n</span><span class="hero-letter" aria-hidden="true" style="--letter:3">g</span><span class="hero-letter" aria-hidden="true" style="--letter:4">a</span><span class="hero-letter" aria-hidden="true" style="--letter:5">b</span><span class="hero-letter" aria-hidden="true" style="--letter:6">l</span><span class="hero-letter" aria-hidden="true" style="--letter:7">o</span><span class="hero-letter" aria-hidden="true" style="--letter:8">d</span></h1>
         <p class="lead hero-in" style="--i:2">
           <span lang="sv">Den nya vikingaromanen från författaren bakom <em>Stridslarm</em> och <em>Jagad</em>.</span>
