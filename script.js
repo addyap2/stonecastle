@@ -117,6 +117,68 @@
     });
   }
 
+  /* ---------- Hero: book tilt and scroll depth ---------- */
+  var hero = document.querySelector('.hero');
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (hero && !calm) {
+    var bookBody = hero.querySelector('.book3d-body');
+    var layers = {
+      sky: hero.querySelectorAll('[data-depth="sky"]'),
+      fleet: hero.querySelectorAll('[data-depth="fleet"]'),
+      book: hero.querySelectorAll('[data-depth="book"]'),
+      text: hero.querySelectorAll('[data-depth="text"]')
+    };
+    var cue = hero.querySelector('.scroll-cue');
+
+    // The book turns toward the pointer (mouse or trackpad only).
+    if (bookBody && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      hero.addEventListener('pointermove', function (e) {
+        var r = bookBody.getBoundingClientRect();
+        var dx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (window.innerWidth / 2)));
+        var dy = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (window.innerHeight / 2)));
+        bookBody.style.setProperty('--tilt-y', (dx * 8).toFixed(2) + 'deg');
+        bookBody.style.setProperty('--tilt-x', (-dy * 8).toFixed(2) + 'deg');
+        bookBody.style.setProperty('--gx', (70 - dx * 40).toFixed(1) + '%');
+        bookBody.style.setProperty('--gy', (18 - dy * 20).toFixed(1) + '%');
+      });
+      hero.addEventListener('pointerleave', function () {
+        ['--tilt-y', '--tilt-x', '--gx', '--gy'].forEach(function (p) { bookBody.style.removeProperty(p); });
+      });
+    }
+
+    // Layers separate in depth as the hero scrolls away. Runs only while it's on screen.
+    var ticking = false;
+    var onScreen = true;
+    var wide = window.matchMedia('(min-width: 821px)');
+    function move(list, y) {
+      list.forEach(function (el) { el.style.translate = '0 ' + y.toFixed(1) + 'px'; });
+    }
+    function render() {
+      ticking = false;
+      var h = hero.offsetHeight;
+      var p = Math.max(0, Math.min(1, window.scrollY / h));
+      move(layers.sky, p * h * 0.25);
+      move(layers.fleet, p * h * 0.15);
+      move(layers.book, -p * h * 0.15);
+      if (wide.matches) {          // on phones the text stays put and fully visible
+        move(layers.text, -p * 30);
+        layers.text.forEach(function (el) { el.style.opacity = String(Math.max(0, 1 - p * 1.4)); });
+      }
+      if (bookBody) bookBody.style.setProperty('--turn', (p * 6).toFixed(2) + 'deg');
+      if (cue) cue.style.opacity = String(Math.max(0, 1 - p * 8));
+    }
+    window.addEventListener('scroll', function () {
+      if (onScreen && !ticking) { ticking = true; requestAnimationFrame(render); }
+    }, { passive: true });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        onScreen = entries[0].isIntersecting;
+        hero.classList.toggle('is-offscreen', !onScreen);
+      }).observe(hero);
+    }
+    render();
+  }
+
   /* ---------- Footer year ---------- */
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();

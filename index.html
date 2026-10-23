@@ -14,7 +14,7 @@
   <!-- Load the hero cover and the two main fonts first, so the top of the page appears fast -->
   <link rel="preload" as="image" type="image/avif"
         imagesrcset="images/kungablod-320.avif 320w, images/kungablod-480.avif 480w, images/kungablod-628.avif 628w"
-        imagesizes="(max-width: 820px) 260px, 400px">
+        imagesizes="(max-width: 820px) 220px, 340px">
   <link rel="preload" href="fonts/cinzel.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
@@ -33,6 +33,13 @@
       if (lang !== 'en') lang = 'sv';
       document.documentElement.setAttribute('data-lang', lang);
       document.documentElement.setAttribute('lang', lang);
+      try {
+        var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!calm && !sessionStorage.getItem('heroSeen')) {
+          document.documentElement.classList.add('hero-intro');
+          sessionStorage.setItem('heroSeen', '1');
+        }
+      } catch (e) {}
     })();
   </script>
 
@@ -146,43 +153,72 @@
 
 <main id="main">
 
-  <!-- ===== HERO: the newest book ===== -->
+  <!-- ===== HERO: "Dawn over the fleet". The scene is drawn in code; see docs/HERO.md ===== -->
   <section class="hero" id="top">
+    <div class="hero-scene" aria-hidden="true">
+      <div class="hero-sky" data-depth="sky"></div>
+      <div class="hero-sun" data-depth="sky"></div>
+      <svg class="hero-fleet" data-depth="fleet" viewBox="0 0 1200 40" preserveAspectRatio="xMidYMax slice">
+        <defs>
+          <symbol id="longship" viewBox="0 0 60 30">
+            <path d="M28 2h2v19h-2z"/>
+            <path d="M20 5h18l2 13H18z" opacity=".85"/>
+            <path d="M1 18c2 0 3 2 4 4 6 3 14 4 25 4s19-1 25-4c1-2 2-5 4-8 0 4-1 7-3 10-6 4-15 5-26 5S10 28 4 24c-2-2-3-4-3-6z"/>
+          </symbol>
+        </defs>
+        <g class="hero-fleet-drift">
+          <use href="#longship" x="90" y="14" width="34" height="17"/>
+          <use href="#longship" x="250" y="18" width="24" height="12"/>
+          <use href="#longship" x="760" y="16" width="28" height="14"/>
+          <use href="#longship" x="980" y="12" width="38" height="19"/>
+          <use href="#longship" x="1110" y="19" width="22" height="11"/>
+        </g>
+      </svg>
+      <div class="hero-sea">
+        <div class="hero-sunpath"></div>
+      </div>
+      <div class="hero-grain"></div>
+    </div>
+
     <div class="wrap hero-inner">
-      <div class="hero-text">
-        <p class="eyebrow"><span lang="sv">Ny bok</span><span lang="en">New book</span></p>
-        <h1>Kungablod</h1>
-        <p class="lead">
-          <span lang="sv">Den nya vikingaromanen från Jan Stenborg, författaren bakom <em>Stridslarm</em> och <em>Jagad</em>.</span>
-          <span lang="en">The new Viking-age novel from Jan Stenborg, author of <em>Stridslarm</em> and <em>Jagad</em>.</span>
+      <div class="hero-text" data-depth="text">
+        <p class="eyebrow hero-in" style="--i:0">Jan Stenborg · <span lang="sv">Ny roman</span><span lang="en">New novel</span></p>
+        <h1 class="hero-title hero-in" style="--i:1">Kungablod</h1>
+        <p class="lead hero-in" style="--i:2">
+          <span lang="sv">Den nya vikingaromanen från författaren bakom <em>Stridslarm</em> och <em>Jagad</em>.</span>
+          <span lang="en">The new Viking-age novel from the author of <em>Stridslarm</em> and <em>Jagad</em>.</span>
         </p>
-        <div class="signing-card" data-show="upcoming today">
-          <p class="signing-label">
-            <span data-show="upcoming"><span lang="sv">Boksignering</span><span lang="en">Book signing</span></span>
-            <span data-show="today"><span lang="sv">Boksignering idag</span><span lang="en">Book signing today</span></span>
-          </p>
-          <p class="signing-when">
-            <span lang="sv">Lördag 21 november, kl. 13.00</span>
-            <span lang="en">Saturday 21 November, 1 pm</span>
-          </p>
-          <p class="signing-where">Twang, Katarina bangata 25, Stockholm</p>
-        </div>
-        <div class="actions" id="hero-actions">
+        <div class="actions hero-in" id="hero-actions" style="--i:3">
           <a class="btn btn-gold" href="#evenemang" data-show="upcoming today"><span lang="sv">Kom på signeringen</span><span lang="en">Come to the signing</span></a>
           <a class="btn btn-gold" href="#bocker" data-show="past"><span lang="sv">Läs om Kungablod</span><span lang="en">About Kungablod</span></a>
-          <a class="btn btn-ghost" href="#bocker" data-show="upcoming today"><span lang="sv">Alla böcker</span><span lang="en">All books</span></a>
+          <a class="text-link" href="#bocker" data-show="upcoming today"><span lang="sv">Utforska böckerna</span><span lang="en">Explore the books</span> <span aria-hidden="true">→</span></a>
+        </div>
+        <p class="hero-inscription hero-in" style="--i:4" data-show="upcoming today">
+          <span data-show="upcoming"><span lang="sv">Boksignering · lör 21 nov · 13.00</span><span lang="en">Book signing · Sat 21 Nov · 1 pm</span></span>
+          <span data-show="today"><span lang="sv">Signering idag · 13.00</span><span lang="en">Signing today · 1 pm</span></span>
+          <span class="hero-inscription-place">Twang, Katarina bangata 25, Stockholm</span>
+        </p>
+      </div>
+
+      <div class="hero-book" data-depth="book">
+        <div class="hero-halo" aria-hidden="true"></div>
+        <div class="book3d" data-tilt>
+          <div class="book3d-body">
+            <picture>
+              <source type="image/avif" srcset="images/kungablod-320.avif 320w, images/kungablod-480.avif 480w, images/kungablod-628.avif 628w" sizes="(max-width: 820px) 220px, 340px">
+              <source type="image/webp" srcset="images/kungablod-320.webp 320w, images/kungablod-480.webp 480w, images/kungablod-628.webp 628w" sizes="(max-width: 820px) 220px, 340px">
+              <img class="book3d-front" src="images/kungablod.jpg" width="628" height="938" fetchpriority="high"
+                   alt="Omslaget till Kungablod av Jan Stenborg: en långhårig krigare i blå mantel ser ut över havet i soluppgången."
+                   data-alt-en="The cover of Kungablod by Jan Stenborg: a long-haired warrior in a blue cloak looks out over the sea at sunrise.">
+            </picture>
+            <span class="book3d-spine" aria-hidden="true"></span>
+            <span class="book3d-glare" aria-hidden="true"></span>
+          </div>
         </div>
       </div>
-      <div class="hero-cover">
-        <picture>
-          <source type="image/avif" srcset="images/kungablod-320.avif 320w, images/kungablod-480.avif 480w, images/kungablod-628.avif 628w" sizes="(max-width: 820px) 260px, 400px">
-          <source type="image/webp" srcset="images/kungablod-320.webp 320w, images/kungablod-480.webp 480w, images/kungablod-628.webp 628w" sizes="(max-width: 820px) 260px, 400px">
-          <img src="images/kungablod.jpg" width="628" height="938" fetchpriority="high"
-               alt="Omslaget till Kungablod av Jan Stenborg: en långhårig krigare i blå mantel ser ut över havet i soluppgången."
-               data-alt-en="The cover of Kungablod by Jan Stenborg: a long-haired warrior in a blue cloak looks out over the sea at sunrise.">
-        </picture>
-      </div>
     </div>
+
+    <a class="scroll-cue" href="#bocker" aria-hidden="true" tabindex="-1"><span lang="sv">Scrolla</span><span lang="en">Scroll</span></a>
   </section>
 
   <!-- ===== BOOKS ===== -->
