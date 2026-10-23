@@ -61,7 +61,7 @@ await visit(webkit, 'webkit');
   const b = await chromium.launch(); const results = {};
   for (const lang of ['sv', 'en']) {
     for (const [label, vp] of Object.entries(sizes)) {
-      const p = await b.newPage({ viewport: { width: vp.width, height: vp.height }, reducedMotion: 'reduce' });
+      const p = await b.newPage({ viewport: { width: vp.width, height: vp.height }, reducedMotion: 'reduce', bypassCSP: true });   // the live security policy blocks the injected tester
       await p.goto(URL + '?lang=' + lang); await p.waitForTimeout(800);
       await p.addScriptTag({ content: axeSource });
       const res = await p.evaluate(async () => {
