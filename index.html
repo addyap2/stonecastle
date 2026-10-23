@@ -2,30 +2,114 @@
 <html lang="sv" data-lang="sv">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Jan Stenborg – Författare</title>
   <meta name="description" content="Jan Stenborg skriver historiska äventyrsromaner från vikingatiden: Stridslarm, Jagad och nya Kungablod. / Jan Stenborg writes Viking-age adventure novels.">
+  <meta name="theme-color" content="#0f0d0b">
   <meta property="og:title" content="Jan Stenborg – Författare / Author">
   <meta property="og:description" content="Vikingaromanerna Stridslarm, Jagad och nya Kungablod.">
   <meta property="og:image" content="images/share.jpg">
   <meta property="og:type" content="website">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <!-- Load the hero cover and the two main fonts first, so the top of the page appears fast -->
+  <link rel="preload" as="image" type="image/avif"
+        imagesrcset="images/kungablod-320.avif 320w, images/kungablod-480.avif 480w, images/kungablod-628.avif 628w"
+        imagesizes="(max-width: 820px) 260px, 400px">
+  <link rel="preload" href="fonts/cinzel.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
+
   <script>
     // Choose the language before the page draws, so there is no flash of the wrong one.
+    // Swedish is the main language. English shows only if the visitor picked it,
+    // or the address ends in ?lang=en.
     (function () {
       var lang = 'sv';
       try {
         var fromUrl = new URLSearchParams(location.search).get('lang');
         var saved = localStorage.getItem('lang');
-        lang = fromUrl || saved || (navigator.language || 'sv').slice(0, 2);
+        lang = fromUrl || saved || 'sv';
       } catch (e) {}
       if (lang !== 'en') lang = 'sv';
       document.documentElement.setAttribute('data-lang', lang);
       document.documentElement.setAttribute('lang', lang);
     })();
+  </script>
+
+  <!-- Information for Google: Jan, his books and the signing. Update together with the page text. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "#jan-stenborg",
+        "name": "Jan Stenborg",
+        "jobTitle": "Författare",
+        "image": "images/jan-stenborg.jpg",
+        "sameAs": ["https://www.bokus.com/forfattare/jan-stenborg"]
+      },
+      {
+        "@type": "Book",
+        "name": "Stridslarm",
+        "author": { "@id": "#jan-stenborg" },
+        "inLanguage": "sv",
+        "genre": "Historisk roman",
+        "datePublished": "2017",
+        "publisher": { "@type": "Organization", "name": "Vulkan" },
+        "isbn": "9789163748806",
+        "numberOfPages": 431,
+        "bookFormat": "https://schema.org/Paperback",
+        "image": "images/stridslarm.jpg"
+      },
+      {
+        "@type": "Book",
+        "name": "Jagad",
+        "author": { "@id": "#jan-stenborg" },
+        "inLanguage": "sv",
+        "genre": "Historisk roman",
+        "datePublished": "2021",
+        "image": "images/jagad.jpg",
+        "workExample": {
+          "@type": "Book",
+          "bookFormat": "https://schema.org/AudiobookFormat",
+          "isbn": "9789189736337",
+          "publisher": { "@type": "Organization", "name": "Bookea" },
+          "readBy": { "@type": "Person", "name": "Sebastian Karlsson" }
+        }
+      },
+      {
+        "@type": "Book",
+        "name": "Kungablod",
+        "author": { "@id": "#jan-stenborg" },
+        "inLanguage": "sv",
+        "genre": "Historisk roman",
+        "image": "images/kungablod.jpg"
+      },
+      {
+        "@type": "Event",
+        "name": "Boksignering: Kungablod med Jan Stenborg",
+        "description": "Jan Stenborg signerar sin nya bok Kungablod.",
+        "startDate": "2026-11-21T13:00:00+01:00",
+        "endDate": "2026-11-21T15:00:00+01:00",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "image": "images/boksignering-kungablod.jpg",
+        "performer": { "@id": "#jan-stenborg" },
+        "organizer": { "@id": "#jan-stenborg" },
+        "location": {
+          "@type": "Place",
+          "name": "Twang",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Katarina bangata 25",
+            "addressLocality": "Stockholm",
+            "addressCountry": "SE"
+          }
+        }
+      }
+    ]
+  }
   </script>
 </head>
 <body>
@@ -34,6 +118,12 @@
   HOW TEXT WORKS ON THIS PAGE
   Every piece of text appears twice: once with lang="sv" (Swedish) and once with lang="en" (English).
   Only the chosen language is shown. When you change one, change the other too.
+  Image descriptions work the same way: alt="..." is Swedish, data-alt-en="..." is English.
+
+  HOW THE SIGNING DATES WORK
+  The event's start and end are set once, on the <article class="event"> below.
+  Anything marked data-show="upcoming", "today" or "past" appears only at that time,
+  so the page updates itself before, on and after the day.
 -->
 
 <a class="skip" href="#main"><span lang="sv">Hoppa till innehållet</span><span lang="en">Skip to content</span></a>
@@ -66,22 +156,31 @@
           <span lang="sv">Den nya vikingaromanen från Jan Stenborg, författaren bakom <em>Stridslarm</em> och <em>Jagad</em>.</span>
           <span lang="en">The new Viking-age novel from Jan Stenborg, author of <em>Stridslarm</em> and <em>Jagad</em>.</span>
         </p>
-        <div class="signing-card">
-          <p class="signing-label"><span lang="sv">Boksignering</span><span lang="en">Book signing</span></p>
+        <div class="signing-card" data-show="upcoming today">
+          <p class="signing-label">
+            <span data-show="upcoming"><span lang="sv">Boksignering</span><span lang="en">Book signing</span></span>
+            <span data-show="today"><span lang="sv">Boksignering idag</span><span lang="en">Book signing today</span></span>
+          </p>
           <p class="signing-when">
             <span lang="sv">Lördag 21 november, kl. 13.00</span>
             <span lang="en">Saturday 21 November, 1 pm</span>
           </p>
           <p class="signing-where">Twang, Katarina bangata 25, Stockholm</p>
         </div>
-        <div class="actions">
-          <a class="btn btn-gold" href="#evenemang"><span lang="sv">Om signeringen</span><span lang="en">About the signing</span></a>
-          <a class="btn btn-ghost" href="#bocker"><span lang="sv">Alla böcker</span><span lang="en">All books</span></a>
+        <div class="actions" id="hero-actions">
+          <a class="btn btn-gold" href="#evenemang" data-show="upcoming today"><span lang="sv">Kom på signeringen</span><span lang="en">Come to the signing</span></a>
+          <a class="btn btn-gold" href="#bocker" data-show="past"><span lang="sv">Läs om Kungablod</span><span lang="en">About Kungablod</span></a>
+          <a class="btn btn-ghost" href="#bocker" data-show="upcoming today"><span lang="sv">Alla böcker</span><span lang="en">All books</span></a>
         </div>
       </div>
       <div class="hero-cover">
-        <img src="images/kungablod.jpg" width="628" height="938"
-             alt="Omslaget till Kungablod av Jan Stenborg: en långhårig krigare i blå mantel ser ut över havet i solnedgången.">
+        <picture>
+          <source type="image/avif" srcset="images/kungablod-320.avif 320w, images/kungablod-480.avif 480w, images/kungablod-628.avif 628w" sizes="(max-width: 820px) 260px, 400px">
+          <source type="image/webp" srcset="images/kungablod-320.webp 320w, images/kungablod-480.webp 480w, images/kungablod-628.webp 628w" sizes="(max-width: 820px) 260px, 400px">
+          <img src="images/kungablod.jpg" width="628" height="938" fetchpriority="high"
+               alt="Omslaget till Kungablod av Jan Stenborg: en långhårig krigare i blå mantel ser ut över havet i soluppgången."
+               data-alt-en="The cover of Kungablod by Jan Stenborg: a long-haired warrior in a blue cloak looks out over the sea at sunrise.">
+        </picture>
       </div>
     </div>
   </section>
@@ -97,8 +196,12 @@
 
       <!-- Book: Kungablod. Add a description and shop links when they are ready. -->
       <article class="book">
-        <img class="book-cover" src="images/kungablod.jpg" width="628" height="938" loading="lazy"
-             alt="Omslaget till Kungablod">
+        <picture>
+          <source type="image/avif" srcset="images/kungablod-320.avif 320w, images/kungablod-480.avif 480w" sizes="(max-width: 640px) 200px, 220px">
+          <source type="image/webp" srcset="images/kungablod-320.webp 320w, images/kungablod-480.webp 480w" sizes="(max-width: 640px) 200px, 220px">
+          <img class="book-cover" src="images/kungablod.jpg" width="628" height="938" loading="lazy"
+               alt="Omslaget till Kungablod" data-alt-en="The cover of Kungablod">
+        </picture>
         <div class="book-body">
           <p class="book-meta"><span lang="sv">Ny · 2026</span><span lang="en">New · 2026</span></p>
           <h3>Kungablod</h3>
@@ -106,7 +209,7 @@
             <span lang="sv">Jan Stenborgs nya roman. Mer om boken, och var du kan köpa den, kommer snart.</span>
             <span lang="en">Jan Stenborg's new novel. More about the book, and where to buy it, coming soon.</span>
           </p>
-          <p class="book-note">
+          <p class="book-note" data-show="upcoming today">
             <span lang="sv">Träffa Jan och få ditt exemplar signerat den 21 november på Twang i Stockholm.</span>
             <span lang="en">Meet Jan and get your copy signed on 21 November at Twang in Stockholm.</span>
           </p>
@@ -115,8 +218,13 @@
 
       <!-- Book: Jagad -->
       <article class="book">
-        <img class="book-cover" src="images/jagad.jpg" width="362" height="552" loading="lazy"
-             alt="Omslaget till Jagad: en krigare med sköld går mot en stad genom en gotisk portal.">
+        <picture>
+          <source type="image/avif" srcset="images/jagad-240.avif 240w, images/jagad-362.avif 362w" sizes="(max-width: 640px) 200px, 220px">
+          <source type="image/webp" srcset="images/jagad-240.webp 240w, images/jagad-362.webp 362w" sizes="(max-width: 640px) 200px, 220px">
+          <img class="book-cover" src="images/jagad.jpg" width="362" height="552" loading="lazy"
+               alt="Omslaget till Jagad: en krigare med sköld går mot en stad genom en gotisk portal."
+               data-alt-en="The cover of Jagad: a warrior with a shield walks towards a city through a Gothic archway.">
+        </picture>
         <div class="book-body">
           <p class="book-meta">2021 · <span lang="sv">Ljudbok uppläst av Sebastian Karlsson</span><span lang="en">Audiobook read by Sebastian Karlsson</span></p>
           <h3>Jagad</h3>
@@ -134,8 +242,13 @@
 
       <!-- Book: Stridslarm -->
       <article class="book">
-        <img class="book-cover" src="images/stridslarm.jpg" width="533" height="804" loading="lazy"
-             alt="Omslaget till Stridslarm: en vikingakrigare med svärd och sköld i fören på ett långskepp framför ett brinnande hav.">
+        <picture>
+          <source type="image/avif" srcset="images/stridslarm-360.avif 360w, images/stridslarm-533.avif 533w" sizes="(max-width: 640px) 200px, 220px">
+          <source type="image/webp" srcset="images/stridslarm-360.webp 360w, images/stridslarm-533.webp 533w" sizes="(max-width: 640px) 200px, 220px">
+          <img class="book-cover" src="images/stridslarm.jpg" width="533" height="804" loading="lazy"
+               alt="Omslaget till Stridslarm: en vikingakrigare med svärd och sköld i fören på ett långskepp framför ett brinnande hav."
+               data-alt-en="The cover of Stridslarm: a Viking warrior with sword and shield at the prow of a longship before a burning sea.">
+        </picture>
         <div class="book-body">
           <p class="book-meta">2017 · Vulkan · 431 <span lang="sv">sidor</span><span lang="en">pages</span></p>
           <h3>Stridslarm</h3>
@@ -153,28 +266,74 @@
     </div>
   </section>
 
-  <!-- ===== EVENTS: copy a block to add another event; delete past ones ===== -->
+  <!-- ===== EVENTS =====
+       To change the signing time, edit data-event-start / data-event-end here,
+       the calendar file in events/, and the Event block in the <head>. -->
   <section class="section section-dark" id="evenemang">
     <div class="wrap">
       <h2 class="section-title"><span lang="sv">Evenemang</span><span lang="en">Events</span></h2>
 
-      <article class="event">
-        <img src="images/boksignering-kungablod.jpg" width="1920" height="1280" loading="lazy"
-             alt="Affisch för boksignering av Kungablod med Jan Stenborg på Twang, Katarina bangata 25, Stockholm, 21 november kl. 13.00.">
+      <article class="event"
+               data-event-start="2026-11-21T13:00:00+01:00"
+               data-event-end="2026-11-21T15:00:00+01:00">
+        <picture>
+          <source type="image/avif" srcset="images/boksignering-kungablod-640.avif 640w, images/boksignering-kungablod-960.avif 960w, images/boksignering-kungablod-1440.avif 1440w" sizes="(max-width: 820px) calc(100vw - 32px), 620px">
+          <source type="image/webp" srcset="images/boksignering-kungablod-640.webp 640w, images/boksignering-kungablod-960.webp 960w, images/boksignering-kungablod-1440.webp 1440w" sizes="(max-width: 820px) calc(100vw - 32px), 620px">
+          <img src="images/boksignering-kungablod.jpg" width="1440" height="960" loading="lazy"
+               alt="Affisch för boksignering av Kungablod med Jan Stenborg på Twang, Katarina bangata 25, Stockholm, 21 november kl. 13.00."
+               data-alt-en="Poster for the Kungablod book signing with Jan Stenborg at Twang, Katarina bangata 25, Stockholm, 21 November at 1 pm.">
+        </picture>
         <div class="event-body">
           <p class="event-date">
             <span lang="sv">21 november · kl. 13.00</span>
             <span lang="en">21 November · 1 pm</span>
           </p>
-          <h3><span lang="sv">Boksignering: Kungablod</span><span lang="en">Book signing: Kungablod</span></h3>
-          <p>
-            <span lang="sv">Kom och träffa Jan, prata vikingatid och få din bok signerad. Välkommen!</span>
-            <span lang="en">Come and meet Jan, talk Viking history and get your book signed. Everyone is welcome!</span>
-          </p>
+
+          <!-- Before the day -->
+          <div data-show="upcoming">
+            <p class="event-soon" data-countdown hidden>
+              <span lang="sv"></span><span lang="en"></span>
+            </p>
+            <h3><span lang="sv">Boksignering: Kungablod</span><span lang="en">Book signing: Kungablod</span></h3>
+            <p>
+              <span lang="sv">Kom och träffa Jan, prata vikingatid och få din bok signerad. Välkommen!</span>
+              <span lang="en">Come and meet Jan, talk Viking history and get your book signed. Everyone is welcome!</span>
+            </p>
+          </div>
+
+          <!-- On the day -->
+          <div data-show="today">
+            <p class="event-soon"><span lang="sv">Idag!</span><span lang="en">Today!</span></p>
+            <h3><span lang="sv">Boksignering: Kungablod</span><span lang="en">Book signing: Kungablod</span></h3>
+            <p>
+              <span lang="sv">Jan signerar på Twang idag från kl. 13.00. Välkommen förbi!</span>
+              <span lang="en">Jan is signing at Twang today from 1 pm. Come along!</span>
+            </p>
+          </div>
+
+          <!-- After the day. Add a photo from the signing here when Jan has one. -->
+          <div data-show="past">
+            <h3><span lang="sv">Tack för att ni kom!</span><span lang="en">Thank you for coming!</span></h3>
+            <p>
+              <span lang="sv">Tack till alla som kom till signeringen av Kungablod på Twang. Nya evenemang dyker upp här.</span>
+              <span lang="en">Thank you to everyone who came to the Kungablod signing at Twang. New events will appear here.</span>
+            </p>
+          </div>
+
           <p class="event-place">Twang<br>Katarina bangata 25<br>Stockholm</p>
-          <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Twang+Katarina+bangata+25+Stockholm" target="_blank" rel="noopener">
-            <span lang="sv">Visa på karta</span><span lang="en">Show on map</span>
-          </a>
+
+          <div class="actions" data-show="upcoming today">
+            <a class="btn btn-gold" href="events/kungablod-signering.ics" download data-show="upcoming">
+              <span lang="sv">Lägg till i kalendern</span><span lang="en">Add to calendar</span>
+            </a>
+            <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Twang+Katarina+bangata+25+Stockholm" target="_blank" rel="noopener">
+              <span lang="sv">Visa på karta</span><span lang="en">Show on map</span>
+            </a>
+            <button type="button" class="btn btn-ghost" data-share>
+              <span lang="sv">Dela</span><span lang="en">Share</span>
+            </button>
+          </div>
+          <p class="share-status" role="status" aria-live="polite"></p>
         </div>
       </article>
     </div>
@@ -183,8 +342,12 @@
   <!-- ===== ABOUT ===== -->
   <section class="section" id="om">
     <div class="wrap about">
-      <img class="portrait" src="images/jan-stenborg.jpg" width="388" height="515" loading="lazy"
-           alt="Porträtt av Jan Stenborg">
+      <picture>
+        <source type="image/avif" srcset="images/jan-stenborg-388.avif">
+        <source type="image/webp" srcset="images/jan-stenborg-388.webp">
+        <img class="portrait" src="images/jan-stenborg.jpg" width="388" height="515" loading="lazy"
+             alt="Porträtt av Jan Stenborg" data-alt-en="Portrait of Jan Stenborg">
+      </picture>
       <div class="about-body">
         <h2 class="section-title"><span lang="sv">Om Jan</span><span lang="en">About Jan</span></h2>
         <!-- Expand this with Jan's own story: where he grew up, why the Viking age, what's next. -->
@@ -220,6 +383,26 @@
     <p>© <span id="year">2026</span> Jan Stenborg</p>
   </div>
 </footer>
+
+<!-- Phone-only bar fixed to the bottom of the screen. It appears once the hero's button scrolls away. -->
+<div class="action-bar" data-action-bar>
+  <div class="action-bar-inner">
+    <p class="action-bar-text" data-show="upcoming">
+      <span lang="sv">Boksignering · lör 21 nov · 13.00</span>
+      <span lang="en">Book signing · Sat 21 Nov · 1 pm</span>
+    </p>
+    <p class="action-bar-text" data-show="today">
+      <span lang="sv">Signering idag · 13.00 · Twang</span>
+      <span lang="en">Signing today · 1 pm · Twang</span>
+    </p>
+    <p class="action-bar-text" data-show="past">
+      <span lang="sv">Kungablod – den nya romanen</span>
+      <span lang="en">Kungablod – the new novel</span>
+    </p>
+    <a class="btn btn-gold btn-small" href="#evenemang" data-show="upcoming today"><span lang="sv">Kom dit</span><span lang="en">Join us</span></a>
+    <a class="btn btn-gold btn-small" href="#bocker" data-show="past"><span lang="sv">Läs mer</span><span lang="en">Read more</span></a>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>

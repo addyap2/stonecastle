@@ -1,0 +1,22 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Jan Stenborg//Boksignering//SV
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:kungablod-signering-20261121@janstenborg
+DTSTAMP:20261023T120000Z
+DTSTART:20261121T120000Z
+DTEND:20261121T140000Z
+SUMMARY:Boksignering: Kungablod med Jan Stenborg
+DESCRIPTION:Jan Stenborg signerar sin nya bok Kungablod. Välkommen! / Jan 
+ Stenborg signs his new book Kungablod. Everyone is welcome!
+LOCATION:Twang\, Katarina bangata 25\, Stockholm\, Sverige
+STATUS:CONFIRMED
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Boksignering: Kungablod
+TRIGGER:-PT2H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

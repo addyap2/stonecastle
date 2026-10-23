@@ -1,18 +1,22 @@
 # Jan Stenborg – author website
 
-A one-page site in Swedish and English for author Jan Stenborg (*Stridslarm*, *Jagad*, *Kungablod*).
+A one-page site for author Jan Stenborg (*Stridslarm*, *Jagad*, *Kungablod*). Swedish is the main language, with an English version one click away.
 It's plain HTML and CSS with no build step: open `index.html` in a browser to see it, or upload the folder to any web host (for example GitHub Pages).
+
+The full design plan is in [docs/EXPERIENCE.md](docs/EXPERIENCE.md).
 
 ## Files
 
 | File | What it is |
 | --- | --- |
-| `index.html` | All the page text and sections |
-| `styles.css` | Look and layout. Colours and fonts are at the top |
-| `script.js` | The SV / EN language switch |
-| `images/` | Book covers, portrait, signing poster, `share.jpg` (the preview image when the link is shared) |
+| `index.html` | All the page text and sections, plus the information for Google (in `<head>`) |
+| `styles.css` | Look and layout. Colours are at the top |
+| `script.js` | Language switch, signing dates, Share button, phone action bar |
+| `images/` | Each picture comes in three formats (`.avif`, `.webp`, `.jpg`) and several sizes. Browsers pick the smallest that works |
+| `fonts/` | Cinzel and EB Garamond (free fonts under the SIL Open Font License), hosted with the site |
+| `events/` | Calendar file for the *Add to calendar* button |
 
-## Editing text
+## Language
 
 Every piece of text is written twice, side by side:
 
@@ -20,15 +24,45 @@ Every piece of text is written twice, side by side:
 <span lang="sv">Ny bok</span><span lang="en">New book</span>
 ```
 
-Change both versions. The page shows the language the visitor picks and remembers it. Swedish is the default, and English is shown when the visitor's browser is set to English. `?lang=en` or `?lang=sv` on the end of the address forces a language.
+Change both. Image descriptions work the same way: `alt="..."` is Swedish, `data-alt-en="..."` is English.
 
-## Common updates
+The site always opens in Swedish. English shows when a visitor presses **EN**, which is then remembered, or when the address ends in `?lang=en`, useful for sharing with English speakers.
 
-- **Kungablod description and shop links.** Find the `<!-- Book: Kungablod -->` block. Replace the "coming soon" text and add a `<ul class="buy">` list, copied from the Jagad block.
-- **A new event.** In the `EVENTS` section, copy the `<article class="event">` block and change the date, place and image. Delete events once they're over, and update the signing card in the hero at the top.
-- **A new book.** Copy one `<article class="book">` block, add its cover to `images/`, and put the newest book first.
-- **About text.** The `ABOUT` section has two short paragraphs written from public information. Replace them with Jan's own words when you have them.
+## The signing and its dates
+
+The page changes by itself around the signing:
+
+- **Before 21 November:** the invitation, an "Om 29 dagar" countdown, and an *Add to calendar* button.
+- **On the day:** "Idag!", with the map first.
+- **After:** a thank-you, and the hero button switches to *Läs om Kungablod*.
+
+To preview the other states, add `?event=today` or `?event=past` to the address.
+
+If the time or place changes, update all three:
+
+1. `data-event-start` / `data-event-end` on `<article class="event">` in `index.html`
+2. The `Event` block in the `<script type="application/ld+json">` in `<head>`
+3. `events/kungablod-signering.ics` (times are in UTC: 13.00 Stockholm time in November is `120000Z`)
+
+The end time, 15.00, is a guess. Check it with Twang.
+
+Parts of the page marked `data-show="upcoming"`, `"today"` or `"past"` only appear at that time. Use the same marks for future events.
+
+## Adding images
+
+Put the original `.jpg` in `images/`, then make the smaller versions. With Python and Pillow installed:
+
+```bash
+python3 -c "from PIL import Image; im=Image.open('images/NAME.jpg'); [im.resize((w, round(im.height*w/im.width))).save(f'images/NAME-{w}.{ext}') for w in (320, 480) for ext in ('avif','webp')]"
+```
+
+Then copy one of the existing `<picture>` blocks and change the file names.
+
+## Before going live
+
+- **Web address.** Once the site has a domain, put the full address (`https://...`) in front of `images/share.jpg` in the `og:image` line and in front of the image paths in the Google information block. Facebook and Google need full addresses.
 - **Contact email.** Currently `info@stonecastle.se`, taken from the old Stonecastle site. Check it's still in use.
+- **Kungablod.** Add the description and shop links in the `<!-- Book: Kungablod -->` block when they exist.
 
 ## Previewing
 
