@@ -436,13 +436,46 @@
             </button>
           </div>
           <p class="share-status" role="status" aria-live="polite"></p>
-          <p class="event-poster" data-reveal>
-            <a href="images/boksignering-kungablod.jpg" target="_blank" rel="noopener"><span lang="sv">Visa affischen</span><span lang="en">View the poster</span></a>
-          </p>
         </div>
       </article>
+
+      <!-- The signing poster, framed. Tap to see it full size; it can be downloaded to share or print.
+           It disappears by itself after the signing. -->
+      <figure class="poster" data-show="upcoming today">
+        <div class="poster-frame" data-reveal>
+          <button type="button" class="poster-open" data-poster-open data-track="Poster: open">
+            <picture data-reveal="wipe">
+              <source type="image/avif" srcset="images/boksignering-kungablod-640.avif 640w, images/boksignering-kungablod-960.avif 960w, images/boksignering-kungablod-1440.avif 1440w" sizes="(max-width: 940px) calc(100vw - 60px), 880px">
+              <source type="image/webp" srcset="images/boksignering-kungablod-640.webp 640w, images/boksignering-kungablod-960.webp 960w, images/boksignering-kungablod-1440.webp 1440w" sizes="(max-width: 940px) calc(100vw - 60px), 880px">
+              <!-- the button's label names it; the full description is on the full-size image -->
+              <img src="images/boksignering-kungablod.jpg" width="1440" height="960" loading="lazy" alt="">
+            </picture>
+            <span class="poster-zoom" aria-hidden="true"><span lang="sv">Visa i full storlek</span><span lang="en">View full size</span></span>
+            <span class="visually-hidden"><span lang="sv">Visa affischen i full storlek</span><span lang="en">View the poster full size</span></span>
+          </button>
+        </div>
+        <figcaption class="poster-caption" data-reveal>
+          <span><span lang="sv">Affischen för signeringen. Dela den gärna, eller skriv ut den.</span><span lang="en">The signing poster. Feel free to share or print it.</span></span>
+          <a class="text-link" href="images/boksignering-kungablod-1920.jpg" download="Boksignering-Kungablod-Jan-Stenborg.jpg" data-track="Poster: download"><span lang="sv">Ladda ner</span><span lang="en">Download</span> <span class="text-link-arrow" aria-hidden="true">↓</span></a>
+        </figcaption>
+      </figure>
     </div>
   </section>
+
+  <!-- Full-size poster viewer (opened from the poster above) -->
+  <dialog class="poster-dialog" data-poster-dialog aria-label="Affischen" data-label-en="The poster">
+    <button type="button" class="poster-close" data-poster-close>
+      <span aria-hidden="true">×</span>
+      <span class="visually-hidden"><span lang="sv">Stäng</span><span lang="en">Close</span></span>
+    </button>
+    <picture>
+      <source type="image/avif" srcset="images/boksignering-kungablod-1440.avif 1440w, images/boksignering-kungablod-1920.avif 1920w" sizes="96vw">
+      <source type="image/webp" srcset="images/boksignering-kungablod-1440.webp 1440w, images/boksignering-kungablod-1920.webp 1920w" sizes="96vw">
+      <img src="images/boksignering-kungablod.jpg" width="1440" height="960" loading="lazy"
+           alt="Affisch: boksignering av Jan Stenborgs nya bok Kungablod på Twang, Katarina bangata 25, Stockholm, 21 november kl. 13.00."
+           data-alt-en="Poster: book signing of Jan Stenborg's new book Kungablod at Twang, Katarina bangata 25, Stockholm, 21 November at 1 pm.">
+    </picture>
+  </dialog>
 
   <!-- ===== ABOUT ===== -->
   <section class="section" id="om">

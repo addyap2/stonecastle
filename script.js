@@ -89,6 +89,27 @@
     if (compact.addEventListener) compact.addEventListener('change', onWide); else if (compact.addListener) compact.addListener(onWide);
   }
 
+  /* ---------- Poster: full-size viewer ---------- */
+  var posterDialog = document.querySelector('[data-poster-dialog]');
+  var posterOpen = document.querySelector('[data-poster-open]');
+  if (posterDialog && posterOpen && typeof posterDialog.showModal === 'function') {
+    posterOpen.addEventListener('click', function () {
+      posterDialog.showModal();                       // Esc closes it; focus returns to the poster
+      root.classList.add('poster-viewing');
+    });
+    posterDialog.querySelector('[data-poster-close]').addEventListener('click', function () { posterDialog.close(); });
+    posterDialog.addEventListener('click', function (e) {   // a tap outside the image closes it
+      if (e.target === posterDialog) posterDialog.close();
+    });
+    posterDialog.addEventListener('close', function () {
+      root.classList.remove('poster-viewing');
+      posterOpen.focus({ preventScroll: true });       // Safari doesn't return focus by itself
+    });
+  } else if (posterOpen) {
+    // very old browsers: just open the image itself
+    posterOpen.addEventListener('click', function () { window.open('images/boksignering-kungablod.jpg', '_blank', 'noopener'); });
+  }
+
   /* ---------- Signing: before, on, or after the day ---------- */
   var event = document.querySelector('[data-event-start]');
   if (event) {
