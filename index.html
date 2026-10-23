@@ -135,7 +135,7 @@
 <header class="site-header">
   <div class="wrap header-inner">
     <a class="brand" href="#top">Jan Stenborg</a>
-    <nav class="nav" aria-label="Meny">
+    <nav class="nav" aria-label="Meny" data-label-en="Menu">
       <a href="#bocker"><span lang="sv">Böcker</span><span lang="en">Books</span></a>
       <a href="#evenemang"><span lang="sv">Evenemang</span><span lang="en">Events</span></a>
       <a href="#om"><span lang="sv">Om Jan</span><span lang="en">About</span></a>
@@ -145,8 +145,34 @@
       <button type="button" data-set-lang="sv" aria-pressed="true">SV</button>
       <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
     </div>
+    <!-- Phones and small tablets: the links move into the full-screen menu below -->
+    <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-menu" data-menu-toggle>
+      <span class="menu-icon" aria-hidden="true"></span>
+      <span class="visually-hidden"><span lang="sv">Meny</span><span lang="en">Menu</span></span>
+    </button>
   </div>
 </header>
+
+<!-- Full-screen menu for phones: the page's four chapters. Keep in step with the links above. -->
+<div class="menu-panel" id="site-menu" data-menu>
+  <div class="menu-glow" aria-hidden="true"></div>
+  <nav class="wrap menu-inner" aria-label="Meny" data-label-en="Menu">
+    <ol class="menu-list">
+      <li style="--i:0"><a href="#bocker"><span class="menu-num">I</span><span lang="sv">Böckerna</span><span lang="en">The books</span></a></li>
+      <li style="--i:1"><a href="#evenemang"><span class="menu-num">II</span><span lang="sv">Evenemang</span><span lang="en">Events</span></a></li>
+      <li style="--i:2"><a href="#om"><span class="menu-num">III</span><span lang="sv">Om Jan</span><span lang="en">About Jan</span></a></li>
+      <li style="--i:3"><a href="#kontakt"><span class="menu-num">IV</span><span lang="sv">Kontakt</span><span lang="en">Contact</span></a></li>
+    </ol>
+    <div class="menu-foot" style="--i:4">
+      <a class="btn btn-gold" href="#evenemang" data-show="upcoming today" data-track="Menu: signing"><span lang="sv">Kom på signeringen</span><span lang="en">Come to the signing</span></a>
+      <a class="btn btn-gold" href="#bocker" data-show="past" data-track="Menu: books"><span lang="sv">Läs om Kungablod</span><span lang="en">About Kungablod</span></a>
+      <div class="lang-switch" role="group" aria-label="Språk / Language">
+        <button type="button" data-set-lang="sv" aria-pressed="true">SV</button>
+        <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </nav>
+</div>
 
 <main id="main">
 

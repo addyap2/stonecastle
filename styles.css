@@ -51,7 +51,7 @@ html[data-event-state="past"] [data-show]:not([data-show~="past"]) { display: no
 
 /* ===== Base ===== */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+html { scroll-behavior: smooth; scroll-padding-top: 104px; }
 body {
   margin: 0;
   background: var(--bg);
@@ -81,6 +81,7 @@ em { font-style: italic; }
 .skip { position: absolute; left: -9999px; }
 .skip:focus { left: 16px; top: 16px; z-index: 100; background: var(--gold); color: var(--bg); padding: 8px 12px; }
 :focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
+section[tabindex="-1"]:focus { outline: none; }
 
 /* ===== Header ===== */
 .site-header {
@@ -90,9 +91,9 @@ em { font-style: italic; }
   -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--line);
 }
-.header-inner { display: flex; align-items: center; gap: 24px; min-height: 64px; flex-wrap: wrap; }
+.header-inner { display: flex; align-items: center; gap: 32px; min-height: 88px; flex-wrap: wrap; }
 .brand {
-  font-family: var(--heading); font-size: 1.25rem; letter-spacing: 0.08em;
+  font-family: var(--heading); font-size: 1.75rem; letter-spacing: 0.1em;
   font-weight: 600; color: #f0c766; text-decoration: none; text-transform: uppercase;   /* bright gold */
   display: inline-flex; align-items: center; min-height: 44px;
   filter: drop-shadow(0 0 10px rgba(255, 200, 100, .28));
@@ -104,10 +105,10 @@ em { font-style: italic; }
   }
 }
 .brand:hover { filter: drop-shadow(0 0 14px rgba(255, 210, 120, .5)); }
-.nav { display: flex; gap: 22px; margin-left: auto; }
+.nav { display: flex; gap: 32px; margin-left: auto; }
 .nav a {
-  color: var(--text-muted); text-decoration: none; font-size: 1.05rem;
-  display: inline-flex; align-items: center; min-height: 44px;
+  color: var(--text-muted); text-decoration: none; font-size: 1.22rem;
+  display: inline-flex; align-items: center; min-height: 48px;
 }
 .nav a { position: relative; transition: color var(--dur-quick) var(--ease-ui); }
 .nav a::after {
@@ -126,16 +127,77 @@ html[data-lang="en"] .lang-switch::before { transform: translateX(100%); }
 .lang-switch button {
   position: relative; font: 600 0.85rem/1 var(--heading); letter-spacing: 0.08em;
   background: none; color: var(--text-muted); border: 0; padding: 0; cursor: pointer;
-  width: 46px; min-height: 44px; transition: color var(--dur-ui) var(--ease-ui);
+  width: 54px; min-height: 48px; font-size: .95rem; transition: color var(--dur-ui) var(--ease-ui);
 }
 .lang-switch button[aria-pressed="true"] { color: var(--bg); }
 
-@media (max-width: 720px) {
-  .header-inner { gap: 10px 16px; padding-top: 10px; padding-bottom: 10px; }
-  .lang-switch { margin-left: auto; }
-  .nav { order: 3; width: 100%; margin: 0; gap: 18px; overflow-x: auto; }
-  .nav a { font-size: 1rem; white-space: nowrap; }
+/* --- Menu button (phones and small tablets only) --- */
+.menu-toggle {
+  display: none; align-items: center; justify-content: center; flex: none;
+  width: 48px; height: 48px; margin-left: auto; padding: 0; cursor: pointer;
+  background: none; color: var(--gold-bright); border: 1px solid var(--line); border-radius: 4px;
+  transition: border-color var(--dur-quick) var(--ease-ui);
 }
+.menu-toggle:hover { border-color: var(--gold); }
+.menu-icon { position: relative; display: block; width: 22px; height: 14px; }
+.menu-icon::before, .menu-icon::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 2px; border-radius: 1px; background: currentColor;
+  transition: transform var(--dur-ui) var(--ease-rise);
+}
+.menu-icon::before { top: 0; }
+.menu-icon::after { bottom: 0; }
+.menu-toggle[aria-expanded="true"] .menu-icon::before { transform: translateY(6px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-icon::after { transform: translateY(-6px) rotate(-45deg); }
+
+/* --- Full-screen chapter menu --- */
+.menu-panel { display: none; }
+
+@media (max-width: 900px) {
+  .header-inner { min-height: 72px; gap: 16px; flex-wrap: nowrap; }
+  .brand { font-size: 1.45rem; }
+  .site-header .nav, .site-header .lang-switch { display: none; }
+  .menu-toggle { display: inline-flex; }
+
+  .menu-panel {
+    display: block; position: fixed; inset: 0; z-index: 45; overflow-y: auto; overscroll-behavior: contain;
+    padding-top: 72px; background: var(--bg);
+    visibility: hidden; opacity: 0;
+    transition: opacity var(--dur-ui) var(--ease-ui), visibility 0s linear var(--dur-ui);
+  }
+  .menu-open .menu-panel { visibility: visible; opacity: 1; transition: opacity var(--dur-ui) var(--ease-ui), visibility 0s; }
+  .menu-open .site-header { transform: none !important; }   /* the bar (and its close button) always stays */
+  .menu-open .action-bar { visibility: hidden !important; }
+  .menu-glow {                                   /* the dawn horizon again, at the foot of the menu */
+    position: absolute; left: 0; right: 0; bottom: 0; height: 55%; pointer-events: none;
+    background: radial-gradient(70% 60% at 50% 100%, rgba(215, 140, 70, .22), transparent 70%);
+  }
+  .menu-inner {
+    position: relative; display: flex; flex-direction: column; justify-content: space-between;
+    min-height: calc(100svh - 72px); padding-top: 28px; padding-bottom: calc(36px + env(safe-area-inset-bottom));
+  }
+  .menu-list { list-style: none; margin: 0; padding: 0; }
+  .menu-list a {
+    display: flex; align-items: baseline; gap: 18px; padding: 18px 0;
+    border-bottom: 1px solid rgba(201, 164, 92, .18);
+    font-family: var(--heading); font-weight: 500; font-size: clamp(1.8rem, 8vw, 2.4rem); letter-spacing: .02em;
+    color: var(--text); text-decoration: none;
+    transition: color var(--dur-quick) var(--ease-ui);
+  }
+  .menu-list a:hover, .menu-list a:active { color: var(--gold-bright); }
+  .menu-num { flex: none; min-width: 2.6em; font-size: .8rem; font-weight: 700; letter-spacing: .2em; color: var(--gold); }
+  .menu-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 36px; }
+
+  /* the chapters rise in, one after another */
+  .menu-list li, .menu-foot {
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 420ms var(--ease-rise), transform 420ms var(--ease-rise);
+    transition-delay: calc(var(--i, 0) * 50ms);
+  }
+  .menu-open .menu-list li, .menu-open .menu-foot { opacity: 1; transform: none; }
+
+  html { scroll-padding-top: 92px; }
+}
+html.menu-open { overflow: hidden; }
 
 /* ===== Buttons ===== */
 .btn {
@@ -169,7 +231,7 @@ html[data-lang="en"] .lang-switch::before { transform: translateX(100%); }
   --sun-x: calc(50% + min(27vw, 300px));        /* sun sits behind the book */
   --ease-slow: cubic-bezier(.16, .84, .24, 1);
   position: relative; overflow: hidden; isolation: isolate;
-  min-height: min(calc(88svh - 56px), 810px);
+  min-height: min(calc(88svh - 80px), 810px);
   display: flex; align-items: center;
   background: var(--bg);
 }
@@ -329,7 +391,7 @@ html[data-lang="en"] .lang-switch::before { transform: translateX(100%); }
   .book3d { width: 200px; }
   .hero .hero-sea::after { height: 170px; opacity: .22; }
   .book3d-front { -webkit-box-reflect: below 6px linear-gradient(transparent 91%, rgba(255,255,255,.10)); }
-  html { scroll-padding-top: 136px; }
+
   #top { scroll-margin-top: 0; }
   .hero-sun { width: 220px; height: 220px; }
   .hero-sunpath { width: 220px; bottom: auto; height: 110px; }   /* stays clear of the text */
@@ -662,7 +724,7 @@ button.text-link { background: none; border: 0; cursor: pointer; }
     display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 72px; align-items: start;
   }
   .motion-ready .saga-stage {
-    display: block; position: sticky; top: calc(50vh - 290px + 32px); height: 580px;
+    display: block; position: sticky; top: calc(50vh - 290px + 44px); height: 580px;
   }
   .saga-bloom {                                 /* the book's own colour of light behind it */
     position: absolute; left: 50%; top: 44%; width: 760px; aspect-ratio: 1; border-radius: 50%;
@@ -768,7 +830,7 @@ button.text-link { background: none; border: 0; cursor: pointer; }
 @keyframes bookDrift { 0%,100% { transform: translateY(0) rotate(-.6deg); } 50% { transform: translateY(-10px) rotate(.6deg); } }
 @keyframes coverLight { 0% { opacity: 0; background-position: 100% 0; } 4% { opacity: .8; } 16% { opacity: .6; } 21%,100% { opacity: 0; background-position: 0 0; } }
 @media (max-width: 360px) {
-  .brand { font-size: 1.05rem; }
+  .brand { font-size: 1.2rem; }
   .hero-title { font-size: 2.15rem; }
   .invite-month { font-size: 1.2rem; }
 }

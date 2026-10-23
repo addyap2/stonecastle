@@ -160,6 +160,7 @@ The report lands in `tests/results/report.json`, with screenshots alongside it.
 
 ### Cross-browser (by hand, on real devices)
 - [ ] **iPhone Safari:**
+  - the ☰ menu opens, each chapter link closes it and lands on its section, and the page doesn't move underneath it;
   - the hero entrance plays;
   - the action bar appears after scrolling;
   - *Lägg till i kalendern* opens the Calendar app;

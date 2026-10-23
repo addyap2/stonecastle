@@ -20,6 +20,10 @@
     document.querySelectorAll('img[data-alt-en]').forEach(function (img) {
       img.setAttribute('alt', img.getAttribute('data-alt-' + lang));
     });
+    document.querySelectorAll('[data-label-en]').forEach(function (el) {   // labels such as "Meny" / "Menu"
+      if (!el.hasAttribute('data-label-sv')) el.setAttribute('data-label-sv', el.getAttribute('aria-label'));
+      el.setAttribute('aria-label', el.getAttribute('data-label-' + lang));
+    });
     if (typeof splitChapterLines === 'function') requestAnimationFrame(splitChapterLines);
     if (remember) { try { localStorage.setItem('lang', lang); } catch (e) {} }
   }
@@ -28,6 +32,62 @@
     btn.addEventListener('click', function () { setLang(btn.getAttribute('data-set-lang'), true); });
   });
   setLang(root.getAttribute('data-lang') || 'sv');
+
+  /* ---------- Phone menu: full-screen chapter list ---------- */
+  var menuToggle = document.querySelector('[data-menu-toggle]');
+  var menuPanel = document.querySelector('[data-menu]');
+  if (menuToggle && menuPanel) {
+    var behind = ['main', 'footer', '.action-bar', '.skip'].map(function (q) { return document.querySelector(q); }).filter(Boolean);
+    var compact = window.matchMedia('(max-width: 900px)');
+    var calmMotion = function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; };
+    var focusables = function () {
+      return [menuToggle].concat([].slice.call(menuPanel.querySelectorAll('a[href], button')).filter(function (el) { return el.offsetParent !== null; }));
+    };
+    function setMenu(open, returnFocus) {
+      root.classList.toggle('menu-open', open);
+      menuToggle.setAttribute('aria-expanded', String(open));
+      behind.forEach(function (el) { el.inert = open; });      // the page behind can't be reached while the menu is open
+      if (open) {
+        root.classList.remove('header-hidden');
+        var first = menuPanel.querySelector('.menu-list a');
+        if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 30);
+      } else if (returnFocus) {
+        menuToggle.focus({ preventScroll: true });
+      }
+    }
+    menuToggle.addEventListener('click', function () { setMenu(menuToggle.getAttribute('aria-expanded') !== 'true', true); });
+    // Choosing a chapter closes the menu, then the page scrolls there as normal
+    menuPanel.addEventListener('click', function (e) {
+      var link = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!link) return;
+      var id = link.getAttribute('href').slice(1);
+      var target = document.getElementById(id);
+      setMenu(false, false);
+      if (!target) return;
+      // Unlock the page first, then scroll on the next frame: jumping in the same moment
+      // sends Safari to the wrong place.
+      e.preventDefault();
+      requestAnimationFrame(function () {
+        target.scrollIntoView({ block: 'start', behavior: calmMotion() ? 'auto' : 'smooth' });
+        if (history.replaceState) history.replaceState(null, '', '#' + id);
+        // move focus to the chosen chapter, so screen readers and keyboards continue from there
+        if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+      });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (!root.classList.contains('menu-open')) return;
+      if (e.key === 'Escape') { e.preventDefault(); setMenu(false, true); return; }
+      if (e.key === 'Tab') {                                   // keep focus inside the menu, in every browser
+        e.preventDefault();
+        var list = focusables(), i = list.indexOf(document.activeElement);
+        var next = e.shiftKey ? (i <= 0 ? list.length - 1 : i - 1) : (i === -1 || i === list.length - 1 ? 0 : i + 1);
+        list[next].focus();
+      }
+    });
+    var onWide = function () { if (!compact.matches && root.classList.contains('menu-open')) setMenu(false, false); };
+    if (compact.addEventListener) compact.addEventListener('change', onWide); else if (compact.addListener) compact.addListener(onWide);
+  }
 
   /* ---------- Signing: before, on, or after the day ---------- */
   var event = document.querySelector('[data-event-start]');
@@ -177,7 +237,7 @@
   var lastY = window.scrollY;
   var holdHeader = 0;
   var heroEl = document.querySelector('.hero');
-  document.querySelectorAll('.nav a, .brand').forEach(function (a) {
+  document.querySelectorAll('.nav a, .brand, .menu-list a').forEach(function (a) {
     a.addEventListener('click', function () { holdHeader = Date.now() + 1200; root.classList.remove('header-hidden'); });
   });
   var heroHeight = heroEl ? heroEl.offsetHeight : 500;

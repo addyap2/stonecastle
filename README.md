@@ -5,6 +5,8 @@ It's plain HTML and CSS with no build step: open `index.html` in a browser to se
 
 The full design plan is in [docs/EXPERIENCE.md](docs/EXPERIENCE.md), the art direction for the opening screen in [docs/HERO.md](docs/HERO.md), how everything moves in [docs/MOTION.md](docs/MOTION.md), the creative audit in [docs/AUDIT.md](docs/AUDIT.md), and the launch audit with the **launch checklist** in [docs/LAUNCH.md](docs/LAUNCH.md). `tests/qa.mjs` reruns every check (instructions in LAUNCH.md §3).
 
+**Menu:** on desktop the links sit in the top bar. On phones and small tablets (up to 900px wide), they move into a full-screen chapter menu behind the ☰ button, together with the language switch. Its links are in `index.html` just below the header; keep them in step with the desktop links.
+
 **Section headings** are chapters: a roman numeral, a short label and a headline. Copy an existing `<header class="chapter">` block to add one.
 
 **Motion in short:** anything with `data-reveal` fades up the first time it scrolls into view. Use `data-reveal="title"` on headings and `data-reveal="wipe"` on pictures. On desktop the books are shown as a pinned sequence: the covers stay in place on the left while the texts scroll past. A new book must be added both to the `saga-stage` (cover only) and to the `saga-list` (cover and text). Visitors who turn off motion on their device get a still version.
