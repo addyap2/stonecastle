@@ -22,12 +22,11 @@
     if (!window.motionStarted) root.classList.remove('motion-ready');
   }, 3000);
 
-  // The hero's sunrise plays once per visit, and never for visitors who prefer less motion.
+  // The hero's sunrise plays on each page load, and never for visitors who prefer less motion.
   try {
     var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!calm && !sessionStorage.getItem('heroSeen')) {
+    if (!calm) {
       root.classList.add('hero-intro');
-      sessionStorage.setItem('heroSeen', '1');
     }
   } catch (e) {}
 })();

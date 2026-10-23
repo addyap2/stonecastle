@@ -238,15 +238,7 @@ html[data-lang="en"] .lang-switch::before { transform: translateX(100%); }
   margin-bottom: .3em; color: var(--gold-bright);
   width: max-content; max-width: none;
 }
-@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .hero-title {
-    background: linear-gradient(100deg, #9c7434 0%, #e9cf8f 28%, #fff1c9 42%, #d9b66e 58%, #8f6a30 100%);
-    background-size: 240% 100%; background-position: 32% 0;
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent; color: transparent;
-    filter: drop-shadow(0 2px 18px rgba(255, 190, 110, .18));
-  }
-}
+.hero-title { text-shadow: 0 2px 18px rgba(255, 190, 110, .12); }
 .lead { font-size: 1.45rem; line-height: 1.5; color: var(--text); max-width: 30ch; margin-bottom: 1.4em; }
 .text-link {
   display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 4px;
@@ -351,9 +343,9 @@ html[data-lang="en"] .lang-switch::before { transform: translateX(100%); }
   .hero-fleet-drift { animation: fleetDrift 60s ease-in-out infinite alternate; }
   .hero-sunpath::before { animation: glint 6s ease-in-out infinite alternate; }
   .scroll-cue::after { animation: cue 2.4s var(--ease-slow) infinite; }
-  @media (hover: none) { .book3d { animation: float 7s ease-in-out infinite; } }
+  .book3d { animation: bookDrift 8s ease-in-out infinite; }
 
-  /* Entrance: plays once per visit (the "hero-intro" class is set in <head>) */
+  /* Entrance: plays on each page load (the "hero-intro" class is set in <head>) */
   .hero-intro .hero-sky   { animation: sunrise 1.4s var(--ease-slow) both; }
   .hero-intro .hero-sun   { animation: sunUp 1.4s var(--ease-slow) both; }
   .hero-intro .hero-sea::before,
@@ -363,7 +355,7 @@ html[data-lang="en"] .lang-switch::before { transform: translateX(100%); }
   .hero-intro .hero-in    { animation: textIn .5s var(--ease-slow) .25s backwards; }
   .hero-intro .eyebrow.hero-in { animation-delay: .15s; }
   .hero-intro .hero-title.hero-in {
-    animation: sheen 1.4s ease-out .55s backwards;
+    animation: none;
   }
 }
 
@@ -729,18 +721,18 @@ button.text-link { background: none; border: 0; cursor: pointer; }
   background-size: 320% 100%; background-position: 100% 0; opacity: 0; mix-blend-mode: screen;
 }
 .hero-title { white-space: nowrap; }
-.hero-letter { display: inline-block; -webkit-text-fill-color: var(--gold-bright); }
+.hero-letter { display: inline-block; -webkit-text-fill-color: currentColor; color: var(--gold-bright); }
 .motion-line { display: block; overflow: clip; padding-bottom: .12em; margin-bottom: -.12em; }
 .motion-line-inner { display: block; }
 .motion-ready [data-reveal="title"] { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: no-preference) {
-  .hero-mist-far { animation: mistDrift 24s ease-in-out infinite alternate; }
-  .hero-mist-near { animation: mistDrift 32s ease-in-out -12s infinite alternate-reverse; }
+  .hero-mist-far { animation: mistDrift 14s ease-in-out infinite alternate; }
+  .hero-mist-near { animation: mistDrift 19s ease-in-out -8s infinite alternate-reverse; }
   .hero-intro .hero-letter {
     animation: letterRise 650ms var(--ease-rise) calc(180ms + var(--letter) * 45ms) backwards,
-               letterLight 900ms ease-out calc(500ms + var(--letter) * 45ms) backwards;
+               titleGlint 11s ease-in-out calc(1200ms + var(--letter) * 75ms) infinite;
   }
-  .hero-intro .book3d-sheen { animation: coverLight 1500ms ease-in-out 900ms both; }
+  .hero-intro .book3d-sheen { animation: coverLight 10s ease-in-out 900ms infinite; }
   .motion-ready [data-reveal="title"] .motion-line-inner {
     transform: translateY(112%);
     transition: transform 650ms var(--ease-rise);
@@ -748,10 +740,11 @@ button.text-link { background: none; border: 0; cursor: pointer; }
   }
   .motion-ready [data-reveal="title"].is-in .motion-line-inner { transform: none; }
 }
-@keyframes mistDrift { from { translate: -2% 0; } to { translate: 3% -8px; } }
+@keyframes mistDrift { from { translate: -5% 0; opacity: .35; } to { translate: 6% -14px; opacity: .65; } }
 @keyframes letterRise { from { opacity: 0; transform: translateY(.65em) rotateX(-35deg); } }
-@keyframes letterLight { 0%,100% { filter: brightness(1); } 45% { filter: brightness(1.55); } }
-@keyframes coverLight { 0% { opacity: 0; background-position: 100% 0; } 25% { opacity: .7; } 85% { opacity: .5; } 100% { opacity: 0; background-position: 0 0; } }
+@keyframes titleGlint { 0%, 18%, 100% { color: var(--gold-bright); } 8% { color: #fff3d1; } }
+@keyframes bookDrift { 0%,100% { transform: translateY(0) rotate(-.6deg); } 50% { transform: translateY(-10px) rotate(.6deg); } }
+@keyframes coverLight { 0% { opacity: 0; background-position: 100% 0; } 4% { opacity: .8; } 16% { opacity: .6; } 21%,100% { opacity: 0; background-position: 0 0; } }
 @media (max-width: 360px) {
   .brand { font-size: 1.05rem; }
   .hero-title { font-size: 2.15rem; }
