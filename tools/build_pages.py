@@ -82,7 +82,14 @@ def header(current):
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="/">Jan Stenborg</a>
+    <a class="brand" href="/">
+      <picture class="brand-avatar">
+        <source type="image/avif" srcset="/images/jan-avatar-112.avif 112w, /images/jan-avatar-168.avif 168w" sizes="40px">
+        <source type="image/webp" srcset="/images/jan-avatar-112.webp 112w, /images/jan-avatar-168.webp 168w" sizes="40px">
+        <img src="/images/jan-avatar.jpg" width="40" height="40" alt="">
+      </picture>
+      <span class="brand-name">Jan Stenborg</span>
+    </a>
     <nav class="nav" aria-label="Meny" data-label-en="Menu">
 {link("/#bocker", "Böcker", "Books", "books")}
 {link("/#evenemang", "Evenemang", "Events", "events")}

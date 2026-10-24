@@ -108,16 +108,22 @@ section[tabindex="-1"]:focus { outline: none; }
 .brand {
   font-family: var(--heading); font-size: 1.75rem; letter-spacing: 0.1em;
   font-weight: 600; color: #f0c766; text-decoration: none; text-transform: uppercase;   /* bright gold */
-  display: inline-flex; align-items: center; min-height: 44px;
-  filter: drop-shadow(0 0 10px rgba(255, 200, 100, .28));
+  display: inline-flex; align-items: center; gap: 14px; min-height: 44px;
+}
+.brand-name { filter: drop-shadow(0 0 10px rgba(255, 200, 100, .28)); }
+/* Jan's face beside his name, in the same gold ring as the hero portrait */
+.brand-avatar { flex: none; width: 40px; height: 40px; border-radius: 50%; }
+.brand-avatar img {
+  display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--gold), 0 0 0 3px var(--bg), 0 0 0 4px rgba(201, 164, 92, .35), 0 0 18px rgba(255, 200, 120, .22);
 }
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .brand {                                       /* metallic gold, lit from above */
+  .brand-name {                                  /* metallic gold, lit from above */
     background: linear-gradient(175deg, #fff3cf 0%, #f6d27a 38%, #e3b24c 62%, #f4d58a 100%);
     -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
   }
 }
-.brand:hover { filter: drop-shadow(0 0 14px rgba(255, 210, 120, .5)); }
+.brand:hover .brand-name { filter: drop-shadow(0 0 14px rgba(255, 210, 120, .5)); }
 .nav { display: flex; gap: 32px; margin-left: auto; }
 .nav a {
   color: var(--text-muted); text-decoration: none; font-size: 1.22rem;
@@ -167,7 +173,8 @@ html[data-lang="en"] .lang-switch::before { transform: translateX(100%); }
 
 @media (max-width: 900px) {
   .header-inner { min-height: 72px; gap: 16px; flex-wrap: nowrap; }
-  .brand { font-size: 1.45rem; }
+  .brand { font-size: 1.45rem; gap: 11px; }
+  .brand-avatar { width: 34px; height: 34px; }
   .site-header .nav, .site-header .lang-switch { display: none; }
   .menu-toggle { display: inline-flex; }
 
@@ -1115,7 +1122,8 @@ q.quote { font-style: italic; color: var(--gold-bright); }
 @keyframes bookDrift { 0%,100% { transform: translateY(0) rotate(-.6deg); } 50% { transform: translateY(-10px) rotate(.6deg); } }
 @keyframes coverLight { 0% { opacity: 0; background-position: 100% 0; } 4% { opacity: .8; } 16% { opacity: .6; } 21%,100% { opacity: 0; background-position: 0 0; } }
 @media (max-width: 360px) {
-  .brand { font-size: 1.2rem; }
+  .brand { font-size: 1.2rem; gap: 9px; }
+  .brand-avatar { width: 30px; height: 30px; }
   .hero-title { font-size: 2.15rem; }
   .invite-month { font-size: 1.2rem; }
 }
