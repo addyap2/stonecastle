@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# BEFORE LAUNCH: add the full address of the sitemap, for example
-# Sitemap: https://DOMAIN/sitemap.xml
+Sitemap: https://janstenborg.com/sitemap.xml

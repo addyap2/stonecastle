@@ -18,17 +18,13 @@
   <meta property="og:locale:alternate" content="en_GB">
   <meta property="og:title" content="Kungablod – den nya vikingaromanen av Jan Stenborg">
   <meta property="og:description" content="Boksignering lördag 21 november kl. 13.00 på Twang, Katarina bangata 25, Stockholm.">
-  <meta property="og:image" content="images/share.jpg">
+  <meta property="og:image" content="https://janstenborg.com/images/share.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Kungablod av Jan Stenborg: boken mot en soluppgång över havet.">
   <meta name="twitter:card" content="summary_large_image">
-  <!-- BEFORE LAUNCH: replace https://DOMAIN with the real address, then remove the comment marks.
-       Facebook and Google need full addresses for the page and its share image.
-  <link rel="canonical" href="https://DOMAIN/">
-  <meta property="og:url" content="https://DOMAIN/">
-  <meta property="og:image" content="https://DOMAIN/images/share.jpg">
-  -->
+  <link rel="canonical" href="https://janstenborg.com/">
+  <meta property="og:url" content="https://janstenborg.com/">
 
   <!-- Load the hero cover and the two main fonts first, so the top of the page appears fast -->
   <link rel="preload" as="image" type="image/avif"
@@ -50,7 +46,10 @@
         "@id": "#jan-stenborg",
         "name": "Jan Stenborg",
         "jobTitle": "Författare",
-        "image": "images/jan-stenborg.jpg",
+        "url": "https://janstenborg.com/",
+        "birthDate": "1955",
+        "birthPlace": { "@type": "Place", "name": "Stockholm" },
+        "image": "https://janstenborg.com/images/jan-stenborg.jpg",
         "sameAs": ["https://www.bokus.com/forfattare/jan-stenborg"]
       },
       {
@@ -62,9 +61,10 @@
         "datePublished": "2017",
         "publisher": { "@type": "Organization", "name": "Vulkan" },
         "isbn": "9789163748806",
+        "workTranslation": { "@type": "Book", "name": "Erik of Birka: The Clash of Arms", "inLanguage": "en" },
         "numberOfPages": 431,
         "bookFormat": "https://schema.org/Paperback",
-        "image": "images/stridslarm.jpg"
+        "image": "https://janstenborg.com/images/stridslarm.jpg"
       },
       {
         "@type": "Book",
@@ -73,7 +73,7 @@
         "inLanguage": "sv",
         "genre": "Historisk roman",
         "datePublished": "2021",
-        "image": "images/jagad.jpg",
+        "image": "https://janstenborg.com/images/jagad.jpg",
         "workExample": {
           "@type": "Book",
           "bookFormat": "https://schema.org/AudiobookFormat",
@@ -88,7 +88,7 @@
         "author": { "@id": "#jan-stenborg" },
         "inLanguage": "sv",
         "genre": "Historisk roman",
-        "image": "images/kungablod.jpg"
+        "image": "https://janstenborg.com/images/kungablod.jpg"
       },
       {
         "@type": "Event",
@@ -98,7 +98,7 @@
         "endDate": "2026-11-21T15:00:00+01:00",
         "eventStatus": "https://schema.org/EventScheduled",
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-        "image": "images/boksignering-kungablod.jpg",
+        "image": "https://janstenborg.com/images/boksignering-kungablod.jpg",
         "performer": { "@id": "#jan-stenborg" },
         "organizer": { "@id": "#jan-stenborg" },
         "location": {
@@ -325,8 +325,8 @@
               <p class="book-meta" data-reveal>2017 · Vulkan · 431 <span lang="sv">sidor</span><span lang="en">pages</span><span class="badge"><span lang="sv">Börja här</span><span lang="en">Start here</span></span></p>
               <h3 data-reveal>Stridslarm</h3>
               <p data-reveal>
-                <span lang="sv">Erik växer upp i Birka och dras in i rikets farliga spel. Styrbjörn blir hans fiende och Gyrid hans kärlek – en kombination som kan bli dödlig. Första boken om Erik.</span>
-                <span lang="en">Erik grows up in Birka and is drawn into the kingdom's dangerous games. Styrbjörn becomes his enemy and Gyrid his love – a combination that could prove deadly. The first book about Erik.</span>
+                <span lang="sv">Erik växer upp i Birka och dras in i rikets farliga spel. Styrbjörn blir hans fiende och Gyrid hans kärlek – en kombination som kan bli dödlig. Första boken om Erik. Finns även på engelska som <em>Erik of Birka: The Clash of Arms</em>.</span>
+                <span lang="en">Erik grows up in Birka and is drawn into the kingdom's dangerous games. Styrbjörn becomes his enemy and Gyrid his love – a combination that could prove deadly. The first book about Erik, also available in English as <em>Erik of Birka: The Clash of Arms</em>.</span>
               </p>
               <ul class="buy" data-reveal>
                 <li><a href="https://www.adlibris.com/sv/bok/stridslarm-9789163748806" target="_blank" rel="noopener">Adlibris</a></li>
@@ -501,16 +501,16 @@
       </header>
         <!-- Expand this with Jan's own story: where he grew up, why the Viking age, what's next. -->
         <p data-reveal>
-          <span lang="sv">Jan Stenborg är en svensk författare som skriver historiska äventyrsromaner från vikingatiden. Debuten <em>Stridslarm</em> kom 2017 och följdes av <em>Jagad</em> 2021, båda om Erik från Birka. Nu är han tillbaka med <em>Kungablod</em>.</span>
-          <span lang="en">Jan Stenborg is a Swedish author of historical adventure novels set in the Viking age. His debut, <em>Stridslarm</em>, came out in 2017 and was followed by <em>Jagad</em> in 2021, both about Erik of Birka. Now he is back with <em>Kungablod</em>.</span>
+          <span lang="sv">Jan Stenborg föddes i Stockholm 1955 och har älskat böcker sedan barndomen, från Alexandre Dumas till Mark Twain och John Steinbeck. Han skriver historiska äventyrsromaner från vikingatiden: debuten <em>Stridslarm</em> kom 2017 och följdes av <em>Jagad</em> 2021, båda om Erik från Birka. Nu är han tillbaka med <em>Kungablod</em>.</span>
+          <span lang="en">Jan Stenborg was born in Stockholm in 1955 and has loved books since childhood, from Alexandre Dumas to Mark Twain and John Steinbeck. He writes historical adventure novels set in the Viking age: his debut, <em>Stridslarm</em>, came out in 2017 and was followed by <em>Jagad</em> in 2021, both about Erik of Birka. Now he is back with <em>Kungablod</em>.</span>
         </p>
         <p data-reveal>
-          <span lang="sv">Innan böckerna drev Jan i femton år Stonecastle i Stockholm, som byggde pedalboards och gitarrtillbehör åt musiker. När han stängde företaget var beskedet enkelt: nu skulle han skriva böcker istället.</span>
-          <span lang="en">Before the books, Jan spent fifteen years running Stonecastle in Stockholm, building pedalboards and guitar accessories for musicians. When he closed the company, his message was simple: from now on, he would write books instead.</span>
+          <span lang="sv">Efter många olika yrken startade han Stonecastle i Stockholm, ett företag i musikbranschen som byggde pedalboards och gitarrtillbehör och snart nådde internationell framgång. När han stängde företaget efter femton år var beskedet enkelt: nu skulle han skriva böcker i stället.</span>
+          <span lang="en">After working in many professions, he founded Stonecastle in Stockholm, a music-industry company building pedalboards and guitar accessories that soon achieved international success. When he closed it after fifteen years, his message was simple: from now on, he would write books instead.</span>
         </p>
         <p data-reveal>
-          <span lang="sv">Jan är en oberoende författare och lever i dag på Franska rivieran.</span>
-          <span lang="en">Jan is an independent author and lives on the French Riviera today.</span>
+          <span lang="sv">Researchen tog honom till Uppsala, Birka, Adelsö och Ryssland. I dag är Jan en oberoende författare som bor i Frankrike, på Franska rivieran, och fortsätter att skriva sagan om Erik.</span>
+          <span lang="en">His research took him to Uppsala, Birka, Adelsö and Russia. Today Jan is an independent author living in France, on the French Riviera, and he continues to write the saga of Erik.</span>
         </p>
         <p class="about-more" data-reveal>
           <a class="text-link" href="/blogg/berattaren-jan-stenborg/"><span lang="sv">Läs mer om Jan</span><span lang="en">More about Jan</span> <span class="text-link-arrow" aria-hidden="true">→</span></a>

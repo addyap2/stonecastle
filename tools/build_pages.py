@@ -12,6 +12,7 @@ from content import ARTICLES, FAQ  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATE_ISO, DATE_SV, DATE_EN = "2026-10-24", "24 oktober 2026", "24 October 2026"
+SITE = "https://janstenborg.com"
 
 
 def esc(s):
@@ -32,7 +33,7 @@ def bi(sv, en, tag="span"):
     return f'<{tag} lang="sv">{sv}</{tag}><{tag} lang="en">{en}</{tag}>'
 
 
-def head(title_sv, title_en, desc, og_type, image, jsonld):
+def head(title_sv, title_en, desc, og_type, image, jsonld, path):
     return f'''<!doctype html>
 <html lang="sv" data-lang="sv" data-title-sv="{esc(title_sv)}" data-title-en="{esc(title_en)}">
 <head>
@@ -50,7 +51,9 @@ def head(title_sv, title_en, desc, og_type, image, jsonld):
   <meta property="og:locale" content="sv_SE">
   <meta property="og:title" content="{esc(title_sv)}">
   <meta property="og:description" content="{esc(desc)}">
-  <meta property="og:image" content="{image}">
+  <link rel="canonical" href="{SITE}{path}">
+  <meta property="og:url" content="{SITE}{path}">
+  <meta property="og:image" content="{SITE}{image}">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preload" href="/fonts/cinzel.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
@@ -169,7 +172,7 @@ def visual(kind, small=False):
 
 
 def person():
-    return {"@type": "Person", "name": "Jan Stenborg", "jobTitle": "Författare"}
+    return {"@type": "Person", "name": "Jan Stenborg", "jobTitle": "Författare", "url": SITE + "/"}
 
 
 def write(path, text):
@@ -187,7 +190,8 @@ def article_page(a, others):
     desc = plain(l_sv)
     image = {"covers": "/images/share.jpg", "portrait": "/images/jan-stenborg.jpg"}.get(a["image"], "/images/share.jpg")
     ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": t_sv, "description": desc,
-          "datePublished": DATE_ISO, "inLanguage": "sv", "author": person(), "image": image}
+          "datePublished": DATE_ISO, "inLanguage": "sv", "author": person(), "image": SITE + image,
+          "url": f"{SITE}/blogg/{a['slug']}/", "mainEntityOfPage": f"{SITE}/blogg/{a['slug']}/"}
     body = []
     for kind, sv, en in a["body"]:
         if kind == "h2":
@@ -195,7 +199,7 @@ def article_page(a, others):
         else:
             body.append(f'        <p data-reveal>{bi(sv, en)}</p>')
     more = "\n".join(card(o, small=True) for o in others)
-    return (head(f"{t_sv} – Jan Stenborg", f"{t_en} – Jan Stenborg", desc, "article", image, ld) + header("blog") + f'''
+    return (head(f"{t_sv} – Jan Stenborg", f"{t_en} – Jan Stenborg", desc, "article", image, ld, f"/blogg/{a['slug']}/") + header("blog") + f'''
 <main id="main">
   <article class="post">
     <div class="wrap post-wrap">
@@ -254,11 +258,11 @@ def card(a, small=False, level=3):
 
 def blog_index():
     ld = {"@context": "https://schema.org", "@type": "Blog", "name": "Jan Stenborg – Blogg", "inLanguage": "sv", "author": person(),
-          "blogPost": [{"@type": "BlogPosting", "headline": a["title"][0], "datePublished": DATE_ISO, "url": f"/blogg/{a['slug']}/"} for a in ARTICLES]}
+          "blogPost": [{"@type": "BlogPosting", "headline": a["title"][0], "datePublished": DATE_ISO, "url": f"{SITE}/blogg/{a['slug']}/"} for a in ARTICLES], "url": SITE + "/blogg/"}
     cards = "\n".join(card(a, level=2) for a in ARTICLES)   # cards sit right under the page title
     return (head("Blogg – Jan Stenborg", "Blog – Jan Stenborg",
                  "Berättelser om hur Jan Stenborgs vikingaromaner kom till, om författaren, livet på Franska rivieran och åren med Stonecastle.",
-                 "website", "/images/share.jpg", ld) + header("blog") + f'''
+                 "website", "/images/share.jpg", ld, "/blogg/") + header("blog") + f'''
 <main id="main">
   <section class="section blog-index">
     <div class="wrap">
@@ -288,7 +292,7 @@ def faq_page():
         </details>''' for i, (q_sv, q_en, a_sv, a_en) in enumerate(FAQ))
     return (head("Vanliga frågor – Jan Stenborg", "FAQ – Jan Stenborg",
                  "Svar på vanliga frågor om Jan Stenborgs vikingaromaner: var du köper dem, i vilken ordning du läser dem, researchen, faktagranskningen och signeringar.",
-                 "website", "/images/share.jpg", ld) + header("faq") + f'''
+                 "website", "/images/share.jpg", ld, "/fragor/") + header("faq") + f'''
 <main id="main">
   <section class="section faq">
     <div class="wrap faq-wrap">

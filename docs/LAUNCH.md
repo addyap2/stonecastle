@@ -106,38 +106,25 @@ The report lands in `tests/results/report.json`, with screenshots alongside it.
 - [ ] Jan reads both languages once, end to end.
 
 ### Domain and deployment (Vercel)
-- [ ] Create the project: in this folder, run `vercel` (logged in as `addyap2`), framework *Other*, no build command, output directory `.`.
-- [ ] Add the domain in Vercel → Settings → Domains; set the DNS records it shows.
-- [ ] In `index.html` `<head>`, replace `https://DOMAIN` and uncomment the canonical, `og:url` and full `og:image` lines.
-- [ ] Use full addresses for the image paths in the JSON-LD block (`"image": "https://DOMAIN/images/…"`).
-- [ ] Add `sitemap.xml`:
-  ```xml
-  <?xml version="1.0" encoding="UTF-8"?>
-  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url><loc>https://DOMAIN/</loc></url>
-    <url><loc>https://DOMAIN/blogg/</loc></url>
-    <url><loc>https://DOMAIN/blogg/sa-foddes-sagan-om-erik/</loc></url>
-    <url><loc>https://DOMAIN/blogg/berattaren-jan-stenborg/</loc></url>
-    <url><loc>https://DOMAIN/blogg/livet-pa-franska-rivieran/</loc></url>
-    <url><loc>https://DOMAIN/blogg/fran-pedalboards-till-langskepp/</loc></url>
-    <url><loc>https://DOMAIN/fragor/</loc></url>
-  </urlset>
-  ```
-  and the `Sitemap:` line in `robots.txt`.
-- [ ] Check the live headers: `curl -I https://DOMAIN/` shows `content-security-policy`, `x-frame-options` and `strict-transport-security`.
-- [ ] Open `https://DOMAIN/not-a-page`: the branded 404 should appear.
+- [x] Vercel project `stonecastle` (team `addyap2`), deploying automatically from GitHub `main`
+- [x] Domain **janstenborg.com** (GoDaddy, Vercel nameservers) added to the project on 24 October 2026; `www` redirects to it; HTTPS certificate issued
+- [x] Canonical, `og:url` and full share-image address on every page
+- [x] Full addresses in the structured data
+- [x] `sitemap.xml` (7 pages) and the `Sitemap:` line in `robots.txt`
+- [x] Live headers checked: `content-security-policy`, `x-frame-options`, `strict-transport-security`
+- [x] `https://janstenborg.com/not-a-page` shows the branded 404
 
 ### SEO and sharing
 - [ ] Paste the address into the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/): the dawn image and "Kungablod – den nya vikingaromanen av Jan Stenborg" appear.
 - [ ] [Rich Results Test](https://search.google.com/test/rich-results): the *Event* (signing) and *Book* entries are detected.
 - [ ] Add the site to Google Search Console and Bing Webmaster Tools, and submit the sitemap.
-- [ ] Put the address on the printed poster as a QR code, linking to `https://DOMAIN/?utm_source=poster`.
+- [ ] Put the address on the printed poster as a QR code, linking to `https://janstenborg.com/?utm_source=poster`.
 
 ### Analytics
 - [ ] Create the site in [Plausible](https://plausible.io) (cookie-free, so no consent banner is needed).
 - [ ] Add to `<head>` (the security policy already allows it):
   ```html
-  <script defer data-domain="DOMAIN" src="https://plausible.io/js/script.js"></script>
+  <script defer data-domain="janstenborg.com" src="https://plausible.io/js/script.js"></script>
   ```
 - [ ] In Plausible, create these goals (custom events). The site already sends them:
   - Hero: signing
