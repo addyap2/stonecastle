@@ -804,6 +804,7 @@ html.poster-viewing { overflow: hidden; }
   transition: color var(--dur-quick) var(--ease-ui), border-color var(--dur-quick) var(--ease-ui);
 }
 .finale-email:hover { color: var(--text); border-color: var(--gold); }
+.finale-inner > .finale-follow { margin: 36px auto 0; font-size: 1.05rem; }
 @media (max-width: 700px) { .finale { padding: 110px 0 96px; } }
 
 /* ===== Footer ===== */

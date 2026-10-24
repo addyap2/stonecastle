@@ -136,6 +136,7 @@ FOOTER = f'''
     <nav class="footer-links" aria-label="Mer" data-label-en="More">
       <a href="/blogg/">{bi("Blogg", "Blog")}</a>
       <a href="/fragor/">{bi("Vanliga frågor", "FAQ")}</a>
+      <a href="https://www.facebook.com/Stridslarm.Bok" target="_blank" rel="noopener" data-track="Facebook">Facebook</a>
     </nav>
   </div>
 </footer>
