@@ -95,7 +95,7 @@ await visit(webkit, 'webkit');
   const p = await ctx.newPage(); await p.goto(URL); await p.waitForTimeout(500);
   out.nojs = await p.evaluate(() => {
     const vis = s => [...document.querySelectorAll(s)].filter(e => e.offsetParent && getComputedStyle(e).opacity !== '0').length;
-    return { motionReady: document.documentElement.classList.contains('motion-ready'), books: vis('.saga-list .book h3'), calendar: vis('a[href$=".ics"]'), email: vis('.finale-email'), invisibleReveals: [...document.querySelectorAll('[data-reveal]')].filter(e => getComputedStyle(e).opacity === '0').length };
+    return { motionReady: document.documentElement.classList.contains('motion-ready'), books: vis('.shelf-panel h3'), calendar: vis('a[href$=".ics"]'), email: vis('.finale-email'), invisibleReveals: [...document.querySelectorAll('[data-reveal]')].filter(e => getComputedStyle(e).opacity === '0').length };
   });
   await p.screenshot({ path: `${process.env.OUT}/no-js.png`, fullPage: true });
   await b.close();

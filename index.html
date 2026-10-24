@@ -257,10 +257,8 @@
     <a class="scroll-cue" href="#bocker" aria-hidden="true" tabindex="-1"><span lang="sv">Scrolla</span><span lang="en">Scroll</span></a>
   </section>
 
-  <!-- ===== BOOKS: the saga, oldest first =====
-       On desktop the covers sit on a pinned "stage" (left) while the texts scroll past (right).
-       On phones each book shows its own cover. When adding a book, add it in both places. -->
-  <section class="section saga" id="bocker" data-saga data-active="stridslarm">
+  <!-- ===== BOOKS: the trilogy shelf ===== -->
+  <section class="section saga" id="bocker">
     <div class="wrap">
       <header class="chapter" data-reveal="title">
         <p class="chapter-mark"><span class="chapter-rule" aria-hidden="true"></span><span class="chapter-num">I</span><span lang="sv">Böckerna</span><span lang="en">The books</span></p>
@@ -271,40 +269,52 @@
         <span lang="en">Three historical adventures from the Viking age, among housecarls, berserkers and seeresses. Start with <em>Stridslarm</em>.</span>
       </p>
 
-      <div class="saga-layout">
-        <div class="saga-stage" aria-hidden="true">
-          <div class="saga-bloom" data-tint="ember"></div>
-          <div class="saga-bloom" data-tint="moss"></div>
-          <div class="saga-bloom" data-tint="dawn"></div>
-          <picture class="saga-cover" data-book="stridslarm">
-            <source type="image/avif" srcset="images/stridslarm-533.avif">
-            <source type="image/webp" srcset="images/stridslarm-533.webp">
-            <img src="images/stridslarm.jpg" width="533" height="804" loading="lazy" alt="">
-          </picture>
-          <picture class="saga-cover" data-book="jagad">
-            <source type="image/avif" srcset="images/jagad-362.avif">
-            <source type="image/webp" srcset="images/jagad-362.webp">
-            <img src="images/jagad.jpg" width="362" height="552" loading="lazy" alt="">
-          </picture>
-          <picture class="saga-cover" data-book="kungablod">
-            <source type="image/avif" srcset="images/kungablod-480.avif">
-            <source type="image/webp" srcset="images/kungablod-480.webp">
-            <img src="images/kungablod.jpg" width="628" height="938" loading="lazy" alt="">
-          </picture>
-          <ol class="saga-marks"><li></li><li></li><li></li></ol>
+      <!-- The trilogy shelf: three books side by side, oldest first. Choosing one lifts it and shows its
+           details below. To add a book, add a button in shelf-books and a panel in shelf-panels. -->
+      <div class="shelf" data-shelf data-reveal>
+        <div class="shelf-books" role="tablist" aria-label="Böckerna" data-label-en="The books">
+          <button type="button" role="tab" class="shelf-book" id="tab-stridslarm" aria-controls="panel-stridslarm" aria-selected="true" tabindex="0" data-book="stridslarm">
+            <span class="shelf-glow" aria-hidden="true"></span>
+            <span class="shelf-3d" aria-hidden="true"><span class="shelf-body">
+              <picture>
+                <source type="image/avif" srcset="images/stridslarm-360.avif 360w, images/stridslarm-533.avif 533w" sizes="(max-width: 640px) 110px, 200px">
+                <source type="image/webp" srcset="images/stridslarm-360.webp 360w, images/stridslarm-533.webp 533w" sizes="(max-width: 640px) 110px, 200px">
+                <img class="shelf-front" src="images/stridslarm.jpg" width="533" height="804" loading="lazy" alt="">
+              </picture>
+              <span class="shelf-spine"></span>
+            </span></span>
+            <span class="shelf-num" aria-hidden="true">I</span>
+            <span class="visually-hidden"><span lang="sv">Stridslarm, bok 1 av 3</span><span lang="en">Stridslarm, book 1 of 3</span></span>
+          </button>
+          <button type="button" role="tab" class="shelf-book" id="tab-jagad" aria-controls="panel-jagad" aria-selected="false" tabindex="-1" data-book="jagad">
+            <span class="shelf-glow" aria-hidden="true"></span>
+            <span class="shelf-3d" aria-hidden="true"><span class="shelf-body">
+              <picture>
+                <source type="image/avif" srcset="images/jagad-240.avif 240w, images/jagad-362.avif 362w" sizes="(max-width: 640px) 110px, 200px">
+                <source type="image/webp" srcset="images/jagad-240.webp 240w, images/jagad-362.webp 362w" sizes="(max-width: 640px) 110px, 200px">
+                <img class="shelf-front" src="images/jagad.jpg" width="362" height="552" loading="lazy" alt="">
+              </picture>
+              <span class="shelf-spine"></span>
+            </span></span>
+            <span class="shelf-num" aria-hidden="true">II</span>
+            <span class="visually-hidden"><span lang="sv">Jagad, bok 2 av 3</span><span lang="en">Jagad, book 2 of 3</span></span>
+          </button>
+          <button type="button" role="tab" class="shelf-book" id="tab-kungablod" aria-controls="panel-kungablod" aria-selected="false" tabindex="-1" data-book="kungablod">
+            <span class="shelf-glow" aria-hidden="true"></span>
+            <span class="shelf-3d" aria-hidden="true"><span class="shelf-body">
+              <picture>
+                <source type="image/avif" srcset="images/kungablod-320.avif 320w, images/kungablod-480.avif 480w" sizes="(max-width: 640px) 110px, 200px">
+                <source type="image/webp" srcset="images/kungablod-320.webp 320w, images/kungablod-480.webp 480w" sizes="(max-width: 640px) 110px, 200px">
+                <img class="shelf-front" src="images/kungablod.jpg" width="628" height="938" loading="lazy" alt="">
+              </picture>
+              <span class="shelf-spine"></span>
+            </span></span>
+            <span class="shelf-num" aria-hidden="true">III</span>
+            <span class="visually-hidden"><span lang="sv">Kungablod, bok 3 av 3</span><span lang="en">Kungablod, book 3 of 3</span></span>
+          </button>
         </div>
-
-        <!-- On phones and small tablets this list is a side-to-side swipe row (see styles.css) -->
-        <div class="saga-list" data-saga-row aria-label="Böckerna" data-label-en="The books" role="group">
-          <!-- Book: Stridslarm -->
-          <article class="book" data-book="stridslarm">
-            <picture data-reveal="wipe">
-              <source type="image/avif" srcset="images/stridslarm-360.avif 360w, images/stridslarm-533.avif 533w" sizes="(max-width: 640px) 200px, 220px">
-              <source type="image/webp" srcset="images/stridslarm-360.webp 360w, images/stridslarm-533.webp 533w" sizes="(max-width: 640px) 200px, 220px">
-              <img class="book-cover" src="images/stridslarm.jpg" width="533" height="804" loading="lazy"
-                   alt="Omslaget till Stridslarm: en vikingakrigare med svärd och sköld i fören på ett långskepp framför ett brinnande hav."
-                   data-alt-en="The cover of Stridslarm: a Viking warrior with sword and shield at the prow of a longship before a burning sea.">
-            </picture>
+        <div class="shelf-panels">
+          <div class="shelf-panel book is-active" role="tabpanel" id="panel-stridslarm" aria-labelledby="tab-stridslarm" data-book="stridslarm" tabindex="0">
             <div class="book-body">
               <p class="book-meta" data-reveal>2017 · Vulkan · 431 <span lang="sv">sidor</span><span lang="en">pages</span><span class="badge"><span lang="sv">Börja här</span><span lang="en">Start here</span></span></p>
               <h3 data-reveal>Stridslarm</h3>
@@ -318,17 +328,8 @@
                 <li><a href="https://www.storytel.com/se/books/stridslarm-1132654" target="_blank" rel="noopener"><span lang="sv">Storytel (ljudbok)</span><span lang="en">Storytel (audiobook)</span></a></li>
               </ul>
             </div>
-          </article>
-
-          <!-- Book: Jagad -->
-          <article class="book" data-book="jagad">
-            <picture data-reveal="wipe">
-              <source type="image/avif" srcset="images/jagad-240.avif 240w, images/jagad-362.avif 362w" sizes="(max-width: 640px) 200px, 220px">
-              <source type="image/webp" srcset="images/jagad-240.webp 240w, images/jagad-362.webp 362w" sizes="(max-width: 640px) 200px, 220px">
-              <img class="book-cover" src="images/jagad.jpg" width="362" height="552" loading="lazy"
-                   alt="Omslaget till Jagad: en krigare med sköld går mot en stad genom en gotisk portal."
-                   data-alt-en="The cover of Jagad: a warrior with a shield walks towards a city through a Gothic archway.">
-            </picture>
+          </div>
+          <div class="shelf-panel book" role="tabpanel" id="panel-jagad" aria-labelledby="tab-jagad" data-book="jagad" tabindex="0">
             <div class="book-body">
               <p class="book-meta" data-reveal>2021 · <span lang="sv">Ljudbok uppläst av Sebastian Karlsson</span><span lang="en">Audiobook read by Sebastian Karlsson</span></p>
               <h3 data-reveal>Jagad</h3>
@@ -342,16 +343,8 @@
                 <li><a href="https://bokon.se/ebok/jagad_jan-stenborg-2/" target="_blank" rel="noopener"><span lang="sv">Bokon (e-bok)</span><span lang="en">Bokon (e-book)</span></a></li>
               </ul>
             </div>
-          </article>
-
-          <!-- Book: Kungablod. Add a description and shop links when they are ready. -->
-          <article class="book" data-book="kungablod">
-            <picture data-reveal="wipe">
-              <source type="image/avif" srcset="images/kungablod-320.avif 320w, images/kungablod-480.avif 480w" sizes="(max-width: 640px) 200px, 220px">
-              <source type="image/webp" srcset="images/kungablod-320.webp 320w, images/kungablod-480.webp 480w" sizes="(max-width: 640px) 200px, 220px">
-              <img class="book-cover" src="images/kungablod.jpg" width="628" height="938" loading="lazy"
-                   alt="Omslaget till Kungablod" data-alt-en="The cover of Kungablod">
-            </picture>
+          </div>
+          <div class="shelf-panel book" role="tabpanel" id="panel-kungablod" aria-labelledby="tab-kungablod" data-book="kungablod" tabindex="0">
             <div class="book-body">
               <p class="book-meta" data-reveal><span lang="sv">Ny · 2026</span><span lang="en">New · 2026</span></p>
               <h3 data-reveal>Kungablod</h3>
@@ -364,22 +357,7 @@
                 <span lang="en">Meet Jan and get your copy signed on 21 November at Twang in Stockholm.</span>
               </p>
             </div>
-          </article>
-        </div>
-
-        <!-- Swipe controls (phones and small tablets only) -->
-        <div class="saga-controls">
-          <button type="button" class="saga-arrow" data-saga-prev>
-            <span aria-hidden="true">←</span><span class="visually-hidden"><span lang="sv">Föregående bok</span><span lang="en">Previous book</span></span>
-          </button>
-          <div class="saga-dots">
-            <button type="button" data-saga-go="0" aria-current="true"><span class="visually-hidden"><span lang="sv">Bok 1 av 3: Stridslarm</span><span lang="en">Book 1 of 3: Stridslarm</span></span></button>
-            <button type="button" data-saga-go="1"><span class="visually-hidden"><span lang="sv">Bok 2 av 3: Jagad</span><span lang="en">Book 2 of 3: Jagad</span></span></button>
-            <button type="button" data-saga-go="2"><span class="visually-hidden"><span lang="sv">Bok 3 av 3: Kungablod</span><span lang="en">Book 3 of 3: Kungablod</span></span></button>
           </div>
-          <button type="button" class="saga-arrow" data-saga-next>
-            <span aria-hidden="true">→</span><span class="visually-hidden"><span lang="sv">Nästa bok</span><span lang="en">Next book</span></span>
-          </button>
         </div>
       </div>
     </div>

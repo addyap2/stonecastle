@@ -9,7 +9,7 @@ How everything on Jan Stenborg's site moves, and why. It's implemented in `style
 1. **Light rises.** The site's story is dawn: the *Kungablod* sunrise. Things arrive *upward*, out of darkness, the way light comes over a horizon. Nothing slides in sideways, spins or bounces.
 2. **Motion is the story's punctuation, not its voice.** An animation either shows that something arrived, connects two things, or answers an action. If it does none of these, it's removed.
 3. **Once.** A reveal plays the first time something comes into view, and never again on the way back up. Re-animating content the reader has already seen is noise.
-4. **The reader is in charge.** Scrolling is never hijacked, slowed or snapped. Pinned sections follow the scroll position exactly, and stopping scrolling stops the motion.
+4. **The reader is in charge.** Scrolling is never hijacked, slowed or snapped. Nothing moves by itself as the reader scrolls past, except the hero's depth.
 5. **Cheap to run.** Only `transform`, `opacity` and `clip-path` are animated. No layout properties are touched, and there are no scroll handlers except one shared, throttled one.
 6. **Still is a first-class version.** With reduced motion turned on, the site is complete and beautiful, just still.
 
@@ -26,7 +26,7 @@ Defined once on `:root` in `styles.css`. Every animation uses these and nothing 
 | `--dur-quick` | 160ms | Colour and hover changes |
 | `--dur-ui` | 240ms | Header, indicators, small UI |
 | `--dur-reveal` | 800ms | Content arriving on scroll |
-| `--dur-scene` | 1100ms | Large images, scene changes, pinned crossfades |
+| `--dur-scene` | 1100ms | Large images and scene changes |
 
 ### Easing
 | Token | Curve | Character |
@@ -83,7 +83,7 @@ Four kinds of reveal, chosen by `data-reveal` in the HTML. Siblings with the sam
 | Section | Arrival | While scrolling | Leaving |
 | --- | --- | --- | --- |
 | **Hero** | Sunrise sequence (HERO.md) | Layers separate in depth: sky slow, book fast, text fades (desktop) | Fades into the books as the sea darkens to the page colour |
-| **Books: the saga** | Title draws, intro rises | **Pinned on desktop** (§6). Phones: each book's cover wipes up, its text rises after | Last book, *Kungablod*, holds in dawn light, leading into the events |
+| **Books: the trilogy shelf** | Title draws, intro rises, the shelf rises | Choosing a book (§6): it lifts into its own light, the others step into shadow, the details crossfade | — |
 | **Events** | Poster wipes up, details rise in order: date → title → text → place → buttons | — | — |
 | **About** | Portrait brightens (`light`), text rises | — | — |
 | **Contact** | Title draws, line and button rise | — | — |
@@ -92,32 +92,18 @@ Four kinds of reveal, chosen by `data-reveal` in the HTML. Siblings with the sam
 
 ---
 
-## 6. Pinned section: the saga (desktop ≥ 1024px)
+## 6. The trilogy shelf (all devices)
 
-The three books are told in order, oldest first: *Stridslarm* → *Jagad* → *Kungablod*.
+The three books stand side by side in reading order, *Stridslarm* → *Jagad* → *Kungablod*, as 3D books on a line of dawn light. Each has its own colour of light behind it: ember, moss and dawn.
 
-**Layout.** Two columns. The left one, the **stage**, is `position: sticky`: it stays in place, centred on screen, while the right column of book texts scrolls past. Each text panel is 72% of the screen tall, so there's room to read.
+| Moment | Motion |
+| --- | --- |
+| A book is chosen (tap, click, or arrow keys) | It rises 20px, turns towards the reader (22° → 8°) and grows to 1.04, `--ease-rise`, 750ms. Its glow brightens to full over 900ms, and its numeral turns gold with a diamond beneath |
+| The other two | Turn back to 22°, settle to 0.9 scale and step into shadow behind a 50% dark veil |
+| The details below | Crossfade: the old panel fades out, and the new one rises 10px and fades in 120ms later, over 420ms |
+| Hover (mouse only) | A book in shadow lifts 8px and half-lights, as an invitation |
 
-**Choreography.** As a panel crosses the middle of the screen it becomes *active*:
-
-| Element | Becoming active | Becoming inactive |
-| --- | --- | --- |
-| Its cover on the stage | Rises 24px and fades in, settling from 0.96 scale, `--dur-scene`, `--ease-rise` | Sinks 24px and fades, 500ms, `--ease-out` |
-| Its text | Opacity 0.32 → 1, `--dur-ui` | Back to 0.32 |
-| The section's glow | Crossfades to the book's colour: ember (*Stridslarm*), moss (*Jagad*), dawn (*Kungablod*), `--dur-scene` | — |
-| Progress marks | Its mark turns gold (3 marks under the stage) | Back to dim |
-
-**Why sticky and not "scroll-jacking":** the page scrolls at its normal speed, the browser does the pinning, and the only script is one `IntersectionObserver` that says which book is in the middle. It can't stutter, and keyboard, trackpad and screen-reader users scroll exactly as normal.
-
-```js
-// One observer decides which book is "active" (the one crossing the middle of the screen)
-new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) saga.dataset.active = e.target.dataset.book; });
-}, { rootMargin: '-45% 0px -45% 0px' }).observe(panel);
-```
-
-**Phones and tablets:** no pinning. Each book is a normal block with its own cover (`wipe`) and text (`up`). The stage's images are never downloaded on phones, because they're lazy-loaded and hidden.
-
+All three detail panels share one grid cell, so the area is always as tall as the longest, and nothing below the shelf moves when switching. It's built as tabs: one Tab stop, arrow keys, Home and End, with screen readers announcing "Stridslarm, bok 1 av 3".
 ---
 
 ## 7. Hover states and micro-interactions
@@ -152,7 +138,7 @@ When the device asks for less motion (`prefers-reduced-motion: reduce`):
 | --- | --- |
 | Hero entrance, tilt, parallax, sun, fleet and water loops | The finished scene |
 | Reveals (content is simply there) | — |
-| Saga cover movement | The covers and glow still **change** with the active book, as an instant swap, so the pinned section still works |
+| Shelf movement | The chosen book and its details still **change**, instantly, so the shelf still works |
 | Button sheen, press scale, arrow nudge | Colour changes on hover and focus |
 | Header slide | Header still hides and shows, instantly |
 | Smooth scrolling for menu links | Jump links |

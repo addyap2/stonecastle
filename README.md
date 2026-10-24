@@ -7,11 +7,11 @@ The full design plan is in [docs/EXPERIENCE.md](docs/EXPERIENCE.md), the art dir
 
 **Menu:** on desktop the links sit in the top bar. On phones and small tablets (up to 900px wide), they move into a full-screen chapter menu behind the ☰ button, together with the language switch. Its links are in `index.html` just below the header; keep them in step with the desktop links.
 
-**Books on phones and small tablets** (up to 1023px wide) are a side-to-side swipe row with arrows and diamond dots. On desktop they stay a pinned sequence. Both use the same book cards in `saga-list`.
+**Books** are a trilogy shelf on every device: three 3D books side by side, each backlit in its own colour (ember, moss, dawn). Choosing one lifts it into its light and shows its details below. It works like tabs: arrow keys move between books. To add a book, add a button in `shelf-books` and a matching panel in `shelf-panels`.
 
 **Section headings** are chapters: a roman numeral, a short label and a headline. Copy an existing `<header class="chapter">` block to add one.
 
-**Motion in short:** anything with `data-reveal` fades up the first time it scrolls into view. Use `data-reveal="title"` on headings and `data-reveal="wipe"` on pictures. On desktop the books are shown as a pinned sequence: the covers stay in place on the left while the texts scroll past. A new book must be added both to the `saga-stage` (cover only) and to the `saga-list` (cover and text). Visitors who turn off motion on their device get a still version.
+**Motion in short:** anything with `data-reveal` fades up the first time it scrolls into view. Use `data-reveal="title"` on headings and `data-reveal="wipe"` on pictures. Visitors who turn off motion on their device get a still version.
 
 The opening scene (sky, sun, ships, sea) is drawn entirely in code inside the `HERO` section of `index.html` and `styles.css`. The only picture in it is the *Kungablod* cover. The sunrise entrance plays on every page load. After it, the scene keeps a slow life of its own: drifting mist, glinting water, the book floating, and a glint passing over the title every few seconds. All of it stops for visitors who turn off motion on their device.
 

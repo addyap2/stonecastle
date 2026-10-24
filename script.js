@@ -89,58 +89,32 @@
     if (compact.addEventListener) compact.addEventListener('change', onWide); else if (compact.addListener) compact.addListener(onWide);
   }
 
-  /* ---------- Books on phones and tablets: side-to-side swipe row ---------- */
-  var row = document.querySelector('[data-saga-row]');
-  if (row) {
-    var cards = [].slice.call(row.querySelectorAll('.book'));
-    var dots = [].slice.call(document.querySelectorAll('[data-saga-go]'));
-    var prevBtn = document.querySelector('[data-saga-prev]');
-    var nextBtn = document.querySelector('[data-saga-next]');
-    var sagaSection = row.closest('[data-saga]');
-    var current = 0;
-    var swipeRow = window.matchMedia('(max-width: 1023px)');
-    function offset(k) { return cards[k].offsetLeft - cards[0].offsetLeft; }
-    function atEnd() { return row.scrollLeft >= row.scrollWidth - row.clientWidth - 2; }
-    function show(i) {
-      current = i;
-      dots.forEach(function (d, k) { d.setAttribute('aria-current', String(k === i)); });
-      if (prevBtn) prevBtn.disabled = row.scrollLeft <= 2;
-      if (nextBtn) nextBtn.disabled = atEnd();
-      if (sagaSection && swipeRow.matches) sagaSection.setAttribute('data-active', cards[i].getAttribute('data-book'));
-    }
-    function go(i, instant) {
-      i = Math.max(0, Math.min(cards.length - 1, i));
-      var calm = instant || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      row.scrollTo({ left: offset(i), behavior: calm ? 'auto' : 'smooth' });
-    }
-    function updateRow() {
-      // the active book is the one nearest the left edge; at the end of the row, the last one
-      var i = 0, best = Infinity;
-      cards.forEach(function (c, k) { var d = Math.abs(offset(k) - row.scrollLeft); if (d < best) { best = d; i = k; } });
-      if (atEnd()) i = cards.length - 1;
-      show(i);
-    }
-    var rowTick = false;
-    row.addEventListener('scroll', function () {
-      if (rowTick) return; rowTick = true;
-      requestAnimationFrame(function () { rowTick = false; updateRow(); });
-    }, { passive: true });
-    window.addEventListener('resize', updateRow);
-    // arrows move one card from wherever the row actually is
-    if (prevBtn) prevBtn.addEventListener('click', function () {
-      var k = cards.length - 1; while (k > 0 && offset(k) >= row.scrollLeft - 4) k--; go(k);
+  /* ---------- Books: the trilogy shelf (tabs) ---------- */
+  var shelfTabs = [].slice.call(document.querySelectorAll('.shelf-book[role="tab"]'));
+  if (shelfTabs.length) {
+    var panelFor = function (tab) { return document.getElementById(tab.getAttribute('aria-controls')); };
+    var choose = function (i, moveFocus) {
+      shelfTabs.forEach(function (tab, k) {
+        var on = k === i;
+        tab.setAttribute('aria-selected', String(on));
+        tab.tabIndex = on ? 0 : -1;                    // one tab stop for the shelf; arrows move between books
+        var panel = panelFor(tab);
+        if (panel) panel.classList.toggle('is-active', on);
+      });
+      if (moveFocus) shelfTabs[i].focus();
+    };
+    shelfTabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { choose(i, false); });
+      tab.addEventListener('keydown', function (e) {
+        var n = shelfTabs.length, next = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % n;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + n) % n;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = n - 1;
+        if (next !== null) { e.preventDefault(); choose(next, true); }
+      });
     });
-    if (nextBtn) nextBtn.addEventListener('click', function () {
-      var k = 0; while (k < cards.length - 1 && offset(k) <= row.scrollLeft + 4) k++; go(k);
-    });
-    dots.forEach(function (d) { d.addEventListener('click', function () { go(+d.getAttribute('data-saga-go')); }); });
-    // keyboard: focusing something inside a card brings that whole card into view
-    row.addEventListener('focusin', function (e) {
-      var card = e.target.closest('.book');
-      // instantly: keyboard focus must land at once (and Safari cancels a glide when the page also scrolls)
-      if (card && swipeRow.matches) { var k = cards.indexOf(card); if (k !== current) go(k, true); }
-    });
-    updateRow();
+    choose(0, false);
   }
 
   /* ---------- Poster: full-size viewer ---------- */
@@ -274,16 +248,6 @@
     }, { threshold: 0.15, rootMargin: '0px 0px 8% 0px' });
     reveals.forEach(function (el) { revealer.observe(el); });
 
-    // Saga: the book crossing the middle of the screen becomes the active one.
-    var saga = document.querySelector('[data-saga]');
-    var pinnedSaga = window.matchMedia('(min-width: 1024px)');
-    if (saga) {
-      var picker = new IntersectionObserver(function (entries) {
-        if (!pinnedSaga.matches) return;               // phones and tablets use the swipe row instead
-        entries.forEach(function (e) { if (e.isIntersecting) saga.setAttribute('data-active', e.target.getAttribute('data-book')); });
-      }, { rootMargin: '-45% 0px -45% 0px' });
-      saga.querySelectorAll('.saga-list .book').forEach(function (b) { picker.observe(b); });
-    }
   } else {
     reveals.forEach(function (el) { el.classList.add('is-in'); });
   }
@@ -299,9 +263,6 @@
       el.querySelectorAll('img').forEach(function (img) { img.style.transition = 'none'; });
       el = el.parentElement && el.parentElement.closest('[data-reveal]');
     }
-    var book = t.closest && t.closest('.saga-list .book');
-    var sagaEl = book && book.closest('[data-saga]');
-    if (sagaEl && window.matchMedia('(min-width: 1024px)').matches) sagaEl.setAttribute('data-active', book.getAttribute('data-book'));
     var keyboard = false;
     try { keyboard = t.matches(':focus-visible'); } catch (err) {}
     if (keyboard && t.getBoundingClientRect) {
