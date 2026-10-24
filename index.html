@@ -66,7 +66,9 @@
         "workTranslation": { "@type": "Book", "name": "Erik of Birka: The Clash of Arms", "inLanguage": "en" },
         "numberOfPages": 431,
         "bookFormat": "https://schema.org/Paperback",
-        "image": "https://janstenborg.com/images/stridslarm.jpg"
+        "image": "https://janstenborg.com/images/stridslarm.jpg",
+        "isPartOf": { "@id": "#trilogin" },
+        "position": 1
       },
       {
         "@type": "Book",
@@ -76,6 +78,8 @@
         "genre": "Historisk roman",
         "datePublished": "2021",
         "image": "https://janstenborg.com/images/jagad.jpg",
+        "isPartOf": { "@id": "#trilogin" },
+        "position": 2,
         "workExample": {
           "@type": "Book",
           "bookFormat": "https://schema.org/AudiobookFormat",
@@ -90,12 +94,23 @@
         "author": { "@id": "#jan-stenborg" },
         "inLanguage": "sv",
         "genre": "Historisk roman",
-        "image": "https://janstenborg.com/images/kungablod.jpg"
+        "image": "https://janstenborg.com/images/kungablod.jpg",
+        "isPartOf": { "@id": "#trilogin" },
+        "position": 3
+      },
+      {
+        "@type": "BookSeries",
+        "@id": "#trilogin",
+        "name": "Trilogin om Erik från Birka",
+        "author": { "@id": "#jan-stenborg" },
+        "inLanguage": "sv",
+        "genre": "Historisk roman",
+        "numberOfItems": 3
       },
       {
         "@type": "Event",
         "name": "Boksignering: Kungablod med Jan Stenborg",
-        "description": "Jan Stenborg signerar sin nya bok Kungablod.",
+        "description": "Jan Stenborg signerar Kungablod, den avslutande delen i hans vikingatrilogi om Erik från Birka.",
         "startDate": "2026-11-21T13:00:00+01:00",
         "endDate": "2026-11-21T15:00:00+01:00",
         "eventStatus": "https://schema.org/EventScheduled",
@@ -324,13 +339,13 @@
         <div class="shelf-panels">
           <div class="shelf-panel book is-active" role="tabpanel" id="panel-stridslarm" aria-labelledby="tab-stridslarm" data-book="stridslarm">
             <div class="book-body">
-              <p class="book-meta" data-reveal>2017 · Stonecastle Media · 431 <span lang="sv">sidor</span><span lang="en" data-nosnippet>pages</span><span class="badge"><span lang="sv">Börja här</span><span lang="en" data-nosnippet>Start here</span></span></p>
+              <p class="book-meta" data-reveal><span lang="sv">Del 1 av 3</span><span lang="en" data-nosnippet>Book 1 of 3</span> · 2017 · Stonecastle Media · 431 <span lang="sv">sidor</span><span lang="en" data-nosnippet>pages</span><span class="badge"><span lang="sv">Börja här</span><span lang="en" data-nosnippet>Start here</span></span></p>
               <h3 data-reveal>Stridslarm</h3>
               <!-- The hook from the book's own back cover -->
               <p class="book-hook" data-reveal><span lang="sv">… och allt detta bara för hans kniv?</span><span lang="en" data-nosnippet>… and all this just for his knife?</span></p>
               <p data-reveal>
-                <span lang="sv">Birka, år 975. Erik växer upp i vikingatidens handelsstad och dras in i rikets farliga spel. Styrbjörn blir hans fiende och Gyrid hans kärlek – en kombination som kan bli dödlig. Första boken om Erik. Finns även på engelska som <em>Erik of Birka: The Clash of Arms</em>.</span>
-                <span lang="en" data-nosnippet>Birka, in the year 975. Erik grows up in the Viking-age trading town and is drawn into the kingdom's dangerous games. Styrbjörn becomes his enemy and Gyrid his love – a combination that could prove deadly. The first book about Erik, also available in English as <em>Erik of Birka: The Clash of Arms</em>.</span>
+                <span lang="sv">Birka, år 975. Erik växer upp i vikingatidens handelsstad och dras in i rikets farliga spel. Styrbjörn blir hans fiende och Gyrid hans kärlek – en kombination som kan bli dödlig. Första delen i trilogin om Erik, som fortsätter i <em>Jagad</em>. Finns även på engelska som <em>Erik of Birka: The Clash of Arms</em>.</span>
+                <span lang="en" data-nosnippet>Birka, in the year 975. Erik grows up in the Viking-age trading town and is drawn into the kingdom's dangerous games. Styrbjörn becomes his enemy and Gyrid his love – a combination that could prove deadly. The first part of the trilogy about Erik, which continues in <em>Jagad</em>. Also available in English as <em>Erik of Birka: The Clash of Arms</em>.</span>
               </p>
               <!-- A few of the book's own chapter titles -->
               <p class="book-chapters" data-reveal>
@@ -349,11 +364,11 @@
           </div>
           <div class="shelf-panel book" role="tabpanel" id="panel-jagad" aria-labelledby="tab-jagad" data-book="jagad">
             <div class="book-body">
-              <p class="book-meta" data-reveal>2021 · <span lang="sv">Ljudbok uppläst av Sebastian Karlsson</span><span lang="en" data-nosnippet>Audiobook read by Sebastian Karlsson</span></p>
+              <p class="book-meta" data-reveal><span lang="sv">Del 2 av 3</span><span lang="en" data-nosnippet>Book 2 of 3</span> · 2021 · <span lang="sv">Ljudbok uppläst av Sebastian Karlsson</span><span lang="en" data-nosnippet>Audiobook read by Sebastian Karlsson</span></p>
               <h3 data-reveal>Jagad</h3>
               <p data-reveal>
-                <span lang="sv">En gammal lögn hinner ikapp Erik. Dömd på tinget och jagad av Kåre, som kräver blodig hämnd, måste han ta sig fram bland kungar, drottningar, rövare och jägare för att rentvå sitt namn. Och hemma i Birka väntar Gyrid – eller har hon glömt honom?</span>
-                <span lang="en" data-nosnippet>An old lie catches up with Erik. Condemned at the Thing and hunted by Kåre, who wants blood for blood, he must survive kings, queens, robbers and hunters to clear his name. And back in Birka there is Gyrid – unless she has forgotten him.</span>
+                <span lang="sv">En gammal lögn hinner ikapp Erik. Dömd på tinget och jagad av Kåre, som kräver blodig hämnd, måste han ta sig fram bland kungar, drottningar, rövare och jägare för att rentvå sitt namn. Och hemma i Birka väntar Gyrid – eller har hon glömt honom? Andra delen i trilogin om Erik, som avslutas i <em>Kungablod</em>.</span>
+                <span lang="en" data-nosnippet>An old lie catches up with Erik. Condemned at the Thing and hunted by Kåre, who wants blood for blood, he must survive kings, queens, robbers and hunters to clear his name. And back in Birka there is Gyrid – unless she has forgotten him. The second part of the trilogy about Erik, which concludes in <em>Kungablod</em>.</span>
               </p>
               <ul class="buy" data-reveal>
                 <li><a href="https://www.bokus.com/forfattare/jan-stenborg" target="_blank" rel="noopener">Bokus</a></li>
@@ -364,7 +379,7 @@
           </div>
           <div class="shelf-panel book" role="tabpanel" id="panel-kungablod" aria-labelledby="tab-kungablod" data-book="kungablod">
             <div class="book-body">
-              <p class="book-meta" data-reveal><span lang="sv">Ny · 2026</span><span lang="en" data-nosnippet>New · 2026</span></p>
+              <p class="book-meta" data-reveal><span lang="sv">Del 3 av 3 · Ny · 2026</span><span lang="en" data-nosnippet>Book 3 of 3 · New · 2026</span></p>
               <h3 data-reveal>Kungablod</h3>
               <p data-reveal>
                 <span lang="sv">Den tredje och avslutande delen i trilogin om Erik. Mer om boken, och var du kan köpa den, kommer snart.</span>
