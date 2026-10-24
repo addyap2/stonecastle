@@ -115,15 +115,16 @@ The report lands in `tests/results/report.json`, with screenshots alongside it.
 - [x] `https://janstenborg.com/not-a-page` shows the branded 404
 
 ### SEO and sharing
-- [ ] Paste the address into the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/): the dawn image and "Kungablod – den nya vikingaromanen av Jan Stenborg" appear.
-- [ ] [Rich Results Test](https://search.google.com/test/rich-results): the *Event* (signing) and *Book* entries are detected.
-- [x] Google Search Console: janstenborg.com verified on 24 October 2026 (DNS TXT record `google-site-verification=…` on Vercel; **keep it**); submit `sitemap.xml` and request indexing of the home page
+- [ ] Paste the address into the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) (needs a Facebook login): the dawn image and "Kungablod – den nya vikingaromanen av Jan Stenborg" appear. On 24 October 2026 the tags were checked as Facebook's crawler fetches them: title, description, 1200×630 `share.jpg` (served, 84 KB) and canonical are all correct.
+- [x] [Rich Results Test](https://search.google.com/test/rich-results), 24 October 2026: the *Event* (signing) is valid. One optional warning: no `offers` field (add `"offers": {"@type": "Offer", "price": 0, "priceCurrency": "SEK", "availability": "https://schema.org/InStock", "url": "https://janstenborg.com/#evenemang"}` once it's confirmed entry is free). Google shows no *Book* rich result from page markup alone (that needs a publisher data feed), so the Book entries are for understanding, not display.
+- [x] Google Search Console: janstenborg.com verified on 24 October 2026 (DNS TXT record `google-site-verification=…` on Vercel; **keep it**); 
+  - [ ] Submit `sitemap.xml` and request indexing of the home page (not confirmed done; needs a Google sign-in)
 - [ ] Bing Webmaster Tools: import the site from Search Console
 - [ ] Put the address on the printed poster as a QR code, linking to `https://janstenborg.com/?utm_source=poster`.
 
 ### Analytics
-- [ ] Create the site in [Plausible](https://plausible.io) (cookie-free, so no consent banner is needed).
-- [ ] Add to `<head>` (the security policy already allows it):
+- [ ] Create the site `janstenborg.com` in [Plausible](https://plausible.io) (cookie-free, so no consent banner is needed). Until then the script loads but nothing is recorded.
+- [x] Added to `<head>` on every page on 24 October 2026 (the security policy already allows it; the blog and FAQ pages get it from `tools/build_pages.py`):
   ```html
   <script defer data-domain="janstenborg.com" src="https://plausible.io/js/script.js"></script>
   ```
@@ -135,7 +136,10 @@ The report lands in `tests/results/report.json`, with screenshots alongside it.
   - Share
   - Shop (with `book` and `site` details)
   - Email
+  - Facebook (the links to Jan's page)
+  - Storytel sample
 - [ ] Use `?utm_source=facebook` on every link Jan posts, so the traffic can be compared.
+- [x] Jan's Facebook page ([Stridslarm.Bok](https://www.facebook.com/Stridslarm.Bok)) is linked from the contact section, every footer and the structured data. Put `https://janstenborg.com/?utm_source=facebook` in the page's *website* field.
 
 ### Assets
 - [x] Images in AVIF and WebP with JPG fallback, several sizes each
@@ -146,11 +150,12 @@ The report lands in `tests/results/report.json`, with screenshots alongside it.
 ### Performance
 - [x] Lighthouse phone ≥ 95 for speed, desktop 100
 - [x] No layout shift; the hero cover loads first; looping effects pause off screen
-- [ ] After deploy, run [PageSpeed Insights](https://pagespeed.web.dev) on the live address (it includes real compression and caching)
+- [x] Lighthouse on the live address, 24 October 2026 (PageSpeed Insights was over its daily quota): phone 94 / 100 / 100 / 100 (LCP 2.2–2.3 s, layout shift 0), desktop 100 / 100 / 100 / 100. Re-run [PageSpeed Insights](https://pagespeed.web.dev) once for its real-user data.
 
 ### Accessibility
 - [x] axe: 0 violations, both languages
 - [x] Keyboard: every stop visible and on screen, skip link works
+- [ ] Regression found 24 October 2026: `tests/qa.mjs` reports 2 of 31 tab stops in the *Stridslarm* book ("I Stridslarm, bok 1 av 3" and its publication line) with no focus outline. It was already there before the Facebook link was added
 - [x] Reduced motion and no-JavaScript versions complete
 - [ ] One pass with VoiceOver on an iPhone: swipe through the page and check each chapter heading is read once, in the right language
 
