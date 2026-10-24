@@ -1,5 +1,9 @@
 # Article and FAQ content for Jan Stenborg's site, in Swedish (sv) and English (en).
-# Each article body is a list of blocks: ("h2", sv, en) or ("p", sv, en). Inline HTML allowed.
+# Each article body is a list of blocks. Inline HTML allowed.
+#   ("h2", sv, en)                       a section heading
+#   ("p", sv, en)                        a paragraph
+#   ("quote", sv, en, cite_sv, cite_en)  a short featured quote with its source
+#   ("figure", image, caption_sv, caption_en)  a picture (see visual() in build_pages.py) with a caption
 
 QUOTE = '<q class="quote">I, myself, will write books instead.</q>'   # no lang attribute: the language switch would hide it
 
@@ -25,11 +29,18 @@ ARTICLES = [
             "The rest of the knowledge came from books and Viking sagas, libraries and museums, old maps and the internet."),
       ("p", "Lika viktigt har det varit att få historien rätt. Alla historiska händelser i böckerna har faktagranskats noggrant, så att läsaren kan lita på att världen runt Erik är vikingatidens verkliga värld.",
             "Getting the history right has mattered just as much. Every historical event in the books has been rigorously fact-checked, so readers can trust that the world around Erik is the real world of the Viking age."),
+      ("h2", "En berättare som heter Grimner", "A storyteller called Grimner"),
+      ("p", "<em>Stridslarm</em> öppnar med en röst som bjuder in läsaren att slå sig ner och lyssna. Berättaren kallar sig Grimner, ett av Odens många namn i de gamla sagorna, och han tar läsaren med till Birka år 975, där Eriks liv är på väg att förändras.",
+            "<em>Stridslarm</em> opens with a voice inviting the reader to sit down and listen. The narrator calls himself Grimner, one of Odin's many names in the old sagas, and he takes the reader to Birka in the year 975, where Erik's life is about to change."),
+      ("quote", "Så, hör nu min saga. Ty den är nästan helt sann!", "So, hear my saga now. For it is almost entirely true!",
+                "Grimner, i förordet till <em>Stridslarm</em>", "Grimner, in the foreword to <em>Stridslarm</em>"),
       ("h2", "Birka, Styrbjörn och ett rike i rörelse", "Birka, Styrbjörn and a kingdom in motion"),
       ("p", "<em>Stridslarm</em> är den första boken om Erik från Birka. Den börjar i vikingatidens handelsstad på Björkö i Mälaren, där köpmän från när och fjärran möttes, och utspelar sig i en avgörande tid då Svitjods öde stod på spel.",
             "<em>Stridslarm</em> is the first book about Erik of Birka. It opens in the Viking-age trading town on the island of Björkö in Lake Mälaren, where merchants from near and far met, and is set in a decisive age when the fate of Svitjod hung in the balance."),
       ("p", "Hans fiende Styrbjörn bär namnet på en av de mest omtalade gestalterna i den svenska vikingatiden: Styrbjörn den starke, som enligt sagorna utmanade sin farbror Erik Segersäll om makten och föll i slaget på Fyrisvallarna.",
             "His enemy Styrbjörn bears the name of one of the most famous figures of the Swedish Viking age: Styrbjörn the Strong, who according to the sagas challenged his uncle, Eric the Victorious, for power and fell at the Battle of Fýrisvellir."),
+      ("figure", "knife", "Kniven och långskeppet i solnedgången, från baksidan av <em>Stridslarm</em>. Allt börjar med Eriks kniv.",
+                 "The knife and the longship at sunset, from the back cover of <em>Stridslarm</em>. It all begins with Erik's knife."),
       ("h2", "Från Jagad till Kungablod", "From Jagad to Kungablod"),
       ("p", "I <em>Jagad</em> hinner en gammal lögn ikapp Erik. Dömd på tinget och jagad av Kåre måste han ta sig fram bland kungar, drottningar, rövare och jägare. Boken finns också som ljudbok, uppläst av Sebastian Karlsson.",
             "In <em>Jagad</em> an old lie catches up with Erik. Condemned at the Thing and hunted by Kåre, he must survive kings, queens, robbers and hunters. The book is also an audiobook, read by Sebastian Karlsson."),
@@ -57,8 +68,10 @@ ARTICLES = [
       ("p", "Det tålamodet följde med in i skrivandet. En roman byggs, precis som ett pedalboard, bit för bit. Varje del måste sitta rätt för att helheten ska hålla.",
             "That patience came with him into writing. A novel is built like a pedalboard, piece by piece. Every part has to sit right for the whole to hold."),
       ("h2", "En oberoende författare", "An independent author"),
-      ("p", "Jan är en oberoende författare. Han skriver, researchar och ger ut sina böcker på egna villkor, och han möter sina läsare direkt: på signeringar, i sociala medier och här på sajten.",
-            "Jan is an independent author. He writes, researches and publishes his books on his own terms, and he meets his readers directly: at signings, on social media and here on the site."),
+      ("p", "Jan är en oberoende författare. Han ger ut sina böcker på sitt eget förlag, Stonecastle Media, och möter sina läsare direkt: på signeringar, i sociala medier och här på sajten. Namnet Stonecastle lever alltså vidare, nu på bokryggarna.",
+            "Jan is an independent author. He publishes his books under his own imprint, Stonecastle Media, and meets his readers directly: at signings, on social media and here on the site. So the Stonecastle name lives on, now on the spines of his books."),
+      ("p", "På titelsidan till <em>Stridslarm</em> kallar han sig inte författare utan <em>ristare</em>: den som ristar runor i sten. Det säger något om hur han ser på sitt hantverk.",
+            "On the title page of <em>Stridslarm</em> he calls himself not an author but a <em>ristare</em>: one who carves runes into stone. It says something about how he sees his craft."),
       ("p", "Hans romaner bygger på omfattande resor och noggrann faktagranskning, men framför allt på en kärlek till berättelser som drar läsaren med sig.",
             "His novels rest on extensive travel and careful fact-checking, but above all on a love of stories that sweep the reader along."),
       ("h2", "Mellan norr och söder", "Between north and south"),
@@ -99,7 +112,7 @@ ARTICLES = [
     "title": ("Från pedalboards till långskepp", "From pedalboards to longships"),
     "lead": ("Innan han skrev romaner byggde Jan Stenborg pedalboards åt gitarrister. Om femton år med Stonecastle, och vad hantverket lärde honom om att berätta.",
              "Before he wrote novels, Jan Stenborg built pedalboards for guitarists: fifteen years with Stonecastle, and what the craft taught him about storytelling."),
-    "image": "workshop",
+    "image": "emblem",
     "minutes": 4,
     "body": [
       ("h2", "Vad är ett pedalboard?", "What is a pedalboard?"),
@@ -118,6 +131,8 @@ ARTICLES = [
       ("h2", "Ett sista besked", "A last message"),
       ("p", "När Stonecastle stängde skrev Jan till sina kunder att han skulle skriva böcker i stället: " + QUOTE + " Tre romaner senare står det klart att han menade allvar.",
             "When Stonecastle closed, Jan told his customers he would write books instead: " + QUOTE + " Three novels later, he clearly meant it."),
+      ("p", "Namnet följde med. I dag ger Jan ut sina böcker på sitt eget förlag, Stonecastle Media, och i <em>Stridslarm</em> finns ett emblem huggt i sten, med samma flätmönster som på vikingatidens runstenar.",
+            "The name came with him. Today Jan publishes his books under his own imprint, Stonecastle Media, and <em>Stridslarm</em> carries an emblem carved in stone, with the same interlace as on Viking-age rune stones."),
     ],
   },
 ]
@@ -136,8 +151,8 @@ FAQ = [
    "Researchen har inneburit omfattande resor: till Uppsala, Birka och Adelsö och ända till Ryssland, där Jan samlade ett stort källmaterial. Till det kommer böcker, vikingasagor, bibliotek, museer och kartor. Läs mer i <a href=\"/blogg/sa-foddes-sagan-om-erik/\">Så föddes sagan om Erik</a>.",
    "The research involved extensive travelling: to Uppsala, Birka and Adelsö and all the way to Russia, where Jan gathered a wealth of source material. On top of that came books, Viking sagas, libraries, museums and maps. Read more in <a href=\"/blogg/sa-foddes-sagan-om-erik/\">How the saga of Erik was born</a>."),
   ("Har Jan ett förlag?", "Does Jan have a publisher?",
-   "Jan är en oberoende författare. Han skriver, researchar och ger ut sina böcker på egna villkor och möter sina läsare direkt.",
-   "Jan is an independent author. He writes, researches and publishes his books on his own terms and meets his readers directly."),
+   "Jan är en oberoende författare och ger ut sina böcker på sitt eget förlag, Stonecastle Media. Pappersböckerna trycks av Vulkan.",
+   "Jan is an independent author and publishes his books under his own imprint, Stonecastle Media. The paperbacks are printed by Vulkan."),
   ("Finns böckerna som ljudbok?", "Are the books available as audiobooks?",
    "Ja, <em>Stridslarm</em> och <em>Jagad</em> finns på Storytel. <em>Jagad</em> läses av Sebastian Karlsson.",
    "Yes, <em>Stridslarm</em> and <em>Jagad</em> are on Storytel. <em>Jagad</em> is read by Sebastian Karlsson."),

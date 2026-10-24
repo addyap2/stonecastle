@@ -154,7 +154,7 @@ def picture(base, sizes, w, h, alt_sv="", alt_en="", cls=""):
 def visual(kind, small=False):
     """The picture that heads an article (and its card). Drawn in code where no photo exists yet."""
     if kind == "covers":
-        covers = [("stridslarm", "360", 533, 804), ("jagad", "240", 362, 552), ("kungablod", "320", 628, 938)]
+        covers = [("stridslarm", "360", 919, 1400), ("jagad", "240", 362, 552), ("kungablod", "320", 628, 938)]
         imgs = "".join(
             f'<picture><source type="image/avif" srcset="/images/{b}-{s}.avif"><source type="image/webp" srcset="/images/{b}-{s}.webp">'
             f'<img src="/images/{b}.jpg" width="{w}" height="{h}" loading="lazy" alt=""></picture>' for b, s, w, h in covers)
@@ -165,9 +165,18 @@ def visual(kind, small=False):
     if kind == "sea":
         return ('<div class="post-visual post-scene post-sea" aria-hidden="true"><span class="ps-sky"></span><span class="ps-sun"></span>'
                 '<span class="ps-sea"></span><span class="ps-path"></span></div>')
-    if kind == "workshop":
-        return ('<div class="post-visual post-scene post-plate" aria-hidden="true"><span class="plate-mark"></span>'
-                '<span class="plate-name">Stonecastle</span><span class="plate-sub">Stockholm · 15 år</span></div>')
+    if kind == "emblem":   # the carved-stone knotwork from Stridslarm
+        size = "96" if small else "240"
+        return ('<div class="post-visual post-scene post-plate" aria-hidden="true">'
+                f'<picture class="plate-emblem"><source type="image/avif" srcset="/images/emblem-stone-{size}.avif 1x, /images/emblem-stone-480.avif 2x">'
+                f'<source type="image/webp" srcset="/images/emblem-stone-{size}.webp 1x, /images/emblem-stone-480.webp 2x">'
+                '<img src="/images/emblem-stone.jpg" width="480" height="659" loading="lazy" alt=""></picture>'
+                '<span class="plate-name">Stonecastle</span><span class="plate-sub"><span lang="sv">Pedalboards · Böcker</span><span lang="en">Pedalboards · Books</span></span></div>')
+    if kind == "knife":
+        return ('<div class="post-visual post-knife">'
+                '<picture><source type="image/avif" srcset="/images/stridslarm-kniven-770.avif"><source type="image/webp" srcset="/images/stridslarm-kniven-770.webp">'
+                '<img src="/images/stridslarm-kniven.jpg" width="770" height="285" loading="lazy" alt="En dolk i förgrunden och ett långskepp i solnedgången över havet" '
+                'data-alt-en="A dagger in the foreground and a longship at sunset over the sea"></picture></div>')
     return ""
 
 
@@ -193,11 +202,19 @@ def article_page(a, others):
           "datePublished": DATE_ISO, "inLanguage": "sv", "author": person(), "image": SITE + image,
           "url": f"{SITE}/blogg/{a['slug']}/", "mainEntityOfPage": f"{SITE}/blogg/{a['slug']}/"}
     body = []
-    for kind, sv, en in a["body"]:
+    for block in a["body"]:
+        kind = block[0]
         if kind == "h2":
-            body.append(f'        <h2 data-reveal>{bi(sv, en)}</h2>')
+            body.append(f'        <h2 data-reveal>{bi(block[1], block[2])}</h2>')
+        elif kind == "quote":
+            _, sv, en, c_sv, c_en = block
+            body.append(f'        <figure class="post-quote" data-reveal><blockquote><p>{bi(sv, en)}</p></blockquote>'
+                        f'<figcaption>{bi(c_sv, c_en)}</figcaption></figure>')
+        elif kind == "figure":
+            _, image, c_sv, c_en = block
+            body.append(f'        <figure class="post-figure" data-reveal>{visual(image)}<figcaption>{bi(c_sv, c_en)}</figcaption></figure>')
         else:
-            body.append(f'        <p data-reveal>{bi(sv, en)}</p>')
+            body.append(f'        <p data-reveal>{bi(block[1], block[2])}</p>')
     more = "\n".join(card(o, small=True) for o in others)
     return (head(f"{t_sv} – Jan Stenborg", f"{t_en} – Jan Stenborg", desc, "article", image, ld, f"/blogg/{a['slug']}/") + header("blog") + f'''
 <main id="main">
@@ -215,7 +232,7 @@ def article_page(a, others):
     <div class="wrap post-wrap post-body">
 {chr(10).join(body)}
       <footer class="post-foot" data-reveal>
-        <span class="footer-mark" aria-hidden="true"></span>
+        <picture class="post-seal" aria-hidden="true"><source type="image/avif" srcset="/images/emblem-stone-96.avif 1x, /images/emblem-stone-240.avif 2x"><source type="image/webp" srcset="/images/emblem-stone-96.webp 1x, /images/emblem-stone-240.webp 2x"><img src="/images/emblem-stone.jpg" width="96" height="132" loading="lazy" alt=""></picture>
         <div class="actions">
           <a class="btn btn-gold" href="/#bocker">{bi("Se böckerna", "See the books")}</a>
           <a class="btn btn-ghost" href="/#evenemang">{bi("Om signeringen", "About the signing")}</a>
