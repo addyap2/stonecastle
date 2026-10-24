@@ -119,7 +119,7 @@ The report lands in `tests/results/report.json`, with screenshots alongside it.
 - [x] [Rich Results Test](https://search.google.com/test/rich-results), 24 October 2026: the *Event* (signing) is valid. One optional warning: no `offers` field (add `"offers": {"@type": "Offer", "price": 0, "priceCurrency": "SEK", "availability": "https://schema.org/InStock", "url": "https://janstenborg.com/#evenemang"}` once it's confirmed entry is free). Google shows no *Book* rich result from page markup alone (that needs a publisher data feed), so the Book entries are for understanding, not display.
 - [x] Google Search Console: janstenborg.com verified on 24 October 2026 (DNS TXT record `google-site-verification=…` on Vercel; **keep it**); 
   - [ ] Submit `sitemap.xml` and request indexing of the home page (not confirmed done; needs a Google sign-in)
-- [ ] Bing Webmaster Tools: import the site from Search Console
+- [x] Bing Webmaster Tools: site imported from Search Console (24 October 2026)
 - [ ] Put the address on the printed poster as a QR code, linking to `https://janstenborg.com/?utm_source=poster`.
 
 ### Analytics
