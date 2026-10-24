@@ -120,6 +120,7 @@ The report lands in `tests/results/report.json`, with screenshots alongside it.
 - [x] Google Search Console: janstenborg.com verified on 24 October 2026 (DNS TXT record `google-site-verification=…` on Vercel; **keep it**); 
   - [ ] Submit `sitemap.xml` and request indexing of the home page (not confirmed done; needs a Google sign-in)
 - [x] Bing Webmaster Tools: site imported from Search Console (24 October 2026)
+- [x] IndexNow: all sitemap pages sent to Bing and IndexNow on 24 October 2026 (key file `1b75cc1476e62d6edef57ab43498ac33.txt` at the root: **keep it**). After publishing new pages, run `sh tools/indexnow.sh`
 - [ ] Put the address on the printed poster as a QR code, linking to `https://janstenborg.com/?utm_source=poster`.
 
 ### Analytics
