@@ -46,6 +46,9 @@ ARTICLES = [
             "In <em>Jagad</em> an old lie catches up with Erik. Condemned at the Thing and hunted by Kåre, he must survive kings, queens, robbers and hunters. The book is also an audiobook, read by Sebastian Karlsson."),
       ("p", "<em>Kungablod</em> är det nya kapitlet. Jan signerar boken på Twang, Katarina bangata 25 i Stockholm, lördag 21 november kl. 13.00.",
             "<em>Kungablod</em> is the new chapter. Jan is signing it at Twang, Katarina bangata 25, Stockholm, on Saturday 21 November at 1 pm."),
+      ("h2", "Ett stort tack", "With thanks"),
+      ("p", "I <em>Stridslarm</em> riktar Jan ett stort tack till Tatiana Manuylova, Kerstin Hagblom och Michael Tobin.",
+            "In <em>Stridslarm</em>, Jan gives his warm thanks to Tatiana Manuylova, Kerstin Hagblom and Michael Tobin."),
     ],
   },
   {
@@ -169,3 +172,17 @@ FAQ = [
    "Jan föddes i Stockholm 1955 och bor i dag i Frankrike, på Franska rivieran, där han fortsätter att skriva sagan om Erik. Läs mer i <a href=\"/blogg/livet-pa-franska-rivieran/\">Ljuset i söder</a>.",
    "Jan was born in Stockholm in 1955 and now lives in France, on the French Riviera, where he continues to write the saga of Erik. Read more in <a href=\"/blogg/livet-pa-franska-rivieran/\">Southern light</a>."),
 ]
+
+
+# ---------------------------------------------------------------------------
+# "Läs början av Stridslarm": the opening pages of the book, published with Jan's blessing.
+# Paste the text below, one paragraph per line between the triple quotes, exactly as in the book.
+# Leave a blank line between paragraphs. Then run:  python3 tools/build_pages.py
+# While it is empty, the page is not built and no link to it is shown.
+EXCERPT_FOREWORD = """
+"""
+
+EXCERPT_CHAPTER_TITLE = "1. Kungamötet och kniven"
+
+EXCERPT_CHAPTER = """
+"""

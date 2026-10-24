@@ -8,7 +8,7 @@ Run this only after changing the articles or questions in content.py:
 import html, json, os, sys
 
 sys.path.insert(0, os.path.dirname(__file__))
-from content import ARTICLES, FAQ  # noqa: E402
+from content import ARTICLES, FAQ, EXCERPT_FOREWORD, EXCERPT_CHAPTER_TITLE, EXCERPT_CHAPTER  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATE_ISO, DATE_SV, DATE_EN = "2026-10-24", "24 oktober 2026", "24 October 2026"
@@ -327,8 +327,82 @@ def faq_page():
 ''' + FOOTER)
 
 
+EXCERPT_SLUG = "las-borjan-pa-stridslarm"
+
+
+def paragraphs(text):
+    """The pasted book text, split into paragraphs at blank lines."""
+    return [" ".join(block.split()) for block in text.strip().split("\n\n") if block.strip()]
+
+
+def excerpt_page():
+    fore, chap = paragraphs(EXCERPT_FOREWORD), paragraphs(EXCERPT_CHAPTER)
+    path = f"/blogg/{EXCERPT_SLUG}/"
+    desc = "Läs början av Stridslarm, den första boken om Erik från Birka av Jan Stenborg."
+    ld = {"@context": "https://schema.org", "@type": "CreativeWork", "name": "Läs början av Stridslarm", "inLanguage": "sv",
+          "author": person(), "isPartOf": {"@type": "Book", "name": "Stridslarm", "isbn": "9789163748806"}, "url": SITE + path}
+    # lang="sv-SE": Swedish for screen readers, but shown in both languages (the switch hides only lang="sv")
+    sv = lambda t: f'        <p lang="sv-SE" data-reveal>{esc(t)}</p>'
+    fore_html = ("\n".join([f'        <h2 data-reveal>{bi("Företal", "Foreword")}</h2>'] + [sv(t) for t in fore])) if fore else ""
+    chap_html = "\n".join([f'        <h2 lang="sv-SE" data-reveal>{esc(EXCERPT_CHAPTER_TITLE)}</h2>'] + [sv(t) for t in chap])
+    return (head("Läs början av Stridslarm – Jan Stenborg", "Read the opening of Stridslarm – Jan Stenborg", desc, "article", "/images/share.jpg", ld, path)
+            + header("blog") + f'''
+<main id="main">
+  <article class="post excerpt">
+    <div class="wrap post-wrap">
+      <a class="text-link post-back" href="/blogg/"><span class="text-link-arrow" aria-hidden="true">←</span> {bi("Alla berättelser", "All stories")}</a>
+      <header class="post-head" data-reveal="title">
+        <p class="chapter-mark"><span class="chapter-rule" aria-hidden="true"></span>{bi("Utdrag", "Excerpt")}</p>
+        <h1 class="post-title">{bi("Läs början av <em>Stridslarm</em>", "Read the opening of <em>Stridslarm</em>")}</h1>
+        <p class="post-meta">{bi("Den första boken om Erik från Birka", "The first book about Erik of Birka")}</p>
+      </header>
+      <p class="post-lead" data-reveal>{bi("Ur <em>Stridslarm</em> av Jan Stenborg, publicerat med författarens tillstånd.", "From <em>Stridslarm</em> by Jan Stenborg, published with the author's permission. The excerpt is in Swedish; the book is also available in English as <em>Erik of Birka: The Clash of Arms</em>.")}</p>
+    </div>
+    <div class="wrap post-wrap post-body excerpt-body">
+{fore_html}
+{chap_html}
+        <p class="excerpt-more" data-reveal>{bi("Fortsättningen finns i boken …", "The story continues in the book …")}</p>
+      <footer class="post-foot" data-reveal>
+        <div class="actions">
+          <a class="btn btn-gold" href="https://www.adlibris.com/sv/bok/stridslarm-9789163748806" target="_blank" rel="noopener">{bi("Köp Stridslarm", "Buy Stridslarm")}</a>
+          <a class="btn btn-ghost" href="https://www.storytel.com/se/books/stridslarm-1132654" target="_blank" rel="noopener">{bi("Lyssna på Storytel", "Listen on Storytel")}</a>
+        </div>
+      </footer>
+    </div>
+  </article>
+</main>
+''' + FOOTER)
+
+
+def set_excerpt_link(on):
+    """Shows or hides the "Läs början" link on Stridslarm on the home page."""
+    p = os.path.join(ROOT, "index.html")
+    s = open(p).read()
+    a, b = "<!-- EXCERPT-LINK -->", "<!-- /EXCERPT-LINK -->"
+    i, j = s.index(a) + len(a), s.index(b)
+    link = (f'<p class="book-excerpt" data-reveal><a class="text-link" href="/blogg/{EXCERPT_SLUG}/">'
+            f'{bi("Läs början av boken", "Read the opening")} <span class="text-link-arrow" aria-hidden="true">→</span></a></p>') if on else ""
+    s = s[:i] + link + s[j:]
+    open(p, "w").write(s)
+
+
+def sitemap(pages):
+    rows = "\n".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{DATE_ISO}</lastmod></url>" for u in pages)
+    write("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{rows}\n</urlset>\n')
+
+
 if __name__ == "__main__":
     write("blogg/index.html", blog_index())
     for a in ARTICLES:
         write(f"blogg/{a['slug']}/index.html", article_page(a, [o for o in ARTICLES if o is not a][:3]))
     write("fragor/index.html", faq_page())
+    pages = ["/", "/blogg/"] + [f"/blogg/{a['slug']}/" for a in ARTICLES] + ["/fragor/"]
+    if paragraphs(EXCERPT_CHAPTER):
+        write(f"blogg/{EXCERPT_SLUG}/index.html", excerpt_page())
+        pages.insert(2, f"/blogg/{EXCERPT_SLUG}/")
+        set_excerpt_link(True)
+        print("excerpt page built and linked from Stridslarm")
+    else:
+        set_excerpt_link(False)
+        print("excerpt slot is empty: no excerpt page yet (paste the text into tools/content.py)")
+    sitemap(pages)

@@ -11,6 +11,8 @@ The full design plan is in [docs/EXPERIENCE.md](docs/EXPERIENCE.md), the art dir
 
 **Blog and FAQ:** the blog lives at `/blogg/` (an index and one folder per article) and the FAQ at `/fragor/`. Their text is kept in `tools/content.py`. To change an article or a question, or to add one, edit that file and run `python3 tools/build_pages.py`, which rewrites the pages. The pages share the site's styles, menu and language switch.
 
+**The excerpt from Stridslarm (with Jan's blessing):** open `tools/content.py`, scroll to the end, and paste the foreword into `EXCERPT_FOREWORD` and the opening of chapter 1 into `EXCERPT_CHAPTER`, exactly as in the book, with a blank line between paragraphs. Then run `python3 tools/build_pages.py`. That builds `/blogg/las-borjan-pa-stridslarm/`, adds a "Läs början av boken" link on *Stridslarm* and puts the page in the sitemap. Empty the slots and run it again to take the excerpt down.
+
 **Section headings** are chapters: a roman numeral, a short label and a headline. Copy an existing `<header class="chapter">` block to add one.
 
 **Motion in short:** anything with `data-reveal` fades up the first time it scrolls into view. Use `data-reveal="title"` on headings and `data-reveal="wipe"` on pictures. Visitors who turn off motion on their device get a still version.

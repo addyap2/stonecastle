@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://janstenborg.com/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://janstenborg.com/blogg/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://janstenborg.com/blogg/sa-foddes-sagan-om-erik/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://janstenborg.com/blogg/berattaren-jan-stenborg/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://janstenborg.com/blogg/livet-pa-franska-rivieran/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://janstenborg.com/blogg/fran-pedalboards-till-langskepp/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://janstenborg.com/fragor/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://janstenborg.com/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://janstenborg.com/blogg/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://janstenborg.com/blogg/sa-foddes-sagan-om-erik/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://janstenborg.com/blogg/berattaren-jan-stenborg/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://janstenborg.com/blogg/livet-pa-franska-rivieran/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://janstenborg.com/blogg/fran-pedalboards-till-langskepp/</loc><lastmod>2026-10-24</lastmod></url>
+  <url><loc>https://janstenborg.com/fragor/</loc><lastmod>2026-10-24</lastmod></url>
 </urlset>
