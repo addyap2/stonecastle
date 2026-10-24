@@ -632,7 +632,6 @@ html.menu-open { overflow: hidden; }
 .shelf-panel + .shelf-panel { border-top: 0; }
 .shelf-panel .book-body { max-width: none; }
 .shelf-panel .buy { justify-content: center; }
-.shelf-panel:focus-visible { outline: none; }
 @media (max-width: 640px) {
   .shelf-books { padding-top: 36px; }
   .shelf-book { gap: 18px; }

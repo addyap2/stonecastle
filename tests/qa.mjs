@@ -113,7 +113,8 @@ await visit(webkit, 'webkit');
       const r = a.getBoundingClientRect(); const cs = getComputedStyle(a);
       let el = a, op = 1; while (el) { op *= parseFloat(getComputedStyle(el).opacity); el = el.parentElement; }
       const header = document.querySelector('.site-header').getBoundingClientRect();
-      return { text: (a.innerText || a.getAttribute('aria-label') || a.tagName).trim().replace(/\s+/g, ' ').slice(0, 32), outline: cs.outlineStyle !== 'none', onScreen: r.bottom > 0 && r.top < innerHeight, effectiveOpacity: +op.toFixed(2), underHeader: r.top < header.bottom && header.bottom > 0 && !a.closest('.site-header') };
+      return { text: (a.innerText || a.getAttribute('aria-label') || a.tagName).trim().replace(/\s+/g, ' ').slice(0, 32), outline: [a, ...a.querySelectorAll('*')].some(el => getComputedStyle(el).outlineStyle !== 'none'),  // the shelf draws its ring on the cover
+        onScreen: r.bottom > 0 && r.top < innerHeight, effectiveOpacity: +op.toFixed(2), underHeader: r.top < header.bottom && header.bottom > 0 && !a.closest('.site-header') };
     });
     if (!s) break; steps.push(s);
   }

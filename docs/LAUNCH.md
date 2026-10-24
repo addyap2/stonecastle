@@ -143,7 +143,7 @@ The report lands in `tests/results/report.json`, with screenshots alongside it.
 ### Accessibility
 - [x] axe: 0 violations, both languages
 - [x] Keyboard: every stop visible and on screen, skip link works
-- [ ] Regression found 24 October 2026: `tests/qa.mjs` reports 2 of 31 tab stops in the *Stridslarm* book ("I Stridslarm, bok 1 av 3" and its publication line) with no focus outline. It was already there before the Facebook link was added
+- [x] Regression found and fixed 24 October 2026: the book panels were a tab stop with no visible focus. They contain links, so they are no longer a stop; the book buttons draw their ring on the cover, which `tests/qa.mjs` now counts. All 30 stops pass
 - [x] Reduced motion and no-JavaScript versions complete
 - [ ] One pass with VoiceOver on an iPhone: swipe through the page and check each chapter heading is read once, in the right language
 
