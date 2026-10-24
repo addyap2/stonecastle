@@ -44,10 +44,10 @@ Severity:
 | 7 | Sharing, conversion | **The share image was the cluttered flyer**, and the share text was a mix of Swedish and English | Links shared on Facebook (the main traffic source) looked amateur and didn't say what or when. | Medium | New 1200×630 share image rendered from the hero scene. Swedish title and description that give the signing date. Image size, alt text, locale and large-card tags added. | ✅ Fixed |
 | 8 | SEO | **No canonical address or full share-image address** | Facebook and Google need full addresses. | Medium | Ready-made tags in `<head>`, commented out until the domain is known. | ⏳ At launch (§4) |
 | 9 | Error handling | **No 404 page** | Mistyped or old links ended on the host's default error page. | Medium | Branded 404 page in both languages, with a way home. | ✅ Fixed |
-| 10 | Security | **No security headers**, and the inline start-up script made a strict policy impossible | Open to clickjacking and content injection if a third-party script were ever compromised. | Medium | Start-up script moved to `boot.js`. `vercel.json` sends a strict Content-Security-Policy (only the site's own scripts, plus Plausible), nosniff, no framing, a referrer policy and a permissions policy. | ✅ Fixed. 0 violations in Chromium and WebKit |
+| 10 | Security | **No security headers**, and the inline start-up script made a strict policy impossible | Open to clickjacking and content injection if a third-party script were ever compromised. | Medium | Start-up script moved to `boot.js`. `vercel.json` sends a strict Content-Security-Policy (only the site's own scripts), nosniff, no framing, a referrer policy and a permissions policy. | ✅ Fixed. 0 violations in Chromium and WebKit |
 | 11 | Speed | **No cache instructions** | Returning visitors downloaded every font and image again. | Medium | Images, fonts and icons are cached for 7 days. The page, CSS and JS are always revalidated, so updates show immediately. | ✅ Fixed (applies on Vercel) |
 | 12 | Browser support | **The frosted header and action bar lacked Safari's prefix** | On Safari 17 and older (many iPhones), the blur was missing. | Medium | `-webkit-backdrop-filter` added. | ✅ Fixed |
-| 13 | Measurement | **No analytics at all** | No way to know whether Facebook posts, the poster or the calendar button work. | Medium | Cookie-free event hooks on every key action (see §4, *Analytics*). | ✅ Hooks done and verified · ⏳ Connect the service |
+| 13 | Measurement | **No analytics at all** | No way to know whether Facebook posts, the poster or the calendar button work. | Medium | Cookie-free event hooks on every key action (see §4, *Analytics*). | ✅ Hooks done and verified · No service, by choice (§4) |
 | 14 | Conversion | **The *Jagad* "Bokus" link goes to Jan's author page**, not the book | One more click before buying. | Low | Replace with the book's own Bokus page once its URL is confirmed. | ⏳ Needs the link |
 | 15 | Speed | The scroll code **measured the hero's height every frame** | Small jank on low-end phones. | Low | Measured once, and again only when it changes size. | ✅ Fixed |
 | 16 | Visual | **Two longships sailed behind the hero subheadline** on desktop | Distracting behind text. | Low | The fleet moved to the right half of the horizon. | ✅ Fixed |
@@ -123,21 +123,9 @@ The report lands in `tests/results/report.json`, with screenshots alongside it.
 - [ ] Put the address on the printed poster as a QR code, linking to `https://janstenborg.com/?utm_source=poster`.
 
 ### Analytics
-- [ ] Create the site `janstenborg.com` in [Plausible](https://plausible.io) (cookie-free, so no consent banner is needed). Until then the script loads but nothing is recorded.
-- [x] Added to `<head>` on every page on 24 October 2026 (the security policy already allows it; the blog and FAQ pages get it from `tools/build_pages.py`):
-  ```html
-  <script defer data-domain="janstenborg.com" src="https://plausible.io/js/script.js"></script>
-  ```
-- [ ] In Plausible, create these goals (custom events). The site already sends them:
-  - Hero: signing
-  - Action bar: signing
-  - Calendar
-  - Map
-  - Share
-  - Shop (with `book` and `site` details)
-  - Email
-  - Facebook (the links to Jan's page)
-  - Storytel sample
+- [x] No analytics service (decided 24 October 2026: Plausible is a paid service). The site loads no third-party script, and the security policy allows only the site's own.
+- [x] The click hooks stay in `script.js`, so a service can be connected later without touching the page. They send nothing on their own. Event names: Hero: signing, Action bar: signing, Calendar, Map, Share, Shop (with `book` and `site`), Email, Facebook, Storytel sample.
+- [ ] For a rough view of visits for free: Search Console (searches and clicks from Google) and Facebook's own page insights (clicks on posted links).
 - [ ] Use `?utm_source=facebook` on every link Jan posts, so the traffic can be compared.
 - [x] Jan's Facebook page ([Stridslarm.Bok](https://www.facebook.com/Stridslarm.Bok)) is linked from the contact section, every footer and the structured data. Put `https://janstenborg.com/?utm_source=facebook` in the page's *website* field.
 
@@ -193,7 +181,7 @@ The report lands in `tests/results/report.json`, with screenshots alongside it.
 - [ ] After launch, check Vercel's logs once for repeated 404s (old links to redirect)
 
 ### After launch
-- [ ] Day 1: check analytics are arriving; check the share preview on Facebook again
+- [ ] Day 1: check the share preview on Facebook again
 - [ ] Before 21 November: post the link with the countdown ("Om N dagar") on Facebook
 - [ ] 22 November: add a photo from the signing to the thank-you state
 - [ ] Monthly: rerun `tests/qa.mjs` and Lighthouse after any change

@@ -422,12 +422,11 @@
   });
 
   /* ---------- Measuring what works (no cookies) ----------
-     Every important click is named here. Nothing is sent until an analytics service is added
-     (Plausible is recommended: see docs/LAUNCH.md). Shop links are counted per shop and book;
+     Every important click is named here. Nothing is sent anywhere: no analytics service is
+     connected (see docs/LAUNCH.md). Shop links are counted per shop and book;
      the calendar file, the map, the share button and the e-mail address are counted too. */
   function track(name, props) {
     try {
-      if (window.plausible) window.plausible(name, { props: props });
       if (window.dataLayer) window.dataLayer.push({ event: name, props: props });
       document.dispatchEvent(new CustomEvent('site:track', { detail: { name: name, props: props } }));
     } catch (e) {}

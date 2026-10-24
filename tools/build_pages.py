@@ -62,7 +62,6 @@ def head(title_sv, title_en, desc, og_type, image, jsonld, path):
   <link rel="preload" href="/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/styles.css">
   <script src="/boot.js?v=2"></script>
-  <script defer data-domain="janstenborg.com" src="https://plausible.io/js/script.js"></script>
   <script type="application/ld+json">
 {json.dumps(jsonld, ensure_ascii=False, indent=2)}
   </script>
