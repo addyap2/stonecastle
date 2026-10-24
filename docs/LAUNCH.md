@@ -117,7 +117,8 @@ The report lands in `tests/results/report.json`, with screenshots alongside it.
 ### SEO and sharing
 - [ ] Paste the address into the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/): the dawn image and "Kungablod – den nya vikingaromanen av Jan Stenborg" appear.
 - [ ] [Rich Results Test](https://search.google.com/test/rich-results): the *Event* (signing) and *Book* entries are detected.
-- [ ] Add the site to Google Search Console and Bing Webmaster Tools, and submit the sitemap.
+- [x] Google Search Console: janstenborg.com verified on 24 October 2026 (DNS TXT record `google-site-verification=…` on Vercel; **keep it**); submit `sitemap.xml` and request indexing of the home page
+- [ ] Bing Webmaster Tools: import the site from Search Console
 - [ ] Put the address on the printed poster as a QR code, linking to `https://janstenborg.com/?utm_source=poster`.
 
 ### Analytics
