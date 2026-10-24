@@ -3,7 +3,8 @@
   var root = document.documentElement;
 
   /* ---------- Language ---------- */
-  var titles = { sv: 'Jan Stenborg – Författare', en: 'Jan Stenborg – Author' };
+  // Each page can name its own title in both languages (data-title-sv / data-title-en on <html>)
+  var titles = { sv: root.getAttribute('data-title-sv') || 'Jan Stenborg – Författare', en: root.getAttribute('data-title-en') || 'Jan Stenborg – Author' };
 
   // Remember each image's Swedish description so we can switch back to it.
   document.querySelectorAll('img[data-alt-en]').forEach(function (img) {

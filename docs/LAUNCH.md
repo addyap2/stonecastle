@@ -113,7 +113,15 @@ The report lands in `tests/results/report.json`, with screenshots alongside it.
 - [ ] Add `sitemap.xml`:
   ```xml
   <?xml version="1.0" encoding="UTF-8"?>
-  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://DOMAIN/</loc></url></urlset>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url><loc>https://DOMAIN/</loc></url>
+    <url><loc>https://DOMAIN/blogg/</loc></url>
+    <url><loc>https://DOMAIN/blogg/sa-foddes-sagan-om-erik/</loc></url>
+    <url><loc>https://DOMAIN/blogg/berattaren-jan-stenborg/</loc></url>
+    <url><loc>https://DOMAIN/blogg/livet-pa-franska-rivieran/</loc></url>
+    <url><loc>https://DOMAIN/blogg/fran-pedalboards-till-langskepp/</loc></url>
+    <url><loc>https://DOMAIN/fragor/</loc></url>
+  </urlset>
   ```
   and the `Sitemap:` line in `robots.txt`.
 - [ ] Check the live headers: `curl -I https://DOMAIN/` shows `content-security-policy`, `x-frame-options` and `strict-transport-security`.

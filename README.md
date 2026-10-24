@@ -9,6 +9,8 @@ The full design plan is in [docs/EXPERIENCE.md](docs/EXPERIENCE.md), the art dir
 
 **Books** are a trilogy shelf on every device: three 3D books side by side, each backlit in its own colour (ember, moss, dawn). Choosing one lifts it into its light and shows its details below. It works like tabs: arrow keys move between books. To add a book, add a button in `shelf-books` and a matching panel in `shelf-panels`.
 
+**Blog and FAQ:** the blog lives at `/blogg/` (an index and one folder per article) and the FAQ at `/fragor/`. Their text is kept in `tools/content.py`. To change an article or a question, or to add one, edit that file and run `python3 tools/build_pages.py`, which rewrites the pages. The pages share the site's styles, menu and language switch.
+
 **Section headings** are chapters: a roman numeral, a short label and a headline. Copy an existing `<header class="chapter">` block to add one.
 
 **Motion in short:** anything with `data-reveal` fades up the first time it scrolls into view. Use `data-reveal="title"` on headings and `data-reveal="wipe"` on pictures. Visitors who turn off motion on their device get a still version.
