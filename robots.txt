@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+# The English view (?lang=en) is a copy of the Swedish page for visitors; Google should index the Swedish one
+Disallow: /*?lang=
 
 Sitemap: https://janstenborg.com/sitemap.xml

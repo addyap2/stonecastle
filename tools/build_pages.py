@@ -30,7 +30,8 @@ def plain(s):
 
 
 def bi(sv, en, tag="span"):
-    return f'<{tag} lang="sv">{sv}</{tag}><{tag} lang="en">{en}</{tag}>'
+    # English stays for visitors who switch, but data-nosnippet keeps it out of Google's results
+    return f'<{tag} lang="sv">{sv}</{tag}><{tag} lang="en" data-nosnippet>{en}</{tag}>'
 
 
 def head(title_sv, title_en, desc, og_type, image, jsonld, path):
@@ -52,6 +53,8 @@ def head(title_sv, title_en, desc, og_type, image, jsonld, path):
   <meta property="og:title" content="{esc(title_sv)}">
   <meta property="og:description" content="{esc(desc)}">
   <link rel="canonical" href="{SITE}{path}">
+  <link rel="alternate" hreflang="sv" href="{SITE}{path}">
+  <link rel="alternate" hreflang="x-default" href="{SITE}{path}">
   <meta property="og:url" content="{SITE}{path}">
   <meta property="og:image" content="{SITE}{image}">
   <meta name="twitter:card" content="summary_large_image">
@@ -171,7 +174,7 @@ def visual(kind, small=False):
                 f'<picture class="plate-emblem"><source type="image/avif" srcset="/images/emblem-stone-{size}.avif 1x, /images/emblem-stone-480.avif 2x">'
                 f'<source type="image/webp" srcset="/images/emblem-stone-{size}.webp 1x, /images/emblem-stone-480.webp 2x">'
                 '<img src="/images/emblem-stone.jpg" width="480" height="659" loading="lazy" alt=""></picture>'
-                '<span class="plate-name">Stonecastle</span><span class="plate-sub"><span lang="sv">Pedalboards · Böcker</span><span lang="en">Pedalboards · Books</span></span></div>')
+                '<span class="plate-name">Stonecastle</span><span class="plate-sub"><span lang="sv">Pedalboards · Böcker</span><span lang="en" data-nosnippet>Pedalboards · Books</span></span></div>')
     if kind == "knife":
         return ('<div class="post-visual post-knife">'
                 '<picture><source type="image/avif" srcset="/images/stridslarm-kniven-770.avif"><source type="image/webp" srcset="/images/stridslarm-kniven-770.webp">'
