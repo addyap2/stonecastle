@@ -133,7 +133,8 @@ The report lands in `tests/results/report.json`, with screenshots alongside it.
 - [x] Images in AVIF and WebP with JPG fallback, several sizes each
 - [x] Fonts hosted with the site, Latin set including å ä ö
 - [x] Tab icons, home-screen icon, share image 1200×630
-- [ ] Replace the interim diamond icon with Jan's monogram when one is designed (AUDIT.md #11)
+- [x] Home-screen icon (`apple-touch-icon.png`, 180×180) is Jan's headshot in the site's gold ring (24 October 2026)
+- [x] Tab icon stays the gold diamond: a face is unreadable at 16–32 px, and a "JS" monogram reads as the JavaScript logo. If it changes, use a bold, simplified version of the *Stridslarm* interlace emblem
 
 ### Performance
 - [x] Lighthouse phone ≥ 95 for speed, desktop 100
