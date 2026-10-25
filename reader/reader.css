@@ -1,0 +1,30 @@
+@font-face { font-family: "EB Garamond"; src: url("/fonts/eb-garamond.woff2") format("woff2"); font-display: swap; }
+:root { color-scheme: light; --book-size: 20px; }
+* { box-sizing: border-box; }
+html { scroll-padding-top: 9rem; }
+body { margin: 0; background: #f7f2e8; color: #29231d; font-family: Georgia, serif; }
+button, select { font: inherit; }
+.reader-header { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding: .8rem clamp(1rem, 4vw, 3rem); background: #17252a; color: #f6ecd6; box-shadow: 0 2px 12px #0003; }
+.identity { min-width: 0; }
+.author, .edition { display: block; font-family: Arial, sans-serif; font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: #d0b880; }
+h1 { margin: .16rem 0; font-size: clamp(1rem, 2vw, 1.4rem); font-weight: normal; line-height: 1.2; }
+.controls { display: flex; align-items: center; gap: .5rem; }
+.chapter-label { font-family: Arial, sans-serif; font-size: .8rem; }
+select { max-width: 18rem; padding: .5rem; border-radius: .3rem; border: 1px solid #bba36f; background: #fffaf0; color: #29231d; }
+button { cursor: pointer; border: 1px solid #bba36f; border-radius: .3rem; padding: .5rem .7rem; color: inherit; background: transparent; }
+button:hover:not(:disabled), button:focus-visible { background: #d0b880; color: #17252a; }
+button:disabled { opacity: .45; cursor: default; }
+main { width: min(100% - 2rem, 48rem); margin: 0 auto; }
+#status { padding: 5rem 0; text-align: center; font-size: 1.2rem; }
+.book { padding: clamp(2rem, 6vw, 4rem) 0 2rem; font-family: "EB Garamond", Georgia, serif; font-size: var(--book-size); line-height: 1.65; }
+.book h2 { margin: 0 0 2rem; text-align: center; font-size: 1.65em; line-height: 1.2; font-weight: normal; }
+.book p { margin: 0 0 .3em; text-align: left; }
+.book p.indent { text-indent: 1.4em; }
+.book p.star { margin: 1.5em 0; text-align: center; letter-spacing: .3em; text-indent: 0; }
+.book p.noindent, .book p.indent2 { text-indent: 0; }
+.book div { max-width: 100%; }
+.book img { display: block; max-width: 100%; max-height: 78vh; width: auto; height: auto; margin: 0 auto 2rem; }
+.book a { color: #5a3b18; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+.page-nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 2rem 0 4rem; font-family: Arial, sans-serif; font-size: .9rem; }
+.page-nav button { color: #29231d; border-color: #7a6141; }
+@media (max-width: 720px) { .reader-header { display: block; } .controls { margin-top: .7rem; } .chapter-label { display: none; } select { min-width: 0; flex: 1; } .book { padding-top: 2rem; } }
