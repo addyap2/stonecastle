@@ -1,0 +1,46 @@
+<!doctype html>
+<!-- The private book reader. Served at /read/<slug> (English) and /lire/<slug> (French);
+     the book comes chapter by chapter from /api/book. Not linked from the site, never indexed. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#0f0d0b">
+  <title>Jan Stenborg</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/reader/reader.css">
+  <script src="/reader/reader.js" defer></script>
+</head>
+<body>
+  <header class="bar">
+    <button class="bar-btn" id="contents-open" type="button" aria-haspopup="dialog" hidden>
+      <span class="bar-icon" aria-hidden="true">☰</span> <span data-label="contents">Contents</span>
+    </button>
+    <p class="bar-title"><span class="bar-author">Jan Stenborg</span><span class="bar-book" id="book-title"></span></p>
+    <div class="bar-tools" id="tools" hidden>
+      <button class="bar-btn" id="smaller" type="button" data-label-aria="smaller">A−</button>
+      <button class="bar-btn" id="larger" type="button" data-label-aria="larger">A+</button>
+    </div>
+  </header>
+
+  <main class="stage" id="stage">
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+    <div class="book" id="book" hidden></div>
+  </main>
+
+  <footer class="progress" aria-live="polite">
+    <span class="where"><span id="where-title"></span> <span id="where-page"></span></span>
+    <span class="progress-track" aria-hidden="true"><span class="progress-fill" id="fill"></span></span>
+  </footer>
+
+  <dialog class="contents" id="contents">
+    <div class="contents-head">
+      <h2 data-label="contents">Contents</h2>
+      <button class="contents-close" id="contents-close" type="button" data-label-aria="close">×</button>
+    </div>
+    <ol class="toc" id="toc"></ol>
+  </dialog>
+</body>
+</html>
