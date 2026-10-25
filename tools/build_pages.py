@@ -367,7 +367,7 @@ def excerpt_page():
         <h1 class="post-title">{bi("Läs början av <em>Stridslarm</em>", "Read the opening of <em>Stridslarm</em>")}</h1>
         <p class="post-meta">{bi("Den första boken om Erik från Birka", "The first book about Erik of Birka")}</p>
       </header>
-      <p class="post-lead" data-reveal>{bi("Ur <em>Stridslarm</em> av Jan Stenborg, publicerat med författarens tillstånd.", "From <em>Stridslarm</em> by Jan Stenborg, published with the author's permission. The excerpt is in Swedish; the book is also available in English as <em>Erik of Birka: The Clash of Arms</em>.")}</p>
+      <p class="post-lead" data-reveal>{bi("Ur <em>Stridslarm</em> av Jan Stenborg, publicerat med författarens tillstånd.", "From <em>Stridslarm</em> by Jan Stenborg, published with the author's permission. The excerpt, like the book, is in Swedish.")}</p>
     </div>
     <div class="wrap post-wrap post-body excerpt-body">
 {fore_html}
