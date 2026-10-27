@@ -26,7 +26,7 @@
       ]
     },
     {
-      "source": "/(read|lire|reader|api|books)/(.*)",
+      "source": "/(read|lire|lesen|reader|api|books)/(.*)",
       "headers": [
         {
           "key": "X-Robots-Tag",
@@ -77,6 +77,10 @@
     },
     {
       "source": "/lire/:slug",
+      "destination": "/reader/book.html"
+    },
+    {
+      "source": "/lesen/:slug",
       "destination": "/reader/book.html"
     }
   ],

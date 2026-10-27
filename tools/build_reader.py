@@ -25,14 +25,14 @@ CONFIG = os.environ.get("READER_CONFIG", os.path.join(os.path.dirname(ROOT), "st
 
 ALLOWED = {"p", "h1", "h2", "h3", "div", "span", "img", "a", "br", "strong", "em", "i", "b", "small"}
 DROP_CLASSES = {"wm_text"}          # a shop's purchase watermark left in the French source
-COVER_LABEL = {"en": "Cover", "fr": "Couverture"}
-BACK_LABEL = {"en": "Back cover", "fr": "Quatrième de couverture"}
+COVER_LABEL = {"en": "Cover", "fr": "Couverture", "de": "Umschlag"}
+BACK_LABEL = {"en": "Back cover", "fr": "Quatrième de couverture", "de": "Rückseite"}
 # Front and back matter, named by the EPUB file they come from (their own first line makes a poor label)
-MATTER = [("Half", {"en": "Half title", "fr": "Faux-titre"}), ("Copy", {"en": "Copyright", "fr": "Mentions légales"}),
-          ("Thanks", {"en": "Acknowledgements", "fr": "Remerciements"}), ("Fm1", {"en": "Acknowledgements", "fr": "Remerciements"}),
-          ("Title", {"en": "Title page", "fr": "Page de titre"}), ("Dedication", {"en": "Epigraph", "fr": "Épigraphe"}),
-          ("Fm2", {"en": "Epigraph", "fr": "Épigraphe"}), ("Contents", {"en": "Contents", "fr": "Sommaire"}),
-          ("Author", {"en": "About the author", "fr": "L’auteur"})]
+MATTER = [("Half", {"en": "Half title", "fr": "Faux-titre", "de": "Schmutztitel"}), ("Copy", {"en": "Copyright", "fr": "Mentions légales", "de": "Impressum"}),
+          ("Thanks", {"en": "Acknowledgements", "fr": "Remerciements", "de": "Danksagung"}), ("Fm1", {"en": "Acknowledgements", "fr": "Remerciements", "de": "Danksagung"}),
+          ("Title", {"en": "Title page", "fr": "Page de titre", "de": "Titelseite"}), ("Dedication", {"en": "Epigraph", "fr": "Épigraphe", "de": "Motto"}),
+          ("Fm2", {"en": "Epigraph", "fr": "Épigraphe", "de": "Motto"}), ("Contents", {"en": "Contents", "fr": "Sommaire", "de": "Inhalt"}),
+          ("Author", {"en": "About the author", "fr": "L’auteur", "de": "Über den Autor"})]
 
 
 def label(heading):
@@ -98,7 +98,7 @@ def extract(book):
             body = next(el for el in ET.fromstring(z.read(name)).iter() if local(el.tag) == "body")
             markup = "".join(render(child, z, name, section_of, images) + html.escape(child.tail or "") for child in body)
             texts = "".join(body.itertext()).strip()
-            only_image = not texts and "<img" in markup
+            only_image = (not texts and "<img" in markup) or (i == 0 and book["lang"] == "de")
             heading = next(("".join(el.itertext()).strip() for el in body.iter() if local(el.tag) in {"h1", "h2", "h3"}), "")
             stem = posixpath.basename(name)
             matter = next((names[book["lang"]] for key, names in MATTER if key in stem), None)

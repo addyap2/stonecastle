@@ -11,6 +11,12 @@
       smaller: 'Smaller text', larger: 'Larger text', close: 'Close',
       where: function (title, p, n) { return '· page ' + p + ' of ' + n; }
     },
+    de: {
+      contents: 'Inhalt', loading: 'Das Buch wird geöffnet…', missing: 'Unter dieser Adresse ist kein Buch verfügbar.',
+      failed: 'Das Buch konnte nicht geöffnet werden. Bitte versuche es später noch einmal.',
+      prev: 'Vorherige Seite', next: 'Nächste Seite', smaller: 'Kleinere Schrift', larger: 'Größere Schrift', close: 'Schließen',
+      where: function (title, p, n) { return '· Seite ' + p + ' von ' + n; }
+    },
     fr: {
       contents: 'Sommaire', loading: 'Ouverture du livre…', missing: 'Ce livre n’est pas disponible à cette adresse.',
       failed: 'Impossible d’ouvrir le livre. Réessayez plus tard.', prev: 'Page précédente', next: 'Page suivante',
@@ -19,7 +25,7 @@
     }
   };
   var path = location.pathname.split('/').filter(Boolean);       // ["read" | "lire", slug]
-  var lang = path[0] === 'lire' ? 'fr' : 'en';
+  var lang = path[0] === 'lesen' ? 'de' : path[0] === 'lire' ? 'fr' : 'en';
   var slug = (path[1] || '').toLowerCase();
   var L = LABELS[lang];
   var $ = function (id) { return document.getElementById(id); };
