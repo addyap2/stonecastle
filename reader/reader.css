@@ -42,7 +42,7 @@ button { font: inherit; color: inherit; }
 .status { margin: 0 24px; font-style: italic; font-size: 1.2rem; text-align: center; }
 .book {
   position: relative; width: calc(var(--pw) * var(--pages)); height: var(--ph);
-  perspective: 2600px; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+  perspective: 2600px; touch-action: pan-y pinch-zoom; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
 }
 .book[hidden] { display: none; }
 .book::before {                                    /* the book's shadow on the desk */
@@ -134,8 +134,9 @@ button { font: inherit; color: inherit; }
   position: absolute; top: 0; width: var(--pw); height: var(--ph); z-index: 2;
   transform-style: preserve-3d; pointer-events: none;
 }
-.leaf .page { left: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-.leaf .leaf-back { transform: rotateY(180deg); }
+.leaf .page { left: 0; }
+.leaf .leaf-back { transform: rotateY(180deg); }      /* shown only in the second half of a turn */
+.leaf .page.sliding { box-shadow: 6px 0 18px rgba(0, 0, 0, .28), 18px 0 40px rgba(0, 0, 0, .25); }
 .leaf .shade { position: absolute; inset: 0; pointer-events: none; opacity: 0; }
 .leaf .leaf-front .shade { background: linear-gradient(270deg, rgba(40, 25, 10, .35), transparent 60%); }
 .leaf .leaf-back .shade { background: linear-gradient(90deg, rgba(40, 25, 10, .35), transparent 60%); }

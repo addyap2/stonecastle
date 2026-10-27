@@ -151,6 +151,7 @@
     prevBtn.disabled = pos.s === 0 && pos.p === 0;
     nextBtn.disabled = pos.s === total - 1 && pos.p + (single ? 1 : 2) >= n;
     if (pos.s + 1 < total) ensure(pos.s + 1).catch(function () {});   // have the next chapter ready
+    if (pos.s > 0) ensure(pos.s - 1).catch(function () {});           // and the previous one, for swiping back
     save();
   }
 
@@ -170,37 +171,74 @@
     return ensure(pos.s - 1).then(function (n) { return { s: pos.s - 1, p: lastStart(n) }; });
   }
 
-  function flip(from, to, dir) {
-    var spin = dir > 0 ? -180 : 180, anim = { duration: 720, easing: 'cubic-bezier(.4,.06,.32,1)' };
-    leaf.hidden = false;
-    if (single) {
-      leaf.style.left = '0px'; leaf.style.transformOrigin = 'left center';
-      front.el.className = 'page leaf-front page-right'; back.el.className = 'page leaf-back page-right';
-      fill(back, -1, 0);
-      if (dir > 0) { fill(front, from.s, from.p, 'right'); fill(right, to.s, to.p, 'right'); }
-      else { fill(front, to.s, to.p, 'right'); spin = 0; }
-      var frames = dir > 0 ? [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(-180deg)' }]
-                           : [{ transform: 'rotateY(-180deg)' }, { transform: 'rotateY(0deg)' }];
-      shade(front, dir > 0 ? [0, 0.8] : [0.8, 0]);
-      return leaf.animate(frames, anim).finished.then(function () { leaf.hidden = true; });
-    }
-    if (dir > 0) {                                    // lift the right page over to the left
+  /* Wide screens: the page lifts over the spine in two halves, one side showing at a time.
+     (Safari draws a turning page's back over its front if both sides are left to 3D.) */
+  function lift(from, to, dir) {
+    var half = dir > 0 ? -90 : 90, end = dir > 0 ? -180 : 180, t = 360;
+    leaf.hidden = false; leaf.style.transform = '';
+    if (dir > 0) {                                    // the right page goes over to the left
       leaf.style.left = size.pw + 'px'; leaf.style.transformOrigin = 'left center';
       front.el.className = 'page leaf-front page-right'; back.el.className = 'page leaf-back page-left';
       var a = spread(from), b = spread(to);
       put(front, a[1], 'right'); put(back, b[0], 'left'); put(right, b[1], 'right');
-    } else {                                          // bring the left page back over to the right
+    } else {                                          // the left page comes back over to the right
       leaf.style.left = '0px'; leaf.style.transformOrigin = 'right center';
       front.el.className = 'page leaf-front page-left'; back.el.className = 'page leaf-back page-right';
       var c = spread(from), d = spread(to);
       put(front, c[0], 'left'); put(back, d[1], 'right'); put(left, d[0], 'left');
     }
-    shade(front, [0, 0.9, 0.9]); shade(back, [0.9, 0.9, 0]);
-    return leaf.animate([{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(' + spin + 'deg)' }], anim).finished
-      .then(function () { leaf.hidden = true; });
+    front.el.style.visibility = 'visible'; back.el.style.visibility = 'hidden';
+    shade(front, [0, 0.9], t);
+    var first = leaf.animate([{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(' + half + 'deg)' }],
+      { duration: t, easing: 'cubic-bezier(.45,.05,.6,.55)', fill: 'forwards' });
+    return first.finished.then(function () {
+      front.el.style.visibility = 'hidden'; back.el.style.visibility = 'visible';
+      shade(back, [0.9, 0], t);
+      var second = leaf.animate([{ transform: 'rotateY(' + half + 'deg)' }, { transform: 'rotateY(' + end + 'deg)' }],
+        { duration: t, easing: 'cubic-bezier(.4,.45,.3,1)', fill: 'forwards' });
+      first.cancel();
+      return second.finished.then(function () { leaf.hidden = true; second.cancel(); });
+    });
   }
-  function shade(view, values) {
-    view.shade.animate(values.map(function (v) { return { opacity: v }; }), { duration: 720, easing: 'ease-in-out' });
+  function shade(view, values, ms) {
+    view.shade.animate(values.map(function (v) { return { opacity: v }; }), { duration: ms, easing: 'ease-in-out' });
+  }
+
+  /* Phones: the page slides away under your finger, as in a reading app. Going forward the
+     current page slides off to the left over the next one; going back, the previous page
+     slides in from the left over the current one. */
+  var slide = null;
+  function slideStart(dir, to) {
+    var w = size.pw + 30;
+    leaf.hidden = false; leaf.style.left = '0px'; leaf.style.transformOrigin = '';
+    front.el.className = 'page leaf-front page-right sliding';
+    front.el.style.visibility = 'visible'; back.el.style.visibility = 'hidden';
+    if (dir > 0) { fill(front, pos.s, pos.p, 'right'); fill(right, to.s, to.p, 'right'); }
+    else fill(front, to.s, to.p, 'right');
+    slide = { dir: dir, to: to, w: w, x: 0 };
+    slideTo(dir > 0 ? 0 : -w);
+  }
+  function slideTo(x) { slide.x = x; leaf.style.transform = 'translateX(' + x + 'px)'; }
+  function slideEnd(commit, ms) {
+    var sl = slide, target = (sl.dir > 0) === commit ? -sl.w : 0;
+    var anim = leaf.animate([{ transform: 'translateX(' + sl.x + 'px)' }, { transform: 'translateX(' + target + 'px)' }],
+      { duration: ms, easing: 'cubic-bezier(.22,.8,.3,1)' });
+    leaf.style.transform = 'translateX(' + target + 'px)';
+    return anim.finished.then(function () {
+      leaf.hidden = true; leaf.style.transform = ''; front.el.classList.remove('sliding'); slide = null;
+      if (commit) pos = sl.to;
+      render();
+    });
+  }
+  function neighbour(dir) {                           // the next or previous page, if it is ready now
+    var n = counts[pos.s];
+    if (!n) return null;
+    if (dir > 0) {
+      if (pos.p + 1 < n) return { s: pos.s, p: pos.p + 1 };
+      return pos.s + 1 < meta.sections.length && counts[pos.s + 1] ? { s: pos.s + 1, p: 0 } : null;
+    }
+    if (pos.p > 0) return { s: pos.s, p: pos.p - 1 };
+    return pos.s > 0 && counts[pos.s - 1] ? { s: pos.s - 1, p: counts[pos.s - 1] - 1 } : null;
   }
 
   function turn(dir) {
@@ -209,7 +247,9 @@
     var from = { s: pos.s, p: pos.p };
     (dir > 0 ? nextPos() : prevPos()).then(function (to) {
       if (!to) return;
-      return (reduced ? Promise.resolve() : flip(from, to, dir)).then(function () { pos = to; render(); });
+      if (reduced) { pos = to; render(); return; }
+      if (single) { slideStart(dir, to); return slideEnd(true, 380); }
+      return lift(from, to, dir).then(function () { pos = to; render(); });
     }).catch(function () {}).then(function () { busy = false; });
   }
   function go(s) {
@@ -236,13 +276,44 @@
       turn(i === 0 ? -1 : 1);
     });
   });
-  var startX = null, startY = 0;
-  bookEl.addEventListener('pointerdown', function (e) { startX = e.clientX; startY = e.clientY; });
+  function afterSwipe() { swiped = true; setTimeout(function () { swiped = false; }, 400); }
+
+  // On a phone the page follows the finger; elsewhere a swipe simply turns the page
+  var startX = null, startY = 0, drag = null;
+  bookEl.addEventListener('pointerdown', function (e) {
+    startX = e.clientX; startY = e.clientY;
+    drag = single && !busy && meta && e.pointerType !== 'mouse'
+      ? { id: e.pointerId, x0: e.clientX, y0: e.clientY, t0: Date.now(), on: false } : null;
+  });
+  bookEl.addEventListener('pointermove', function (e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    var dx = e.clientX - drag.x0, dy = e.clientY - drag.y0;
+    if (!drag.on) {
+      if (Math.abs(dx) < 10 || Math.abs(dx) < Math.abs(dy)) { if (Math.abs(dy) > 16) drag = null; return; }
+      var dir = dx < 0 ? 1 : -1, to = neighbour(dir);
+      if (!to || busy) { drag = null; return; }
+      busy = true; drag.on = true; drag.dir = dir;
+      try { bookEl.setPointerCapture(e.pointerId); } catch (err) {}
+      slideStart(dir, to);
+    }
+    slideTo(drag.dir > 0 ? Math.min(0, dx) : Math.min(0, -slide.w + Math.max(0, dx)));
+  });
+  function endDrag(e, cancelled) {
+    var d = drag; drag = null; startX = null;
+    afterSwipe();
+    var dx = e.clientX - d.x0, speed = Math.abs(dx) / Math.max(1, Date.now() - d.t0);
+    var forward = d.dir > 0 ? dx < 0 : dx > 0;
+    var commit = !cancelled && forward && (Math.abs(dx) / slide.w > 0.25 || speed > 0.45);
+    slideEnd(commit, commit ? 240 : 200).catch(function () {}).then(function () { busy = false; });
+  }
+  bookEl.addEventListener('pointercancel', function (e) { if (drag && drag.on && e.pointerId === drag.id) endDrag(e, true); else drag = null; });
   bookEl.addEventListener('pointerup', function (e) {
+    if (drag && drag.on && e.pointerId === drag.id) return endDrag(e, false);
+    drag = null;
     if (startX == null) return;
     var dx = e.clientX - startX, dy = e.clientY - startY;
     startX = null;
-    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) { swiped = true; turn(dx < 0 ? 1 : -1); setTimeout(function () { swiped = false; }, 400); }
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) { afterSwipe(); turn(dx < 0 ? 1 : -1); }
   });
   document.addEventListener('keydown', function (e) {
     var k = e.key.toLowerCase();
