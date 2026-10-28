@@ -31,7 +31,7 @@
   <!-- Load the hero cover and the two main fonts first, so the top of the page appears fast -->
   <link rel="preload" as="image" type="image/avif"
         imagesrcset="images/kungablod-320.avif 320w, images/kungablod-480.avif 480w, images/kungablod-628.avif 628w"
-        imagesizes="(max-width: 820px) 220px, 340px">
+        imagesizes="(max-width: 820px) and (max-height: 700px) 131px, (max-width: 820px) and (max-height: 800px) 149px, (max-width: 820px) 175px, 298px">
   <link rel="preload" href="fonts/cinzel.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
@@ -269,8 +269,8 @@
         <div class="book3d" data-tilt>
           <div class="book3d-body">
             <picture>
-              <source type="image/avif" srcset="images/kungablod-320.avif 320w, images/kungablod-480.avif 480w, images/kungablod-628.avif 628w" sizes="(max-width: 820px) 220px, 340px">
-              <source type="image/webp" srcset="images/kungablod-320.webp 320w, images/kungablod-480.webp 480w, images/kungablod-628.webp 628w" sizes="(max-width: 820px) 220px, 340px">
+              <source type="image/avif" srcset="images/kungablod-320.avif 320w, images/kungablod-480.avif 480w, images/kungablod-628.avif 628w" sizes="(max-width: 820px) and (max-height: 700px) 131px, (max-width: 820px) and (max-height: 800px) 149px, (max-width: 820px) 175px, 298px">
+              <source type="image/webp" srcset="images/kungablod-320.webp 320w, images/kungablod-480.webp 480w, images/kungablod-628.webp 628w" sizes="(max-width: 820px) and (max-height: 700px) 131px, (max-width: 820px) and (max-height: 800px) 149px, (max-width: 820px) 175px, 298px">
               <img class="book3d-front" src="images/kungablod.jpg" width="628" height="938" fetchpriority="high"
                    alt="Omslaget till Kungablod av Jan Stenborg: en långhårig krigare i blå mantel ser ut över havet i soluppgången."
                    data-alt-en="The cover of Kungablod by Jan Stenborg: a long-haired warrior in a blue cloak looks out over the sea at sunrise.">
@@ -306,8 +306,8 @@
             <span class="shelf-glow" aria-hidden="true"></span>
             <span class="shelf-3d" aria-hidden="true"><span class="shelf-body">
               <picture>
-                <source type="image/avif" srcset="images/stridslarm-360.avif 360w, images/stridslarm-533.avif 533w, images/stridslarm-720.avif 720w" sizes="(max-width: 640px) 110px, 200px">
-                <source type="image/webp" srcset="images/stridslarm-360.webp 360w, images/stridslarm-533.webp 533w, images/stridslarm-720.webp 720w" sizes="(max-width: 640px) 110px, 200px">
+                <source type="image/avif" srcset="images/stridslarm-200.avif 200w, images/stridslarm-360.avif 360w, images/stridslarm-533.avif 533w, images/stridslarm-720.avif 720w" sizes="(max-width: 640px) 110px, 200px">
+                <source type="image/webp" srcset="images/stridslarm-200.webp 200w, images/stridslarm-360.webp 360w, images/stridslarm-533.webp 533w, images/stridslarm-720.webp 720w" sizes="(max-width: 640px) 110px, 200px">
                 <img class="shelf-front" src="images/stridslarm.jpg" width="919" height="1400" loading="lazy" alt="">
               </picture>
               <span class="shelf-spine"></span>
@@ -319,8 +319,8 @@
             <span class="shelf-glow" aria-hidden="true"></span>
             <span class="shelf-3d" aria-hidden="true"><span class="shelf-body">
               <picture>
-                <source type="image/avif" srcset="images/jagad-240.avif 240w, images/jagad-362.avif 362w" sizes="(max-width: 640px) 110px, 200px">
-                <source type="image/webp" srcset="images/jagad-240.webp 240w, images/jagad-362.webp 362w" sizes="(max-width: 640px) 110px, 200px">
+                <source type="image/avif" srcset="images/jagad-200.avif 200w, images/jagad-240.avif 240w, images/jagad-362.avif 362w" sizes="(max-width: 640px) 110px, 200px">
+                <source type="image/webp" srcset="images/jagad-200.webp 200w, images/jagad-240.webp 240w, images/jagad-362.webp 362w" sizes="(max-width: 640px) 110px, 200px">
                 <img class="shelf-front" src="images/jagad.jpg" width="362" height="552" loading="lazy" alt="">
               </picture>
               <span class="shelf-spine"></span>
@@ -332,8 +332,8 @@
             <span class="shelf-glow" aria-hidden="true"></span>
             <span class="shelf-3d" aria-hidden="true"><span class="shelf-body">
               <picture>
-                <source type="image/avif" srcset="images/kungablod-320.avif 320w, images/kungablod-480.avif 480w" sizes="(max-width: 640px) 110px, 200px">
-                <source type="image/webp" srcset="images/kungablod-320.webp 320w, images/kungablod-480.webp 480w" sizes="(max-width: 640px) 110px, 200px">
+                <source type="image/avif" srcset="images/kungablod-200.avif 200w, images/kungablod-320.avif 320w, images/kungablod-480.avif 480w" sizes="(max-width: 640px) 110px, 200px">
+                <source type="image/webp" srcset="images/kungablod-200.webp 200w, images/kungablod-320.webp 320w, images/kungablod-480.webp 480w" sizes="(max-width: 640px) 110px, 200px">
                 <img class="shelf-front" src="images/kungablod.jpg" width="628" height="938" loading="lazy" alt="">
               </picture>
               <span class="shelf-spine"></span>
@@ -427,8 +427,8 @@
             <p class="invite-place">Twang<span>Katarina bangata 25, Stockholm</span></p>
           </div>
           <picture class="invite-cover" aria-hidden="true">
-            <source type="image/avif" srcset="images/kungablod-320.avif">
-            <source type="image/webp" srcset="images/kungablod-320.webp">
+            <source type="image/avif" srcset="images/kungablod-200.avif 200w, images/kungablod-320.avif 320w" sizes="(max-width: 820px) 76px, 108px">
+            <source type="image/webp" srcset="images/kungablod-200.webp 200w, images/kungablod-320.webp 320w" sizes="(max-width: 820px) 76px, 108px">
             <img src="images/kungablod.jpg" width="628" height="938" loading="lazy" alt="">
           </picture>
         </div>
