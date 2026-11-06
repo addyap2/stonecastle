@@ -834,6 +834,9 @@ html.poster-viewing { overflow: hidden; }
 .footer-links a:hover { color: var(--gold-bright); }
 .footer-top { order: 4; }
 .footer-inner { flex-wrap: wrap; }
+.footer-inner .footer-credit { order: 5; flex-basis: 100%; font-size: .85rem; }
+.footer-credit a { color: inherit; text-underline-offset: 3px; }
+.footer-credit a:hover { color: var(--gold-bright); }
 .about-more { display: flex; flex-wrap: wrap; gap: 4px 28px; margin-top: 8px; }
 
 /* Article */
