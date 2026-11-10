@@ -5,19 +5,20 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:kungablod-signering-20261121@janstenborg
-DTSTAMP:20261024T120000Z
+DTSTAMP:20261110T120000Z
 DTSTART:20261121T120000Z
 DTEND:20261121T140000Z
-SUMMARY:Boksignering: Kungablod med Jan Stenborg
-DESCRIPTION:Jan Stenborg signerar Kungablod\, den avslutande delen i hans v
- ikingatrilogi om Erik från Birka. Välkommen! / Jan Stenborg signs Kungab
- lod\, the final book of his Viking trilogy about Erik of Birka. Everyone i
- s welcome!
+SUMMARY:Bokrelease: Kungablod med Jan Stenborg
+DESCRIPTION:Releasefest för Kungablod\, den avslutande delen i Jan Stenbor
+ gs vikingatrilogi: mingel\, författarsnack och boksignering. Öppet för 
+ alla\, ingen föranmälan. / Book launch for Kungablod\, the final book of
+  Jan Stenborg's Viking trilogy: mingling\, an author talk and signing. Ope
+ n to all\, no registration needed.
 LOCATION:Twang\, Katarina bangata 25\, Stockholm\, Sverige
 STATUS:CONFIRMED
 BEGIN:VALARM
 ACTION:DISPLAY
-DESCRIPTION:Boksignering: Kungablod
+DESCRIPTION:Bokrelease: Kungablod
 TRIGGER:-PT2H
 END:VALARM
 END:VEVENT
