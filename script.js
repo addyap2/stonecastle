@@ -136,7 +136,7 @@
     });
   } else if (posterOpen) {
     // very old browsers: just open the image itself
-    posterOpen.addEventListener('click', function () { window.open('images/boksignering-kungablod.jpg', '_blank', 'noopener'); });
+    posterOpen.addEventListener('click', function () { window.open('images/bokrelease-kungablod.jpg', '_blank', 'noopener'); });
   }
 
   /* ---------- Signing: before, on, or after the day ---------- */
