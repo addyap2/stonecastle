@@ -591,12 +591,13 @@ html.menu-open { overflow: hidden; }
 .shelf-3d { display: block; width: 100%; perspective: 1000px; }
 .shelf-body {
   position: relative; display: block; transform-style: preserve-3d;
-  transform: rotateY(22deg) scale(.9); transform-origin: 50% 100%;
+  transform: rotateY(14deg); transform-origin: 50% 100%;
   transition: transform 750ms var(--ease-rise);
 }
 .shelf-body picture { display: block; }
 .shelf-front {
-  display: block; width: 100%; height: auto; border-radius: 1px 3px 3px 1px;
+  display: block; width: 100%; height: auto; aspect-ratio: 919 / 1400; object-fit: cover;   /* one shape for all three covers */
+  border-radius: 1px 3px 3px 1px;
   box-shadow: 0 0 0 1px rgba(255, 225, 170, .14), -14px 22px 40px rgba(0, 0, 0, .55);
   -webkit-box-reflect: below 5px linear-gradient(transparent 80%, rgba(255, 255, 255, .13));
 }
@@ -617,12 +618,12 @@ html.menu-open { overflow: hidden; }
   background: var(--gold); transform: translateX(-50%) rotate(45deg) scale(0); transition: transform var(--dur-ui) var(--ease-rise);
 }
 .shelf-book[aria-selected="true"] .shelf-glow { opacity: 1; }
-.shelf-book[aria-selected="true"] .shelf-body { transform: translateY(-20px) rotateY(8deg) scale(1.04); }
+.shelf-book[aria-selected="true"] .shelf-body { transform: translateY(-12px) rotateY(6deg); }
 .shelf-book[aria-selected="true"] .shelf-body::after { opacity: 0; }
 .shelf-book[aria-selected="true"] .shelf-num { color: var(--gold-bright); }
 .shelf-book[aria-selected="true"] .shelf-num::after { transform: translateX(-50%) rotate(45deg) scale(1); }
 @media (hover: hover) {
-  .shelf-book:not([aria-selected="true"]):hover .shelf-body { transform: translateY(-8px) rotateY(16deg) scale(.93); }
+  .shelf-book:not([aria-selected="true"]):hover .shelf-body { transform: translateY(-6px) rotateY(10deg); }
   .shelf-book:not([aria-selected="true"]):hover .shelf-body::after { opacity: .45; }
   .shelf-book:not([aria-selected="true"]):hover .shelf-glow { opacity: .45; }
 }
