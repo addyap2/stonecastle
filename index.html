@@ -210,7 +210,7 @@
     <div class="hero-scene" aria-hidden="true">
       <div class="hero-sky" data-depth="sky"></div>
       <div class="hero-sun" data-depth="sky"></div>
-      <svg class="hero-fleet" data-depth="fleet" viewBox="0 0 1200 40" preserveAspectRatio="xMidYMax slice">
+      <svg class="hero-fleet" data-depth="fleet" viewBox="0 0 1200 80" preserveAspectRatio="xMidYMax slice">
         <defs>
           <symbol id="longship" viewBox="0 0 60 30">
             <path d="M28 2h2v19h-2z"/>
@@ -221,11 +221,14 @@
         </defs>
         <g class="hero-fleet-drift">
           <!-- kept to the right half, clear of the text column -->
-          <use href="#longship" x="590" y="16" width="30" height="15"/>
-          <use href="#longship" x="700" y="19" width="22" height="11"/>
-          <use href="#longship" x="1000" y="12" width="38" height="19"/>
-          <use href="#longship" x="1090" y="18" width="26" height="13"/>
-          <use href="#longship" x="1150" y="20" width="20" height="10"/>
+          <use href="#longship" x="560" y="49" width="60" height="30"/>
+          <use href="#longship" x="690" y="57" width="44" height="22"/>
+          <use href="#longship" x="985" y="41" width="76" height="38"/>
+          <use href="#longship" x="1080" y="53" width="52" height="26"/>
+          <use href="#longship" x="1150" y="59" width="40" height="20"/>
+          <!-- phones only: the book hides the others there, so one ship on each side of it -->
+          <use class="fleet-phone" href="#longship" x="418" y="55" width="48" height="24"/>
+          <use class="fleet-phone" href="#longship" x="742" y="58" width="42" height="21"/>
         </g>
       </svg>
       <div class="hero-sea">
