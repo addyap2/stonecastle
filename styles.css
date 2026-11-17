@@ -14,13 +14,15 @@
 
 /* ===== Colours and fonts: change these to restyle the whole site ===== */
 :root {
-  --bg: #0f0d0b;
-  --bg-raised: #17130f;
-  --gold: #c9a45c;
-  --gold-bright: #e2c17e;
-  --text: #ece3d0;
-  --text-muted: #b5aa95;
-  --line: rgba(201, 164, 92, 0.35);
+  --bg: #267DC6;                                /* Jan's blue; the hero keeps its own night palette (see .hero) */
+  --bg-raised: #2272b8;
+  --card: linear-gradient(#2b86d0, #2070b4);
+  --gold: #ffd98a;                              /* paler gold, readable on blue */
+  --gold-bright: #ffe7b3;
+  --text: #ffffff;
+  --text-muted: #f2f7fc;
+  --line: rgba(255, 224, 160, 0.5);
+  --ink: #0f0d0b;                               /* dark text on gold buttons and badges */
   --heading: "Cinzel", Georgia, serif;
   --body: "EB Garamond", Georgia, serif;
   --wrap: 1120px;
@@ -79,7 +81,7 @@ em { font-style: italic; }
 @media (min-width: 700px) { .wrap { padding: 0 32px; } }
 
 .skip { position: absolute; left: -9999px; }
-.skip:focus { left: 16px; top: 16px; z-index: 100; background: var(--gold); color: var(--bg); padding: 8px 12px; }
+.skip:focus { left: 16px; top: 16px; z-index: 100; background: var(--gold); color: var(--ink); padding: 8px 12px; }
 :focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
 section[tabindex="-1"]:focus { outline: none; }
 
@@ -87,7 +89,7 @@ section[tabindex="-1"]:focus { outline: none; }
 .site-header {
   position: sticky; top: 0; z-index: 50;
   transition: transform var(--dur-ui) var(--ease-ui);
-  background: rgba(15, 13, 11, 0.92);
+  background: rgba(38, 125, 198, 0.94);
   -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--line);
 }
@@ -100,7 +102,7 @@ section[tabindex="-1"]:focus { outline: none; }
   body { padding-top: 89px; }
   .header-inner { transition: min-height var(--dur-ui) var(--ease-ui); }
   .brand { transform-origin: left center; transition: transform var(--dur-ui) var(--ease-ui); }
-  .header-condensed .site-header { background: rgba(15, 13, 11, .97); box-shadow: 0 12px 30px rgba(0, 0, 0, .35); }
+  .header-condensed .site-header { background: rgba(38, 125, 198, .97); box-shadow: 0 12px 30px rgba(0, 0, 0, .25); }
   .header-condensed .header-inner { min-height: 64px; }
   .header-condensed .brand { transform: scale(.82); }
 }
@@ -148,7 +150,7 @@ html[data-lang="en"] .lang-switch::before { transform: translateX(100%); }
   background: none; color: var(--text-muted); border: 0; padding: 0; cursor: pointer;
   width: 54px; min-height: 48px; font-size: .95rem; transition: color var(--dur-ui) var(--ease-ui);
 }
-.lang-switch button[aria-pressed="true"] { color: var(--bg); }
+.lang-switch button[aria-pressed="true"] { color: var(--ink); }
 
 /* --- Menu button (phones and small tablets only) --- */
 .menu-toggle {
@@ -239,8 +241,8 @@ html.menu-open { overflow: hidden; }
   .btn-gold:hover::after { opacity: 1; transform: translateX(560%) skewX(-18deg); transition: transform 600ms var(--ease-rise), opacity 0s; }
 }
 .btn-small { min-height: 44px; padding: 8px 16px; font-size: 0.9rem; white-space: nowrap; }
-.btn-gold { background: var(--gold); color: var(--bg); }
-.btn-gold:hover { background: var(--gold-bright); color: var(--bg); }
+.btn-gold { background: var(--gold); color: var(--ink); }
+.btn-gold:hover { background: var(--gold-bright); color: var(--ink); }
 .btn-ghost { color: var(--gold-bright); }
 .btn-ghost:hover { background: rgba(201, 164, 92, 0.12); color: var(--gold-bright); }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -253,7 +255,9 @@ html.menu-open { overflow: hidden; }
   position: relative; overflow: hidden; isolation: isolate;
   min-height: min(calc(88svh - 80px), 810px);
   display: flex; align-items: center;
-  background: var(--bg);
+  --bg: #0f0d0b; --bg-raised: #17130f; --gold: #c9a45c; --gold-bright: #e2c17e;
+  --text: #ece3d0; --text-muted: #b5aa95; --line: rgba(201, 164, 92, 0.35);
+  background: var(--bg); color: var(--text);
 }
 
 /* --- The scene (decoration only) --- */
@@ -659,7 +663,7 @@ html:not(.motion-ready) .shelf-panel.book { opacity: 1; visibility: visible; tra
   position: relative; padding: 52px 40px 46px; text-align: center;
   background:
     radial-gradient(120% 70% at 50% 0%, rgba(255, 200, 130, .11), transparent 62%),
-    linear-gradient(#1c1713, #110e0b);
+    var(--card);
   border: 1px solid rgba(201, 164, 92, .55);
   outline: 1px solid rgba(201, 164, 92, .2); outline-offset: -10px;
   box-shadow: 0 40px 80px rgba(0, 0, 0, .5);
@@ -697,7 +701,7 @@ html:not(.motion-ready) .shelf-panel.book { opacity: 1; visibility: visible; tra
 .event .actions { align-items: center; gap: 12px 22px; margin-top: 12px; }
 .event-soon {
   display: inline-block; margin: 0; font-family: var(--heading); font-size: .78rem; letter-spacing: .16em;
-  text-transform: uppercase; color: var(--bg); background: var(--gold); padding: 5px 10px; border-radius: 2px;
+  text-transform: uppercase; color: var(--ink); background: var(--gold); padding: 5px 10px; border-radius: 2px;
 }
 .event-soon[hidden] { display: none; }
 .share-status { color: var(--text-muted); font-size: 1rem; margin: 12px 0 0; min-height: 1.6em; overflow-wrap: anywhere; }
@@ -707,7 +711,7 @@ button.text-link { background: none; border: 0; cursor: pointer; }
 .poster.poster-portrait { max-width: 560px; }           /* the book release poster is upright */
 .poster-frame {
   position: relative; padding: 14px;
-  background: linear-gradient(#1c1713, #110e0b);
+  background: var(--card);
   border: 1px solid rgba(201, 164, 92, .55);
   outline: 1px solid rgba(201, 164, 92, .2); outline-offset: -8px;
   box-shadow: 0 40px 80px rgba(0, 0, 0, .5);
@@ -724,7 +728,7 @@ button.text-link { background: none; border: 0; cursor: pointer; }
 .poster-zoom {
   position: absolute; right: 12px; bottom: 12px; padding: 8px 12px; border-radius: 3px;
   font-family: var(--heading); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--bg); background: rgba(226, 193, 126, .92);
+  color: var(--ink); background: rgba(226, 193, 126, .92);
   opacity: 0; transform: translateY(6px); transition: opacity var(--dur-ui) var(--ease-ui), transform var(--dur-ui) var(--ease-ui);
 }
 @media (hover: hover) {
@@ -779,12 +783,12 @@ html.poster-viewing { overflow: hidden; }
 /* ===== About: the portrait dissolves into the night ===== */
 .about { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 72px; align-items: center; }
 .portrait-wrap {
-  width: 100%; max-width: 388px; justify-self: end;
-  /* fades out before the photo's own edges, so its black never shows as a box */
-  -webkit-mask-image: radial-gradient(closest-side at 50% 46%, #000 60%, transparent 100%);
-          mask-image: radial-gradient(closest-side at 50% 46%, #000 60%, transparent 100%);
+  width: 100%; max-width: 360px; justify-self: end;
+  /* a crisp oval in a gold ring, so the photo's black background reads as deliberate on the blue */
+  border-radius: 50%; overflow: hidden; aspect-ratio: 388 / 470;
+  box-shadow: 0 0 0 2px var(--gold), 0 0 0 8px var(--bg), 0 0 0 9px var(--line), 0 24px 60px rgba(8, 30, 60, .35);
 }
-.portrait { width: 100%; }
+.portrait { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
 .about-body p { font-size: 1.3rem; max-width: 54ch; }
 @media (max-width: 760px) {
   .about { grid-template-columns: 1fr; gap: 12px; }
@@ -947,7 +951,7 @@ q.quote { font-style: italic; color: var(--gold-bright); }
 .blog-index { padding-top: 64px; }
 .story-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 28px; }
 .story-card {
-  border: 1px solid rgba(201, 164, 92, .24); border-radius: 2px; background: linear-gradient(#18140f, #110e0b);
+  border: 1px solid var(--line); border-radius: 2px; background: var(--card);
   transition: border-color var(--dur-ui) var(--ease-ui), transform var(--dur-ui) var(--ease-ui);
 }
 @media (hover: hover) { .story-card:hover { border-color: var(--gold); transform: translateY(-4px); } }
@@ -994,7 +998,7 @@ q.quote { font-style: italic; color: var(--gold-bright); }
 @media (max-width: 820px) {
   .action-bar {
     display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
-    background: rgba(23, 19, 15, 0.96); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    background: rgba(34, 114, 184, 0.97); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
     border-top: 1px solid var(--line);
     padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
     transform: translateY(110%); visibility: hidden;
@@ -1069,7 +1073,7 @@ q.quote { font-style: italic; color: var(--gold-bright); }
 .badge {
   display: inline-block; margin-left: 10px; padding: 2px 8px; border-radius: 2px; vertical-align: 2px;
   font-family: var(--heading); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
-  background: var(--gold); color: var(--bg);
+  background: var(--gold); color: var(--ink);
 }
 /* --- Reduced motion: everything is present and still --- */
 @media (prefers-reduced-motion: reduce) {
@@ -1137,3 +1141,10 @@ q.quote { font-style: italic; color: var(--gold-bright); }
   *, *::before, *::after { animation: none !important; }
   .motion-line-inner { transform: none !important; }
 }
+
+/* Over the dark hero the header stays dark, so the hero looks as it always has; past it, it turns blue */
+html:not(.past-hero) body:has(.hero) .site-header { background: rgba(15, 13, 11, 0.92); border-bottom-color: rgba(201, 164, 92, 0.35); }
+html:not(.past-hero) body:has(.hero) .site-header { --gold: #c9a45c; --gold-bright: #e2c17e; --text: #ece3d0; --text-muted: #b5aa95; }
+
+/* The first section after the dark hero: night gives way to Jan's blue */
+.hero + .saga, .hero + main .saga { background: linear-gradient(#0f0d0b 0, #17304a 70px, var(--bg) 220px); }
