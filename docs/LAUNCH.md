@@ -185,6 +185,6 @@ The report lands in `tests/results/report.json`, with screenshots alongside it.
 ### After launch
 - [ ] Day 1: check the share preview on Facebook again
 - [ ] Before 21 November: post the link with the countdown ("Om N dagar") on Facebook
-- [x] Thank-you state has a photo of Jan at Château de Chenonceau, framed where the poster was (`images/jan-chenonceau-*`, added 24 October 2026). Preview with `?event=past`
-- [ ] 22 November: if there is a good photo from the signing itself, swap it in (same sizes, 3:2) and update the caption
+- [x] Thank-you state shows two photos from the signing at Twang (`images/signering-*`, added 22 November 2026), framed where the poster was. Preview with `?event=past`
+- [x] 22 November: signing photos added to the thank-you state
 - [ ] Monthly: rerun `tests/qa.mjs` and Lighthouse after any change
