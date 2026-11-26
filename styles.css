@@ -754,6 +754,8 @@ button.text-link { background: none; border: 0; cursor: pointer; }
 .thanks-photo img { display: block; width: 100%; }
 .signing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }       /* two photos from the signing */
 .signing-grid img { aspect-ratio: 4 / 5; object-fit: cover; }
+.signing-grid .signing-wide { grid-column: 1 / -1; }                                /* the trilogy, across both columns */
+.signing-grid .signing-wide img { aspect-ratio: auto; }
 @media (max-width: 620px) { .signing-grid { grid-template-columns: 1fr; gap: 22px; } }
 
 /* --- Full-size viewer --- */
